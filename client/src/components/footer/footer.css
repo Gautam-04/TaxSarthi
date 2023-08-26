@@ -162,5 +162,6 @@ a {
   }
   .footer-desc {
     width: 100% !important;
+    text-align: center;
   }
 }
