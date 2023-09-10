@@ -10,7 +10,7 @@ function Footer() {
         <div class="footer-icons">
           <a
             class="mail_icon"
-            href="mailto:community@layer5.io"
+            href="mailto:hello@taxsaarthi.com"
             target="_blank"
             rel="noreferrer"
           >
