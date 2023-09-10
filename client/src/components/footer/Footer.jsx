@@ -3,6 +3,7 @@ import "./footer.css";
 
 function Footer() {
   return (
+
     <section class="footer">
       <div class="footer-heading">
         <div class="footer-title">TaxSarthi</div>
@@ -123,6 +124,7 @@ function Footer() {
             <button class="footer-button" title="Subscribe" type="submit">
               Subscribe
             </button>
+
           </div>
         </form>
       </div>
