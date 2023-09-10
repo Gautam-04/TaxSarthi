@@ -1,3 +1,59 @@
-.header{
-    background-color: red;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans+Mono:wght@500&family=Ubuntu:wght@300;400;500&display=swap");
+
+.header {
+  background: linear-gradient(90deg, rgb(255, 10, 10), rgb(255, 97, 97));
+  font-family: "Montserrat", sans-serif;
+  width: 100vw;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-left: 25px;
+}
+
+.nav-contents {
+  width: 50%;
+  font-size: 1.75rem;
+}
+
+.nav-contents ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.nav-contents ul li {
+  position: relative;
+}
+
+.nav-contents ul li a:hover {
+  background-color: grey;
+  color: black;
+}
+
+.nav-contents ul li ul {
+  position: absolute;
+  display: none;
+  left: 0;
+  width: 200px;
+  background: white;
+  z-index: 20;
+}
+
+.nav-contents ul li ul li a {
+  color: black;
+}
+
+.nav-contents ul li:focus-within > ul,
+.nav-contents ul li:hover > ul {
+  display: block;
 }
