@@ -1,52 +1,119 @@
 import React from "react";
 import "./header.css";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <section className="header">
       <nav>
-        <div className="nav-logo">TaxSarthi</div>
+        <div className="nav-logo">
+          <a
+            href=" "
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            TaxSarthi
+          </a>
+        </div>
         <div className="nav-contents">
           <ul>
             <li>
-              <a href="/">Pricing +</a>
+              <li>Taxes</li>
               <ul>
-                <li>
-                  <a href="#">Something</a>
+                <li
+                  onClick={() => {
+                    navigate("/taxes/about-taxes");
+                  }}
+                >
+                  About Taxes
                 </li>
-                <li>
-                  <a href="#">Something</a>
+                <li
+                  onClick={() => {
+                    navigate("/taxes/tax-basics");
+                  }}
+                >
+                  Tax Basics
                 </li>
-                <li>
-                  <a href="#">Something</a>
+                <li
+                  onClick={() => {
+                    navigate("/taxes/other-taxes");
+                  }}
+                >
+                  Other Taxes
                 </li>
               </ul>
             </li>
             <li>
-              <a href="/">About +</a>
+              <li>Savings</li>
               <ul>
-                <li>
-                  <a href="#">Something</a>
+                <li
+                  onClick={() => {
+                    navigate("/savings/smart-savings");
+                  }}
+                >
+                  Smart Savings
                 </li>
-                <li>
-                  <a href="#">Something</a>
+                <li
+                  onClick={() => {
+                    navigate("/savings/tax-saving-investment");
+                  }}
+                >
+                  Tax Saving Investment
                 </li>
-                <li>
-                  <a href="#">Something</a>
+                <li
+                  onClick={() => {
+                    navigate("/savings/deductions-benefits");
+                  }}
+                >
+                  Deduction and Benefit
                 </li>
               </ul>
             </li>
             <li>
-              <a href="/">Contact +</a>
+              <li>Filing</li>
               <ul>
                 <li>
-                  <a href="#">About Us</a>
+                  <li
+                    onClick={() => {
+                      navigate("/filing/filing-your-taxes");
+                    }}
+                  >
+                    Filing Your Taxes
+                  </li>
                 </li>
                 <li>
-                  <a href="#">Contact Us</a>
+                  <li
+                    onClick={() => {
+                      navigate("/filing/organizing-document");
+                    }}
+                  >
+                    Organizing Documents
+                  </li>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <li>Help</li>
+              <ul>
+                <li>
+                  <li
+                    onClick={() => {
+                      navigate("/help/reponding-to-notice");
+                    }}
+                  >
+                    Responding to Notice
+                  </li>
                 </li>
                 <li>
-                  <a href="#">Socials</a>
+                  <li
+                    onClick={() => {
+                      navigate("/help/disputes-resolution");
+                    }}
+                  >
+                    Disputes And Resolution
+                  </li>
                 </li>
               </ul>
             </li>

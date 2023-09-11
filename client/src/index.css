@@ -1,9 +1,49 @@
 *{
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
-.container {
+.blog-container {
     max-width: 1110px;
-    margin: auto;
+    margin:2.5% auto;
+}
+
+.line{
+    margin: 2px;
+}
+
+.blog-title{
+    font-size: 2.5rem;
+    padding-bottom: 4px;
+    font-weight: 400;
+    font-family: monospace;
+ text-align: center;
+}
+
+.summary{
+    font-size: large;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.text-heading{
+    font-size: 2.5rem;
+        padding-bottom: 4px;
+        font-weight: 400;
+        font-family: monospace;
+        text-align: center;
+}
+
+.jist,.Detailed{
+    font-size: 1.2rem;
+    padding: 4px 2px;
+    text-align: start;
+    left: 0;
+}
+
+@media (max-width: 500px){
+    .jist,.Detailed{
+        text-align: center;
+    }
 }
