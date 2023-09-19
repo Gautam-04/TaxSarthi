@@ -2,58 +2,88 @@
 
 .header {
   background: linear-gradient(90deg, rgb(255, 10, 10), rgb(255, 97, 97));
+  box-shadow: 0 0.3px 5px #60ffd9;
   font-family: "Montserrat", sans-serif;
   width: 100vw;
 }
 
-nav {
-  width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+
+
+.container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 1rem;
+  margin-left: 20px;
 }
 
-.nav-logo {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 4px;
-  margin-left: 25px;
-}
-
-.nav-contents {
-  width: 50%;
-  font-size: 1.75rem;
-}
-
-.nav-contents ul {
+.navbar-brand {
+  color: rgba(255, 255, 255, .5);
   display: flex;
-  justify-content: space-around;
-  list-style: none;
-  cursor: pointer;
-}
-
-.nav-contents ul li {
-  position: relative;
-}
-
-.nav-contents ul li a:hover {
-  background-color: grey;
+  align-items: center;
   color: black;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.nav-contents ul li ul {
-  position: absolute;
-  display: none;
-  left: 0;
-  background: white;
-  z-index: 20;
+.navbar-brand-img {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
 }
 
-.nav-contents ul li ul li a {
-  color: black;
+.navbar-brand-text {
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.nav-contents ul li:focus-within > ul,
-.nav-contents ul li:hover > ul {
+
+.navbar-toggler {
+  border-color: #fff;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba%280, 0, 0, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, .5);
+  margin-right: 2rem;
+  gap: 3px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav-link::after {
+  content: "";
   display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #60ffd9;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link:hover {
+  color: #FFFFFF;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin-left: 5px;
+  }
+}
+
+@media (max-width: 340px) {
+  .custom-navbar {
+    width: 330px;
+  }
 }

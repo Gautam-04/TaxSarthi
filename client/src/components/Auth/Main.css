@@ -1,0 +1,39 @@
+.login-button{
+    padding: 4px;
+    border-radius: 8px;
+    width: 30%;
+    border: solid 1px black;
+}
+
+.login-button:focus{
+    background-color: aliceblue;
+}
+
+.login-input{
+    z-index: 0;
+    width: 100%;
+    padding: 8px;
+    border-radius: 7px;
+    border: solid 1px black;
+}
+
+.login-input:active{
+    border: solid 0.5px grey;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.password-toggle{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+@media (350px<=width <=500px) {
+    .login-button{
+        width: 35%;
+    }
+}
