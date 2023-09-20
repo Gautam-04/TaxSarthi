@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Stack from "react-bootstrap/Stack";
 import {AiFillEye,AiFillEyeInvisible} from "react-icons/ai"
 import "./Main.css";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -9,6 +10,11 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+
+    function handleClick(){
+      navigate('/docs-list')
+    }
 
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
@@ -61,7 +67,9 @@ function SignUp() {
         }}
       />
       <div className="button">
-        <button className="login-button" onSubmit={onSubmit}>
+        <button className="login-button" onSubmit={onSubmit}
+        onClick={handleClick}
+        >
           Sign Up
         </button>
         <span className="password-toggle" onClick={togglePasswordVisibility}>
