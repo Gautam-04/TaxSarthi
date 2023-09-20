@@ -1,126 +1,132 @@
-import React from "react";
+import React,{useState} from "react";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 function Header() {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
   const navigate = useNavigate();
+
   return (
-    <section className="header">
-      <nav>
-        <div className="nav-logo">
-          <a
-            href=" "
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            TaxSarthi
-          </a>
-        </div>
-        <div className="nav-contents">
-          <ul>
-            <li>
-              <li>Taxes</li>
-              <ul>
-                <li
-                  onClick={() => {
-                    navigate("/taxes/about-taxes");
-                  }}
-                >
-                  About Taxes
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/taxes/tax-basics");
-                  }}
-                >
-                  Tax Basics
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/taxes/other-taxes");
-                  }}
-                >
-                  Other Taxes
-                </li>
-              </ul>
-            </li>
-            <li>
-              <li>Savings</li>
-              <ul>
-                <li
-                  onClick={() => {
-                    navigate("/savings/smart-savings");
-                  }}
-                >
-                  Smart Savings
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/savings/tax-saving-investment");
-                  }}
-                >
-                  Tax Saving Investment
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/savings/deductions-benefits");
-                  }}
-                >
-                  Deduction and Benefit
-                </li>
-              </ul>
-            </li>
-            <li>
-              <li>Filing</li>
-              <ul>
-                <li>
-                  <li
-                    onClick={() => {
-                      navigate("/filing/filing-your-taxes");
-                    }}
-                  >
-                    Filing Your Taxes
-                  </li>
-                </li>
-                <li>
-                  <li
-                    onClick={() => {
-                      navigate("/filing/organizing-document");
-                    }}
-                  >
-                    Organizing Documents
-                  </li>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <li>Help</li>
-              <ul>
-                <li>
-                  <li
-                    onClick={() => {
-                      navigate("/help/reponding-to-notice");
-                    }}
-                  >
-                    Responding to Notice
-                  </li>
-                </li>
-                <li>
-                  <li
-                    onClick={() => {
-                      navigate("/help/disputes-resolution");
-                    }}
-                  >
-                    Disputes And Resolution
-                  </li>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </section>
+    <Navbar collapseOnSelect expand="lg" className="header" expanded={expanded}>
+      <div className="container">
+        <Navbar.Brand
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <span className="navbar-brand-text hover:text-white">GAUTAM RAI</span>
+        </Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={handleToggle}
+        />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto">
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Taxes  +"
+              menuVariant="light"
+            >
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/taxes/about-taxes");
+                }}
+              >
+                About Taxes
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/taxes/tax-basics");
+                }}
+              >
+                Tax Basics
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/taxes/other-taxes");
+                }}
+              >
+                Other Taxes
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Savings  +"
+              menuVariant="light"
+            >
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/savings/smart-savings");
+                }}
+              >
+                Smart Savings
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/savings/tax-saving-investment");
+                }}
+              >
+                Tax Saving Investment
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/savings/deductions-benefits");
+                }}
+              >
+                Deduction And Benefits
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Filing  +"
+              menuVariant="light"
+            >
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/filing/filing-your-taxes");
+                }}
+              >
+                Filing Your Taxes
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/filing/organizing-document");
+                }}
+              >
+                Organizing Documents
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Help  +"
+              menuVariant="light"
+            >
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/help/reponding-to-notice");
+                }}
+              >
+                Responding to Notice
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/help/disputes-resolution");
+                }}
+              >
+                Disputes And Resolution
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </div>
+    </Navbar>
   );
 }
 

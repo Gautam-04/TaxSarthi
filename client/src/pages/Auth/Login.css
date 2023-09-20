@@ -1,0 +1,40 @@
+.Login-sec{
+    display: flex;
+    justify-content: space-between;
+    height: 93vh;
+}
+
+.login-info{
+padding: 12vh 2rem 0 2rem ;
+background-color: wheat;
+}
+
+.login-form{
+    margin: auto;
+    height: fit-content;
+    width: 30%;
+    color: black;
+
+    .nav-link{
+        color: black;
+    }
+
+    .nav-link:hover{
+        color: black;
+    }
+}
+
+
+@media (350px<= width <=500px){
+    .Login-sec{
+        height: auto;
+        flex-direction: column;
+        gap: 10px;
+    }
+        .login-form {
+            width: 70%;
+            margin: auto;
+            height: auto;
+            padding-bottom: 2rem;
+        }
+}

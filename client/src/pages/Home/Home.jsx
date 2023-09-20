@@ -10,7 +10,7 @@ function Home() {
       <div className="front">
         <hi className="front-title">TaxSarthi</hi>
         <p className="subtitle">Your One Stop Tax Solution</p>
-        <button className='product' onClick={() => {navigate('/')}}>Try Our Product</button>
+        <button className='product' onClick={() => {navigate('/login')}}>Try Our Product</button>
       </div>
     </div>
     </section>

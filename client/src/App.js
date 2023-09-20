@@ -1,6 +1,7 @@
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import ErrorPage from "./pages/Error/ErrorPage";
+import Login from "./pages/Auth/Login";
 import Home from "./pages/Home/Home";
 import {
   Route,
@@ -31,6 +32,8 @@ function App() {
         {/* Help Routes */}
         <Route path="/help/reponding-to-notice" element={<Home />} />
         <Route path="/help/disputes-resolution" element={<Home />} />
+        {/* Login Route */}
+        <Route path="/login" element={<Login />} />
         {/* Error Route */}
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
