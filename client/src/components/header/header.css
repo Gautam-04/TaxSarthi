@@ -5,6 +5,10 @@
   box-shadow: 0 0.3px 5px #60ffd9;
   font-family: "Montserrat", sans-serif;
   width: 100vw;
+
+  .dropdown-toggle::after {
+      display: block;
+    }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
@@ -56,6 +60,7 @@
   gap: 3px;
   font-family: 'Montserrat', sans-serif;
 }
+
 
 .nav-link::after {
   content: "";
