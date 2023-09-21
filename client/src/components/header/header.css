@@ -1,18 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans+Mono:wght@500&family=Ubuntu:wght@300;400;500&display=swap");
 
 .header {
-  background: linear-gradient(90deg, rgb(255, 10, 10), rgb(255, 97, 97));
-  box-shadow: 0 0.3px 5px #60ffd9;
+  background: var(--primary-dark);
+  box-shadow: 0 0.3px 5px var(--primary);
   font-family: "Montserrat", sans-serif;
   width: 100vw;
 
   .dropdown-toggle::after {
-      display: block;
-    }
+    display: block;
+  }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
 
 .container {
   display: flex;
@@ -23,11 +22,9 @@
 }
 
 .navbar-brand {
-  color: rgba(255, 255, 255, .5);
   display: flex;
   align-items: center;
-  color: black;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .navbar-brand-img {
@@ -37,10 +34,11 @@
 }
 
 .navbar-brand-text {
-  font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
-
 
 .navbar-toggler {
   border-color: #fff;
@@ -55,19 +53,19 @@
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, .5);
+  /* color: rgba(255, 255, 255, 0.5); */
   margin-right: 2rem;
+  justify-content: center;
   gap: 3px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-
 
 .nav-link::after {
   content: "";
   display: block;
   height: 3px;
   width: 100%;
-  background-color: #60ffd9;
+  /* background-color: white; */
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -78,7 +76,7 @@
 }
 
 .nav-link:hover {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 @media (max-width: 600px) {

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
@@ -21,7 +21,7 @@ function Header() {
             navigate("/");
           }}
         >
-          <span className="navbar-brand-text hover:text-white">GAUTAM RAI</span>
+          <span className="navbar-brand-text hover:text-white">TaxSarthi</span>
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
@@ -31,7 +31,7 @@ function Header() {
           <Nav className="ml-auto">
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Taxes  +"
+              title="Taxes   +"
               menuVariant="light"
             >
               <NavDropdown.Item

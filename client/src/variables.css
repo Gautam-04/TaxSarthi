@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans+Mono:wght@500&family=Ubuntu:wght@300;400;500&display=swap");
+* {
+  --primary: #d0efb1;
+  --primary-dark: #b3d89c;
+  --secondary: #9dc3c2;
+  --secondary-accent1: #77a6b6;
+  --secondary-accent2: #4d7298;
+}
