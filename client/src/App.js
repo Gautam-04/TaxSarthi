@@ -9,6 +9,7 @@ import {
   Routes,
 } from "react-router-dom";
 import AboutTaxes from "./pages/Taxes/About Taxes/AboutTaxes";
+import Docs from "./pages/Docs-list/Docs";
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
         <Route path="/help/disputes-resolution" element={<Home />} />
         {/* Login Route */}
         <Route path="/login" element={<Login />} />
+        <Route path="/docs-list" element={<Docs />} />
         {/* Error Route */}
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

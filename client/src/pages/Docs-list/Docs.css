@@ -1,0 +1,40 @@
+.docs-list{
+    display: flex;
+    justify-content: space-between;
+height: 90vh;
+
+    .vstack{
+        margin: auto auto;
+        flex: 0 auto;
+        padding: 5rem;
+    }
+
+           .button {
+            width: fit-content;
+               padding: 4px;
+               border: solid 1px black;
+               border-radius: 8px;
+           }
+
+}
+
+
+@media (320px <= width <= 500px) {
+    .docs-list{
+        height: auto;
+        margin: auto;
+
+        .vstack{
+            margin:auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+    }
+    .profile{
+        position: absolute;
+        right: 0;
+        left: auto;
+        float: right;
+    }
+}
