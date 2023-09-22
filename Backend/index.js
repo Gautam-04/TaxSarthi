@@ -1,13 +1,19 @@
-import express from 'express';
-import "dotenv/config";
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require('./Config/connect')
+dotenv.config();
+
+connectDB();
 
 const app = express();
-const port = process.env.PORT_NUMBER;
 
-app.get("/",(req,res)=>{
-    res.send("This is the backend server for the TaxSaarthi");
-})
+app.get("/", (req, res) => {
+  res.send("This is the backend server for the TaxSaarthi");
+});
 
-app.listen(port, ()=>{
-    console.log(`Server is running on port ${port}`);
-})
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT}.`);
+});
+
