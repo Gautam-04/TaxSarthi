@@ -1,5 +1,21 @@
 @import url("../../variables.css");
 
+.home-div{
+  margin: 2rem 3rem;
+}
+
+@media (350px<width <= 400px) {
+  .home-div{
+    margin: 2rem 1rem;
+  }
+}
+
+@media (300px<width <=350px) {
+  .home-div {
+    margin: 2rem 0.5rem;
+  }
+}
+
 .front {
   background-image: url("../../assets/subtle-prism.svg");
   background-repeat: no-repeat;
@@ -90,12 +106,17 @@
   font-size: 3rem;
 }
 
+.main-stats{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .stats-group {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .stats-heading {
@@ -110,8 +131,38 @@
   transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
+@media(300px <= width <= 500px){
+  .stats-heading{
+    font-size: 1rem;
+  }
+  .stats-title{
+    font-weight: 500;
+    font-size: 2rem;
+  }
+  .stats-amount{
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+}
+
 .stats-group:hover > .stats-amount {
   color: var(--primary);
   text-shadow: 4px 4px 1px #242424;
   cursor: default;
+}
+
+#carousel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq{
+  margin: 2rem 5rem;
+}
+
+@media (300px <= width <= 500px){
+  .faq{
+    margin: 1rem 0;
+  }
 }
