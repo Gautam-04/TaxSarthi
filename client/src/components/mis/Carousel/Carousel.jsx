@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 import { ReactComponent as LeftQuote } from "../../../assets/left-quote.svg";
-import './Carousel.css'
-import Testimonials from '../../../utils/Testimonials.json'
+import "./Carousel.css";
+import Testimonials from "../../../utils/Testimonials.json";
 
 function Carousel() {
   return (
- <div className="carouselContainer">
+    <div className="carouselContainer">
       {Testimonials.map((Testimonial) => (
         <div className="testimonialContainer" key={Testimonial.id}>
           <div className="testimonialHeader">
@@ -19,7 +19,7 @@ function Carousel() {
           </div>
           <div className="testimonialBody">
             <p className="testimonialBodyText">
-              "{Testimonial['Comment on us']}"
+              "{Testimonial["Comment on us"]}"
             </p>
           </div>
         </div>
@@ -28,4 +28,4 @@ function Carousel() {
   );
 }
 
-export default Carousel
+export default Carousel;
