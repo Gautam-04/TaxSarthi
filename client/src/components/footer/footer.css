@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans+Mono:wght@500&family=Ubuntu:wght@300;400;500&display=swap");
+@import url("../../variables.css");
 
 .footer {
   height: fit-content;
-  background-color: darkslategrey;
   background-color: #242424;
   color: white;
   text-decoration: none;
@@ -86,6 +86,13 @@ a {
 .footer-company ul {
   list-style: none;
   font-weight: 500;
+  display: inline;
+}
+
+.footer-resources ul li a,
+.footer-company ul li a {
+  text-decoration: none;
+  color: white;
 }
 
 .newsletter {
