@@ -61,14 +61,16 @@ function Home() {
           <p class="home-tutorial-text">
             Watch this short tutorial to learn how to use TaxSarthi
           </p>
-          <iframe
-            class="home-tutorial-embed"
-            src="https://www.youtube.com/embed/GRq_tC7qbaE?si=t22-L-jLYQn4QUdm"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+          <div className="iframe-container">
+            <iframe
+              class="home-tutorial-embed"
+              src="https://www.youtube.com/embed/GRq_tC7qbaE?si=t22-L-jLYQn4QUdm"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
         </section>
         <section id="home-stats">
           <div class="stats-title">Loved by over 1 million tax payers</div>
