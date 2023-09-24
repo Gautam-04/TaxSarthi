@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
@@ -47,12 +48,19 @@ function Home() {
               </div>
             </div>
           </div>
-          <button className="get-started">Get Started</button>
+          <button
+            className="get-started"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Get Started
+          </button>
         </div>
         <div className="welcome-image">
           <img
             src="https://images.unsplash.com/photo-1605170439002-90845e8c0137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80"
-            alt="image"
+            alt="image.png"
           />
         </div>
       </section>
