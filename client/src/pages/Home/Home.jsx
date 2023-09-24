@@ -132,7 +132,7 @@ function Home() {
                   placeholder="Description"
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" onSubmit={(e) => {e.preventDefault()}}>
                 Submit
               </Button>
             </Form>
