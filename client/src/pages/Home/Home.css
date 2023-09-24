@@ -1,81 +1,111 @@
 @import url("../../variables.css");
 
-.home-div{
-  margin: 2rem 3rem;
-}
-
-@media (350px<width <= 400px) {
-  .home-div{
-    margin: 2rem 1rem;
-  }
-}
-
-@media (300px<width <=350px) {
-  .home-div {
-    margin: 2rem 0.5rem;
-  }
-}
-
-.front {
-  background-image: url("../../assets/subtle-prism.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  padding: 3%;
-  height: 83vh;
-  /* Replace 'your-color' with your desired background color code */
-}
-
-.front {
+#home {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.front-title {
-  font-size: 5rem;
-  font-family: monospace;
-  font-weight: 500;
-}
-
-.subtitle {
-  font-size: 3.5rem;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-}
-
-.product {
-  padding: 0.6rem;
-  border-radius: 4px;
-  border: 0 solid white;
-}
-
-.product {
-  font-size: 50;
+  color: #242424;
+  min-height: 75vh;
   font-family: "Montserrat", sans-serif;
 }
+.welcome-content {
+  min-width: 50vw;
+  width: auto;
+  background: white;
+  padding: 45px;
+}
 
-.product::after {
-  content: "";
+.welcome-heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.welcome-description {
+  font-size: 1.1rem;
+  color: grey;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.welcome-image {
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+/* .welcome-image img {
+  height: 100%;
+} */
+
+@media screen and (max-width: 768px) {
+  .welcome-image {
+    display: none;
+  }
+}
+
+.steps {
+  /* display: block; */
+  position: relative;
+  padding: 30px 0;
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  padding: 17px 0;
+}
+
+.step-content {
   display: block;
-  height: 3px;
-  width: 100%;
-  background-color: #60ffd9;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease-in-out;
 }
 
-.product:hover::after {
-  transform: scaleX(1);
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
-.product:hover {
-  font-weight: bold;
-  transition: ease-in-out;
+.step-description {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: rgb(148, 148, 148);
+}
+.step-count {
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  text-align: center;
+  padding: 7px 0;
+  background-color: white;
+  border: 2px solid rgba(122, 122, 122, 0.562);
+  color: rgb(46, 46, 46);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.get-started {
+  padding: 0 30px;
+  width: auto;
+  height: 50px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.15rem;
+  background-color: rgb(54, 255, 88);
+  background-color: var(--primary-dark);
+  color: black;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.get-started:hover {
+  background-color: var(--secondary);
+}
+
+.vr {
+  position: absolute;
+  height: 60%;
+  background: white;
+  border: 2px dashed white;
+  left: 18px;
+  top: 55px;
+  z-index: 0;
 }
 
 #home-tutorial {
@@ -106,7 +136,7 @@
   font-size: 3rem;
 }
 
-.main-stats{
+.main-stats {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -131,19 +161,19 @@
   transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
-@media(300px <= width <= 500px){
-  .stats-heading{
+/* @media (300px <= width <= 500px) {
+  .stats-heading {
     font-size: 1rem;
   }
-  .stats-title{
+  .stats-title {
     font-weight: 500;
     font-size: 2rem;
   }
-  .stats-amount{
+  .stats-amount {
     font-size: 1.2rem;
     font-weight: 700;
   }
-}
+} */
 
 .stats-group:hover > .stats-amount {
   color: var(--primary);
@@ -151,18 +181,55 @@
   cursor: default;
 }
 
-#carousel{
+#carousel {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.faq{
+.faq {
   margin: 2rem 5rem;
 }
 
-@media (300px <= width <= 500px){
-  .faq{
+@media (300px <= width <= 500px) {
+  .faq {
     margin: 1rem 0;
+  }
+}
+
+#queries {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-family: "Montserrat", sans-serif;
+  padding: 0 0 20px 0;
+}
+
+.query-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.query-box {
+  width: 70vw;
+  border: 2px solid rgba(128, 128, 128, 0.349);
+  padding: 20px 30px;
+  border-radius: 15px;
+}
+
+.form-field-title {
+  font-size: 1.2rem;
+}
+
+@media screen and (max-width: 700px) {
+  .main-stats {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .query-box {
+    width: 90vw;
   }
 }
