@@ -108,6 +108,10 @@
   z-index: 0;
 }
 
+.home-div{
+  margin: 2rem 5rem;
+}
+
 #home-tutorial {
   display: block;
   text-align: center;
@@ -192,8 +196,11 @@
 }
 
 @media (300px <= width <= 500px) {
+  .home-div {
+      margin: 0rem 2rem;
+    }
   .faq {
-    margin: 1rem 0;
+    margin: 1rem 0.5rem;
   }
 }
 
