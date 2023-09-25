@@ -229,6 +229,9 @@
     flex-direction: column;
     gap: 2px;
   }
+  .home-tutorial-embed {
+    width: 90vw;
+  }
   .query-box {
     width: 90vw;
   }
