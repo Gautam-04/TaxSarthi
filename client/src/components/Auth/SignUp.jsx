@@ -3,6 +3,8 @@ import Stack from "react-bootstrap/Stack";
 import {AiFillEye,AiFillEyeInvisible} from "react-icons/ai"
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
+import {toast } from 'react-toastify';
+import axios from 'axios';
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -12,17 +14,28 @@ function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    function handleClick(){
-      navigate('/docs-list')
+
+    function handleClick(e){
+      e.preventDefault();
+      axios
+        .post("http://localhost:8000/signup", {
+          name,
+          email,
+          password,
+          confirmPassword,
+        })
+        .then((result) => {
+          console.log(result)
+        toast.success("You are Registered successfully");
+        navigate("/docs-list");
+        })
+        .catch((error) => toast.error("Try after sometime"));
     }
 
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
 
-    function onSubmit(e) {
-      e.preventDeafult();
-    }
 
   return (
     <Stack gap={2}>
@@ -67,7 +80,7 @@ function SignUp() {
         }}
       />
       <div className="button">
-        <button className="login-button" onSubmit={onSubmit}
+        <button className="login-button"
         onClick={handleClick}
         >
           Sign Up
