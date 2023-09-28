@@ -11,38 +11,54 @@ import {
 import AboutTaxes from "./pages/Taxes/About Taxes/AboutTaxes";
 import Docs from "./pages/Docs-list/Docs";
 import FormFilling from "./pages/Main Form/Form";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   
 
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Taxes Routes */}
-        <Route path="/taxes/about-taxes" element={<AboutTaxes />} />
-        <Route path="/taxes/tax-basics" element={<Home />} />
-        <Route path="/taxes/other-taxes" element={<Home />} />
-        {/* Savings Routes */}
-        <Route path="/savings/smart-savings" element={<Home />} />
-        <Route path="/savings/tax-saving-investment" element={<Home />} />
-        <Route path="/savings/deductions-benefits" element={<Home />} />
-        {/* Filing Routes */}
-        <Route path="/filing/filing-your-taxes" element={<Home />} />
-        <Route path="/filing/organizing-document" element={<Home />} />
-        {/* Help Routes */}
-        <Route path="/help/reponding-to-notice" element={<Home />} />
-        <Route path="/help/disputes-resolution" element={<Home />} />
-        {/* Login Route */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/docs-list" element={<Docs />} />
-        <Route path="/form-filling" element={<FormFilling />} />
-        {/* Error Route */}
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Taxes Routes */}
+          <Route path="/taxes/about-taxes" element={<AboutTaxes />} />
+          <Route path="/taxes/tax-basics" element={<Home />} />
+          <Route path="/taxes/other-taxes" element={<Home />} />
+          {/* Savings Routes */}
+          <Route path="/savings/smart-savings" element={<Home />} />
+          <Route path="/savings/tax-saving-investment" element={<Home />} />
+          <Route path="/savings/deductions-benefits" element={<Home />} />
+          {/* Filing Routes */}
+          <Route path="/filing/filing-your-taxes" element={<Home />} />
+          <Route path="/filing/organizing-document" element={<Home />} />
+          {/* Help Routes */}
+          <Route path="/help/reponding-to-notice" element={<Home />} />
+          <Route path="/help/disputes-resolution" element={<Home />} />
+          {/* Login Route */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/docs-list" element={<Docs />} />
+          <Route path="/form-filling" element={<FormFilling />} />
+          {/* Error Route */}
+          <Route path="/*" element={<ErrorPage />} />
+        </Routes>
+        <Footer />
+      </Router>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </>
   );
 }
 
