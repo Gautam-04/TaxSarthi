@@ -69,6 +69,18 @@ function AboutTaxes() {
           morning and I can walk up and down the street and pretend that I am
           the only person in the whole world.
         </div>
+        <div className="content-image">
+          <img
+            src="https://images.unsplash.com/photo-1543373014-cfe4f4bc1cdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGlnaCUyMHJlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+            alt=""
+          />
+          <div className="image-caption">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae totam,
+            hic nulla minima autem eius et ducimus enim cum necessitatibus error
+            dicta fuga inventore perspiciatis nemo magni vitae, voluptatum esse.
+          </div>
+        </div>
+        <div className="content-heading">THis is a heading</div>
       </div>
       <hr />
       <div className="blog-footer">
