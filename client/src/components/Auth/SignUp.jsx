@@ -18,7 +18,7 @@ function SignUp() {
     function handleClick(e){
       e.preventDefault();
       axios
-        .post("http://localhost:8000/signup", {
+        .post("http://localhost:8000/user/signup", {
           name,
           email,
           password,

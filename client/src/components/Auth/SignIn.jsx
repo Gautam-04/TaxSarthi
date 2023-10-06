@@ -21,7 +21,7 @@ function SignIn() {
 function handleClick(e){
   e.preventDefault();
   axios
-    .post("http://localhost:8000/login", {
+    .post("http://localhost:8000/user/login", {
       email,
       password,
     })
