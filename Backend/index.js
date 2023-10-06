@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require('./Config/connect');
 const cors = require('cors');
 const User = require('./Models/Person');
+const userRoutes = require('./routes/UserRoutes');
 dotenv.config();
 
 connectDB();
@@ -15,28 +16,8 @@ app.get("/", (req, res) => {
   res.send("This is the backend server for the TaxSaarthi");
 });
 
-app.post("/signup", (req, res) => {
-  User.create(req.body)
-    .then((user) => res.json(user)
-    )
-    .catch((err) => res.json(err));
-});
-
-app.post("/login" , (req,res)=>{
-  const {email,password} = req.body;
-  User.findOne({email: email})
-  .then(user =>{
-    if(user){
-      if(user.password === password){
-        res.json("Success")
-      } else{
-        res.json("Password is incorrect")
-      }
-    } else{
-      res.json("No record exists")
-    }
-  })
-})
+// Import and use the user routes
+app.use('/user', userRoutes);
 
 const PORT = process.env.PORT || 8000;
 
