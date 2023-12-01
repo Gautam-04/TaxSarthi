@@ -13,6 +13,8 @@ function SignIn() {
 
   const navigate = useNavigate();
 
+  const data = {email,password};
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -28,8 +30,9 @@ function handleClick(e){
     .then((result) => {
       console.log(result)
       if(result.data === "Success"){
+        localStorage.setItem("userInfo",JSON.stringify(data));
         toast.success("Login Successful");
-        navigate('/docs-list');
+        navigate('/docs-list'); 
       }else if(result.data === "Password is incorrect"){
         toast.error("Incorrect Password")
         setPassword("")

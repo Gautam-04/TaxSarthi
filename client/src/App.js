@@ -36,7 +36,6 @@ const routes = [
 function App() {
   return (
     <>
-      <Router>
       <Header />
         <Routes>
           {routes.map((route, index) => (
@@ -44,7 +43,6 @@ function App() {
           ))}
         </Routes>
         <Footer />
-      </Router>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

@@ -18,6 +18,34 @@ height: 90vh;
 
 }
 
+.Docs-Login{
+    margin: auto ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .Docs-Login-p{
+        text-align: center;
+            font-size: 1.85rem;
+            font-weight: 300;
+            font-family: 'Hind Madurai',
+                sans-serif;
+    }
+        .Docs-Login-button {
+            padding: 0 30px;
+            width: auto;
+            height: 50px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            background-color: rgb(54, 255, 88);
+            background-color: var(--primary-dark);
+            color: black;
+            transition: background-color 0.2s ease-in-out;
+        }
+}
+
 
 @media (320px <= width <= 500px) {
     .docs-list{
@@ -37,4 +65,8 @@ height: 90vh;
         left: auto;
         float: right;
     }
+
+        .Docs-Login{
+            padding: 2rem 3.2rem;
+        }
 }
