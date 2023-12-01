@@ -4,6 +4,7 @@ const connectDB = require('./Config/connect');
 const cors = require('cors');
 const User = require('./Models/Person');
 const userRoutes = require('./routes/UserRoutes');
+const OldReignRoutes = require('./routes/OldReignRoutes')
 dotenv.config();
 
 connectDB();
@@ -18,6 +19,8 @@ app.get("/", (req, res) => {
 
 // Import and use the user routes
 app.use('/user', userRoutes);
+
+app.use('/policy',OldReignRoutes);
 
 const PORT = process.env.PORT || 8000;
 
