@@ -21,8 +21,9 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
+      <Header />
         <Routes>
+
           <Route path="/" element={<Home />} />
           {/* Taxes Routes */}
           <Route path="/taxes/about-taxes" element={<AboutTaxes />} />
@@ -52,6 +53,7 @@ function App() {
           <Route path="/form-filling" element={<FormFilling />} />
           {/* Error Route */}
           <Route path="/*" element={<ErrorPage />} />
+
         </Routes>
         <Footer />
       </Router>
