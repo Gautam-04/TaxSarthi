@@ -1,5 +1,6 @@
 import React from "react";
 import "./AboutTaxes.css";
+// import testimg from "../../../assets/blog-images/Tax8.jpg";
 
 function AboutTaxes() {
   return (
@@ -17,26 +18,37 @@ function AboutTaxes() {
         <div className="blog-date">12 July, 2023</div>
       </div>
       <hr />
-      <div className="blog-title">
-        Indian Taxation Structure - Getting Started
-      </div>
+      <div className="blog-title">About Taxes</div>
       <hr />
       <div className="blog-content">
-        <div className="content-heading">This is a test heading!</div>
-        <div className="content-subheading">This is a test subheading!</div>
+        <div className="content-heading">What are taxes ?</div>
         <div className="content-paragraph">
-          It was 7 minutes after midnight. The dog was lying on the grass in the
-          middle of the lawn in front of Mrs Shears' house. Its eyes were
-          closed. It looked as if it was running on its side, the way dogs run
-          when they think they are chasing a cat in a dream. But the dog was not
-          running or asleep. The dog was dead. There was a garden fork sticking
-          out of the dog. The points of the fork must have gone all the way
-          through the dog and into the ground because the fork had not fallen
-          over. I decided that the dog was probably killed with the fork because
-          I could not see any other wounds in the dog and I do not think you
-          would stick a garden fork into a dog after it had died for some other
-          reason, like cancer for example, or a road accident. But I could not
-          be certain about this.
+          Taxes are financial charges imposed by the government on individuals,
+          businesses, and other entities to raise revenue for funding public
+          services, infrastructure development, and various government
+          functions. Taxes are a crucial part of a country's economic system and
+          are used to redistribute wealth, regulate economic activity, and
+          achieve social and economic goals. Here's a detailed explanation of
+          taxes:
+        </div>
+        <div className="content-subheading">1. Purpose of Taxes:</div>
+        <div className="content-paragraph">
+          Revenue Generation: The primary purpose of taxes is to generate
+          revenue for the government. This revenue is used to finance government
+          programs, public services (such as education, healthcare, and
+          defense), and infrastructure development (like roads, bridges, and
+          public transportation). Redistribution of Wealth: Taxes can be
+          progressive, meaning that individuals with higher incomes pay a larger
+          percentage of their income in taxes. This helps redistribute wealth
+          from the affluent to the less affluent and can address income
+          inequality. Economic Stabilization: Taxes can be used as a tool for
+          economic stabilization. During economic downturns, governments may cut
+          taxes or increase public spending to stimulate economic growth.
+          Conversely, they may raise taxes during periods of inflation to
+          control excessive spending. Regulation: Taxes can influence economic
+          behavior. For example, taxes on cigarettes and alcohol can discourage
+          consumption, while tax incentives for green energy can encourage
+          environmentally friendly practices.
         </div>
         <div className="content-image">
           <img
@@ -70,10 +82,7 @@ function AboutTaxes() {
           the only person in the whole world.
         </div>
         <div className="content-image">
-          <img
-            src="https://images.unsplash.com/photo-1543373014-cfe4f4bc1cdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGlnaCUyMHJlcyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-            alt=""
-          />
+          {/* <img src={testimg} alt="" /> */}
           <div className="image-caption">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae totam,
             hic nulla minima autem eius et ducimus enim cum necessitatibus error
@@ -94,7 +103,7 @@ function AboutTaxes() {
           <div className="blog-author-name">ChinmayDesai</div>
         </div>
         <div className="next-button">
-          <button>Next></button>
+          <button>Next</button>
         </div>
       </div>
     </section>
