@@ -20,7 +20,6 @@ import FAQs from "./pages/Taxes/About Taxes/FAQs/faqs";
 function App() {
   return (
     <>
-      <Router>
       <Header />
         <Routes>
 
@@ -56,7 +55,6 @@ function App() {
 
         </Routes>
         <Footer />
-      </Router>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

@@ -1,12 +1,21 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Stack from "react-bootstrap/Stack";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import SignIn from '../../components/Auth/SignIn';
 import SignUp from '../../components/Auth/SignUp';
 import './Login.css'
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const [key, setKey] = useState("login");
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+
+      if (user) navigate("/docs-list");
+    }, [navigate]);
   return (
     <section className="Login-sec">
       <div className="login-info">

@@ -14,6 +14,8 @@ function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
+    const data = {name,email,password,confirmPassword};
+
 
     function handleClick(e){
       e.preventDefault();
@@ -25,7 +27,8 @@ function SignUp() {
           confirmPassword,
         })
         .then((result) => {
-          console.log(result)
+          console.log(result);
+          localStorage.setItem("userInfo",JSON.stringify(data))
         toast.success("You are Registered successfully");
         navigate("/docs-list");
         })
