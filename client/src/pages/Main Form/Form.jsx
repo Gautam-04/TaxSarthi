@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './Form.css'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -13,6 +13,34 @@ import States from '../../utils/States.json';
 import axios from 'axios';
 import { IoInformationCircleOutline  } from "react-icons/io5";
 import { toast } from "react-toastify";
+
+const encodeAadhar = (aadharNumber) => {
+  let encodedAadhar = 0;
+  let multiplier = 1;
+
+  while (aadharNumber > 0) {
+    const digit = ((aadharNumber % 10) + 3) % 10; // Ensure the result is between 0 and 9
+    encodedAadhar += digit * multiplier;
+    aadharNumber = Math.floor(aadharNumber / 10);
+    multiplier *= 10;
+  }
+
+  return encodedAadhar;
+};
+
+const decodeAadhar = (excess3Code) => {
+  let decodedAadhar = 0;
+  let multiplier = 1;
+
+  while (excess3Code > 0) {
+    const digit = ((excess3Code % 10) - 3 + 10) % 10; // Ensure the result is between 0 and 9
+    decodedAadhar += digit * multiplier;
+    excess3Code = Math.floor(excess3Code / 10);
+    multiplier *= 10;
+  }
+
+  return decodedAadhar;
+};
 
 function FormFilling() {
 const [FirstName, setFirstName] = useState("");
@@ -33,7 +61,7 @@ const [employerAddress, setEmployerAddress] = useState("");
 const [employerPanNumber, setemployerPanNumber] = useState("");
 const [tanNumber, setTanNumber] = useState("");
 const [employeeReferenceNo, setEmployeeReferenceNo] = useState("");
-const [Year, setYear] = useState('');
+const [Year, setYear] = useState("");
 
  //Checkboxes
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -44,6 +72,7 @@ const [Year, setYear] = useState('');
   const [RentedIncome, setRentedIncome] = useState(0);
   const [OtherIncome, setOtherIncome] = useState(0);
   const [ExemptedAllowances, setExemptedAllowances] = useState(0);
+  const[Home,setHome] = useState(0);
 
   //Deductions Deatils
   const [BasicDeductions, setBasicDeductions] = useState(0); //80c
@@ -53,6 +82,81 @@ const [Year, setYear] = useState('');
   const [Deposits, setDeposits] = useState(0); //80tta
   const [Charity, setCharity] = useState(0); //80g
   const [HousingLoan, setHousingLoan] = useState(0); //80eea
+
+    const [finalTax, setFinalTax] = useState();
+    const [cess,setCess] = useState(0);
+
+useEffect(() => {
+  // Function to calculate final tax
+  const StandardDeductions = 50000;
+  const calculateFinalTax = () => {
+    const totalIncome =
+      Salary + RentedIncome + OtherIncome - ExemptedAllowances;
+    const totalDeductions =
+      BasicDeductions +
+      Medical +
+      EducationalLoan +
+      Nps +
+      Deposits +
+      Charity +
+      HousingLoan;
+    const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
+
+    const calculatedTax = calculateOldRegimeTax(taxableIncome);
+
+    setFinalTax(calculatedTax);
+  };
+
+  // Function to calculate old regime tax
+  const calculateOldRegimeTax = (income) => {
+    const TAX_REBATE = {
+      old: 250000,
+    };
+
+    const calculateSlabTax = (income, rate) => {
+      return income * rate;
+    };
+
+    const calculateCess = (totalTax) => {
+      setCess(totalTax * 0.04);
+      return totalTax * 0.04;
+    };
+
+    let totalTax = 0;
+
+    if (income >= TAX_REBATE.old) {
+      totalTax += calculateSlabTax(Math.min(income, 250000), 0);
+      totalTax += calculateSlabTax(
+        Math.max(Math.min(income - 250000, 500000 - 250000), 0),
+        0.05
+      );
+      totalTax += calculateSlabTax(
+        Math.max(Math.min(income - 500000, 1000000 - 500000), 0),
+        0.2
+      );
+      totalTax += calculateSlabTax(Math.max(income - 1000000, 0), 0.3);
+    }
+
+    const finalTax = totalTax + calculateCess(totalTax);
+
+    return finalTax;
+  };
+
+  // Call the calculateFinalTax function when any of the inputs change
+  calculateFinalTax();
+}, [
+  Salary,
+  RentedIncome,
+  OtherIncome,
+  ExemptedAllowances,
+  BasicDeductions,
+  Medical,
+  EducationalLoan,
+  Nps,
+  Deposits,
+  Charity,
+  HousingLoan,
+]);
 
 
 const Link = ({ id, children, title }) => (
@@ -65,61 +169,69 @@ const updateName = () => {
   setName(`${FirstName} ${MiddleName} ${LastName}`);
 };
 
-function onSubmit(e){
-e.preventDefault();
+async function onSubmit(e) {
+  e.preventDefault();
   if (isCheckboxChecked) {
-    axios
-      .post("http://localhost:8000/policy/oldreign", {
-        //Personal Info
-        FirstName,
-        MiddleName,
-        LastName,
-        Name,
-        AadharNo,
-        PanCard,
-        Address,
-        PermanentAddress,
-        City,
-        selectedState,
-        PinCode,
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/policy/oldreign",
+        {
+          // Personal Info
+          FirstName,
+          MiddleName,
+          LastName,
+          Name,
+          AadharNo,
+          PanCard,
+          Address,
+          PermanentAddress,
+          City,
+          selectedState,
+          PinCode,
 
-        // Employers Info
-        employerName,
-        employerAddress,
-        employerPanNumber,
-        tanNumber,
-        employeeReferenceNo,
-        Year,
+          // Employers Info
+          employerName,
+          employerAddress,
+          employerPanNumber,
+          tanNumber,
+          employeeReferenceNo,
+          Year,
 
-        // Income Info
-        Salary,
-        RentedIncome,
-        OtherIncome,
-        ExemptedAllowances,
+          // Income Info
+          Salary,
+          RentedIncome,
+          OtherIncome,
+          ExemptedAllowances,
+          Home,
 
-        // Deductions
-        BasicDeductions,
-        Medical,
-        EducationalLoan,
-        Nps,
-        Deposits,
-        Charity,
-        HousingLoan,
-      })
-      .then((response) => {
-        // Handle success, if needed
-        console.log(response.data); // Log the response data
-      })
-      .catch((err) => {
-        toast.error("Try again after sometime") 
-        console.log(err);
-      });
+          // Deductions
+          BasicDeductions,
+          Medical,
+          EducationalLoan,
+          Nps,
+          Deposits,
+          Charity,
+          HousingLoan,
+
+          // Amounts
+          finalTax,
+          cess,
+        }
+      );
+
+      // Handle success, if needed
+      localStorage.setItem("AadharNo", AadharNo);
+      console.log(response.data); // Log the response data
+      toast.success("Data is saved. You will be redirected in few seconds");
+    } catch (err) {
+      toast.error("Try again after sometime");
+      console.log(err);
+    }
   } else {
     toast.warning("Please verify the information before submitting.");
   }
-
-
 }
+
 
   return (
     <section id="form-filling">
@@ -407,7 +519,7 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={Salary}
-                onChange={(e) => setSalary(e.target.value)}
+                onChange={(e) => setSalary(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -426,7 +538,9 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={RentedIncome}
-                onChange={(e) => setRentedIncome(e.target.value)}
+                onChange={(e) =>
+                  setRentedIncome(parseInt(e.target.value, 10) || 0)
+                }
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -445,7 +559,9 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={OtherIncome}
-                onChange={(e) => setOtherIncome(e.target.value)}
+                onChange={(e) =>
+                  setOtherIncome(parseInt(e.target.value, 10) || 0)
+                }
               />
             </Form.Group>
           </Row>
@@ -466,7 +582,9 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={ExemptedAllowances}
-                onChange={(e) => setExemptedAllowances(e.target.value)}
+                onChange={(e) =>
+                  setExemptedAllowances(parseInt(e.target.value, 10) || 0)
+                }
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -484,8 +602,8 @@ e.preventDefault();
               </Form.Label>
               <Form.Control
                 placeholder="0"
-                value={ExemptedAllowances}
-                onChange={(e) => setExemptedAllowances(e.target.value)}
+                value={Home}
+                onChange={(e) => setHome(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
           </Row>
@@ -510,7 +628,9 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={BasicDeductions}
-                onChange={(e) => setBasicDeductions(e.target.value)}
+                onChange={(e) =>
+                  setBasicDeductions(parseInt(e.target.value, 10) || 0)
+                }
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -529,7 +649,7 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={Medical}
-                onChange={(e) => setMedical(e.target.value)}
+                onChange={(e) => setMedical(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -548,7 +668,9 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={EducationalLoan}
-                onChange={(e) => setEducationalLoan(e.target.value)}
+                onChange={(e) =>
+                  setEducationalLoan(parseInt(e.target.value, 10) || 0)
+                }
               />
             </Form.Group>
           </Row>
@@ -569,7 +691,7 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={Nps}
-                onChange={(e) => setNps(e.target.value)}
+                onChange={(e) => setNps(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -588,7 +710,7 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={Deposits}
-                onChange={(e) => setDeposits(e.target.value)}
+                onChange={(e) => setDeposits(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -607,7 +729,7 @@ e.preventDefault();
               <Form.Control
                 placeholder="0"
                 value={Charity}
-                onChange={(e) => setCharity(e.target.value)}
+                onChange={(e) => setCharity(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -635,7 +757,7 @@ e.preventDefault();
                       (e.target.style.borderColor = "red"),
                       setHousingLoan(e.target.value))
                     : ((e.target.style.borderColor = ""),
-                      setHousingLoan(inputValue));
+                      setHousingLoan(parseInt(e.target.value, 10) || 0));
                 }}
               />
             </Form.Group>
@@ -650,6 +772,7 @@ e.preventDefault();
               }}
             />
           </Form.Group>
+
           <Button variant="primary" type="submit" disabled={!isCheckboxChecked}>
             Submit
           </Button>
