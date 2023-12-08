@@ -8,4 +8,6 @@ router.get("/oldreign",(req,res)=>{
 res.send("It is working");
 });
 
+router.post("/oldbody",OldReignController.Oldbody)
+
 module.exports = router;

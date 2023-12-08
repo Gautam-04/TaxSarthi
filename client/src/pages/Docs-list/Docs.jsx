@@ -122,6 +122,7 @@ function Docs() {
               <Dropdown.Item
                 onClick={() => {
                   localStorage.removeItem("userInfo");
+                  localStorage.removeItem("AadharNo");
                   navigate("/login");
                 }}
               >
