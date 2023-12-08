@@ -1,12 +1,14 @@
-.login-button{
-    padding: 4px;
-    border-radius: 8px;
-    width: 30%;
-    border: solid 1px black;
-}
-
-.login-button:focus{
-    background-color: aliceblue;
+.login-button {
+    padding: 0 30px;
+    width: auto;
+    height: 50px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    background-color: rgb(54, 255, 88);
+    background-color: var(--primary-dark);
+    color: black;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .login-input{
