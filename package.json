@@ -7,7 +7,8 @@
   "scripts": {
     "start": "npm-run-all --parallel start-frontend start-backend",
   "start-backend": "cd Backend && nodemon index.js",
-  "start-frontend": "cd client && npm start"
+  "start-frontend": "cd client && npm start",
+  "start-backend-node":"cd Backend && node index.js"
   },
   "author": "Gautam,Chinmay.Yash.Harsh",
   "license": "ISC",
