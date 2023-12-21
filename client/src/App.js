@@ -16,52 +16,184 @@ import TaxPlanning from "./pages/Taxes/About Taxes/TaxPlanning/tax-planning";
 import SaveTaxes from "./pages/Taxes/About Taxes/SaveTaxes/save-taxes";
 import TaxNotice from "./pages/Taxes/About Taxes/IncomeTaxNotice/tax-notice";
 import FAQs from "./pages/Taxes/About Taxes/FAQs/faqs";
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import OldDoc from "./pages/Pdf Docs/Old Regin/OldDoc";
-import Blank from "./pages/Pdf Docs/Blank";
+import { useState,useEffect } from "react";
+import BoxLoader from "./components/Loader/BoxLoader";
+import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
+import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
 
 function App() {
   const location = useLocation();
-  const isBlankDocRoute = location.pathname === "/blankdoc";
+  const isBlankDocRoute = location.pathname === "/doc";
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set loading to true when the route changes
+    setLoading(true);
+
+    // Simulate loading delay (you can replace this with actual data fetching logic)
+    const timer = setTimeout(() => {
+      // Set loading back to false after the delay
+      setLoading(false);
+    }, 900);
+
+    // Clean up the timer to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, [location.pathname]); // Empty dependency array to run the effect only once on mount
 
   return (
     <>
-      {!isBlankDocRoute && <Header />}
+      {!isBlankDocRoute && !loading && <Header />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Taxes Routes */}
-        <Route path="/taxes/about-taxes" element={<AboutTaxes />} />
-        {/* What are Taxes?*/}
-        <Route path="/taxes/what-are-taxes" element={<WhatAreTaxes />} />
-        <Route path="/taxes/types-of-taxes" element={<TypesOfTaxes />} />
-        <Route path="/taxes/itr-filing" element={<ItrFiling />} />
-        <Route path="/taxes/tax-planning" element={<TaxPlanning />} />
-        <Route path="/taxes/save-taxes" element={<SaveTaxes />} />
-        <Route path="/taxes/tax-notice" element={<TaxNotice />} />
-        <Route path="/taxes/faqs" element={<FAQs />} />
-        <Route path="/taxes/tax-basics" element={<Home />} />
-        <Route path="/taxes/other-taxes" element={<Home />} />
+      <Route path="/old" element={<OldMulti />} />
+        <Route
+          path="/"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+        <Route
+          path="/taxes/about-taxes"
+          element={
+            loading ? (
+              <BoxLoader
+                loading={loading}
+            
+              />
+            ) : (
+              <AboutTaxes />
+            )
+          }
+        />
+        <Route
+          path="/taxes/what-are-taxes"
+          element={
+            loading ? (
+              <BoxLoader
+                loading={loading}
+                
+              />
+            ) : (
+              <WhatAreTaxes />
+            )
+          }
+        />
+        <Route
+          path="/taxes/types-of-taxes"
+          element={
+            loading ? (
+              <BoxLoader
+                loading={loading}
+               
+              />
+            ) : (
+              <TypesOfTaxes />
+            )
+          }
+        />
+        <Route
+          path="/taxes/itr-filing"
+          element={
+            loading ? (
+              <BoxLoader
+                loading={loading}
+              
+              />
+            ) : (
+              <ItrFiling />
+            )
+          }
+        />
+        <Route
+          path="/taxes/tax-planning"
+          element={
+            loading ? (
+              <BoxLoader loading={loading}  />
+            ) : (
+              <TaxPlanning />
+            )
+          }
+        />
+        <Route
+          path="/taxes/save-taxes"
+          element={loading ? <BoxLoader loading={loading} /> : <SaveTaxes />}
+        />
+        <Route
+          path="/taxes/tax-notice"
+          element={loading ? <BoxLoader loading={loading} /> : <TaxNotice />}
+        />
+        <Route
+          path="/taxes/faqs"
+          element={loading ? <BoxLoader loading={loading} /> : <FAQs />}
+        />
+        <Route
+          path="/taxes/tax-basics"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+        <Route
+          path="/taxes/other-taxes"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+
         {/* Savings Routes */}
-        <Route path="/savings/smart-savings" element={<Home />} />
-        <Route path="/savings/tax-saving-investment" element={<Home />} />
-        <Route path="/savings/deductions-benefits" element={<Home />} />
+        <Route
+          path="/savings/smart-savings"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+        <Route
+          path="/savings/tax-saving-investment"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+        <Route
+          path="/savings/deductions-benefits"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+
         {/* Filing Routes */}
-        <Route path="/filing/filing-your-taxes" element={<Home />} />
-        <Route path="/filing/organizing-document" element={<Home />} />
+        <Route
+          path="/filing/filing-your-taxes"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+        <Route
+          path="/filing/organizing-document"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+
         {/* Help Routes */}
-        <Route path="/help/reponding-to-notice" element={<Home />} />
-        <Route path="/help/disputes-resolution" element={<Home />} />
+        <Route
+          path="/help/reponding-to-notice"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+        <Route
+          path="/help/disputes-resolution"
+          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+        />
+
         {/* Login Route */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/docs-list" element={<Docs />} />
-        <Route path="/form-filling" element={<FormFilling />} />
+        <Route
+          path="/login"
+          element={loading ? <BoxLoader loading={loading} /> : <Login />}
+        />
+
+        <Route
+          path="/docs-list"
+          element={loading ? <BoxLoader loading={loading} /> : <Docs />}
+        />
+        <Route
+          path="/form-filling"
+          element={loading ? <BoxLoader loading={loading} /> : <FormFilling />}
+        />
+
         {/* Error Route */}
-        <Route path="/*" element={<ErrorPage />} />
+        <Route
+          path="/*"
+          element={loading ? <BoxLoader loading={loading} /> : <ErrorPage />}
+        />
 
         {/* Pdf docs Path */}
-        <Route path="/blankdoc" element={<Blank />} />
+        <Route
+          path="/doc"
+          element={loading ? <BoxLoader loading={loading} /> : <OutPutDoc />}
+        />
       </Routes>
-      {!isBlankDocRoute && <Footer />}
+      {!isBlankDocRoute && !loading && <Footer />}
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

@@ -1,0 +1,48 @@
+.accordion{
+    border: 2px solid grey;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: rgb(230, 232, 223) !important;
+    margin-bottom: 2rem;
+}
+
+.iconDiv{
+    display: flex;
+align-items: center;
+    justify-content: center;
+                gap: 15px;
+    .HeaderMainDiv {
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            flex-direction: column;
+
+        }
+}
+
+.accordionSubHeader{
+    margin: 0;
+}
+
+.AccordionMainHeading{
+    font-family: 'Lora',serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 900;
+    color: black;
+    margin-bottom: 0;
+}
+
+.accordion-button:focus{
+    background-color: rgb(230, 232, 223) !important;
+    border-color: none !important;
+    box-shadow: none !important;
+}
+.accordion-button{
+    background-color: rgb(230, 232, 223) !important;
+    padding: 10px 20px!important;
+}
+
+.accordion-button:not(.collapsed){
+    background-color: white !important; 
+}
+

@@ -20,28 +20,42 @@ function SignIn() {
   };
 
 
-function handleClick(e){
+function handleClick(e) {
   e.preventDefault();
+
   axios
     .post("http://localhost:8000/user/login", {
       email,
       password,
     })
     .then((result) => {
-      console.log(result)
-      if(result.data === "Success"){
-        localStorage.setItem("userInfo",JSON.stringify(data));
+      console.log(result);
+
+      // Assuming the server responds with a token
+      const token = result.data.token;
+
+      if (token) {
+        // Store the token in localStorage
+        localStorage.setItem("token", token);
+
+        // Optionally, you may want to store other user information
+        localStorage.setItem("userInfo", JSON.stringify(data));
+
         toast.success("Login Successful");
-        navigate('/docs-list'); 
-      }else if(result.data === "Password is incorrect"){
-        toast.error("Incorrect Password")
-        setPassword("")
-      } else{
-        toast.error("User Does Not Exists")
+        navigate("/docs-list");
+      } else if (result.data === "Password is incorrect") {
+        toast.error("Incorrect Password");
+        setPassword("");
+      } else {
+        toast.error("User Does Not Exist");
       }
     })
-    .catch((err) => toast.error("Try again after sometime"));
+    .catch((err) => {
+      console.error(err);
+      toast.error("Try again after sometime");
+    });
 }
+
 
   return (
     <Stack gap={2}>
