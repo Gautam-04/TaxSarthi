@@ -1,0 +1,100 @@
+.Button-Doc-Group{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 10px 2rem;
+}
+
+.buttons-group{
+    padding: 0 30px;
+        width: auto;
+        height: 50px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.15rem;
+        background-color: rgb(54, 255, 88);
+        background-color: var(--primary-dark);
+        color: black;
+        transition: background-color 0.2s ease-in-out;
+}
+
+#OutPutSec{
+    padding: 0 2rem;
+
+    h3{
+        margin: 2rem;
+        text-align: center;
+    }
+}
+
+.headingName{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.MainInfoDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+
+.tr-row {
+    display: table;
+    width: 100%;
+    padding: 10px 10px;
+    border-collapse: collapse;
+
+    td{
+        display: table-cell;
+            vertical-align: inherit;
+    }
+    }
+.tr-row tr:nth-child(even) {
+    background-color: #cec9c9;
+    /* Alternate row color */
+}
+
+
+
+.td-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+    /* Adjust the value as needed */
+}
+
+.TaxTable{
+    width: 100%;
+    border-collapse: separate;
+    text-indent: initial;
+        line-height: normal;
+        font-weight: normal;
+        font-size: medium;
+        font-style: normal;
+        text-align: start;
+        border-spacing: 2px;
+        white-space: normal;
+        font-variant: normal;
+
+    .taxBody{
+        display: table-row-group;
+            vertical-align: middle;
+            border-color: inherit;
+
+            tr{
+                display: table-row;
+                    vertical-align: inherit;
+                    border-color: inherit;
+
+                    td{
+                        display: table-cell;
+                            vertical-align: inherit;
+                    }
+            }
+    }
+}

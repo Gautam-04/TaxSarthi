@@ -17,24 +17,27 @@ function SignUp() {
     const data = {name,email,password,confirmPassword};
 
 
-    function handleClick(e){
-      e.preventDefault();
-      axios
-        .post("http://localhost:8000/user/signup", {
-          name,
-          email,
-          password,
-          confirmPassword,
-        })
-        .then((result) => {
-          console.log(result);
-          localStorage.setItem("userInfo",JSON.stringify(data))
+  function handleClick(e) {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8000/user/signup", {
+        name,
+        email,
+        password,
+        confirmPassword,
+      })
+      .then((result) => {
+        const { token } = result.data;
+
+        // Store the token and user information in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+
         toast.success("You are Registered successfully");
         navigate("/docs-list");
-        })
-        .catch((error) => toast.error("Try after sometime"));
-    }
-
+      })
+      .catch((error) => toast.error("Try after sometime"));
+  }
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
