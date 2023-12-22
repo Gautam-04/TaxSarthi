@@ -1,7 +1,9 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import "./OutPutDoc.css"
 import { useNavigate } from 'react-router-dom';
 import ThumbsUp from "../../assets/thumbsup.svg";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 function OutPutDoc() {
 
@@ -13,6 +15,21 @@ function OutPutDoc() {
    function refreshPage() {
      window.location.reload(false);
    }
+
+        const Token = localStorage.getItem("token");
+        const [userData, setUserData] = useState(null);
+
+     useEffect(() => {
+       axios
+         .post("https://taxsaarthi.onrender.com/policy/oldbody", { Token })
+         .then((result) => {
+           console.log(result.data);
+           setUserData(result.data);
+         })
+         .catch((error) => {
+           toast.error("There was an error loading the data");
+         });
+     }, []);
 
   return (
     <>
@@ -44,7 +61,7 @@ function OutPutDoc() {
       <hr style={{ marginBottom: 20 }} />
       <section id="OutPutSec">
         <div className="headingName">
-          <h1>Gautam Rai</h1>
+          <h1>{userData?.Name}</h1>
           <h1 className="AY">AY: 2023-24</h1>
         </div>
         <div className="MainInfoDiv">
@@ -66,7 +83,8 @@ function OutPutDoc() {
             </p>
             <p>
               <span>
-                <strong>Aadhar Card No:</strong> Aadhar Card No{" "}
+                <strong>Aadhar Card No</strong>
+                {userData ? userData.AadharNo : "N/A"}
               </span>
             </p>
             <p>
