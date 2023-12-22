@@ -10,9 +10,9 @@ exports.Old = async(req,res) => {
 }
 
 exports.Oldbody = async(req,res)=>{
-    const {AadharNo} = req.body
+    const {Token} = req.body
     try {
-        const oldreign = await OldReign.findOne({ AadharNo });
+        const oldreign = await OldReign.findOne({ Token });
 
         if (oldreign) {
           res.status(200).json(oldreign);

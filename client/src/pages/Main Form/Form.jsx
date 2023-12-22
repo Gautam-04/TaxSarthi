@@ -26,6 +26,7 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { BsFillHouseAddFill } from "react-icons/bs";
 import "./Accordion.css";
 import ImageModal from "../../components/mis/ImageModal";
+import { useNavigate } from 'react-router-dom';
 
 const encodeAadhar = (aadharNumber) => {
   let encodedAadhar = 0;
@@ -66,7 +67,6 @@ const [formData, setFormData] = useState({
   Gender: "",
   MaritalStatus: "",
 
-  AadharNo: "",
   PanCard: "",
   MobileNo: 0,
   Email: "",
@@ -84,24 +84,9 @@ const [formData, setFormData] = useState({
   Year: "",
   TaxDeducted: 0,
 
-  Salary: 0,
-  PrerequisiteIncome: 0,
-  ProfitIncome: 0,
-  OtherIncome: 0,
-  HRA: 0,
-  LTA: 0,
-  OtherExemptedAllowances: 0,
-  ProfessionalTax: 0,
-
-  OwnHouseIncome: 0,
-
-  BasicDeductions: 0,
-  Medical: 0,
-  EducationalLoan: 0,
-  Nps: 0,
-  Deposits: 0,
-  Charity: 0,
 });
+
+const navigate = useNavigate();
 
 const [RentedHouseIncome, setRentedHouseIncome] = useState(0);
 const [DeemdedHouseIncome, setDeemdedHouseIncome] = useState(0);
@@ -112,6 +97,8 @@ const [NewFinalTax, setNewFinalTax] = useState(0);
 const [NewFinalCess, setNewFinalCess] = useState(0);
 const [PreferredSystem, setPreferredSystem] = useState("");
 
+const [AadharNo, setAadharNo] = useState(0);
+
 const {
   FirstName,
   MiddleName,
@@ -121,7 +108,6 @@ const {
   FatherName,
   Gender,
   MaritalStatus,
-  AadharNo,
   PanCard,
   MobileNo,
   Email,
@@ -137,22 +123,6 @@ const {
   employeeReferenceNo,
   Year,
   TaxDeducted,
-  Salary,
-  PrerequisiteIncome,
-  ProfitIncome,
-  OtherIncome,
-  HRA,
-  LTA,
-  OtherExemptedAllowances,
-  ProfessionalTax,
-  OwnHouseIncome,
-  BasicDeductions,
-  Medical,
-  EducationalLoan,
-  Nps,
-  Deposits,
-  Charity,
-
 } = formData;
 
 
@@ -165,6 +135,34 @@ const {
 const handleChange = useCallback((newData) => {
   setFormData((prevFormData) => ({ ...prevFormData, ...newData }));
 }, []);
+
+function onChange(e) {
+  setFormData((prevState) => ({
+    ...prevState,
+    [e.target.id]: e.target.value,
+  }));
+}
+
+//Income
+const [Salary, setSalary] = useState(0);
+const [PrerequisiteIncome, setPrerequisiteIncome] = useState(0);
+const [ProfitIncome, setProfitIncome] = useState(0);
+const [OtherIncome, setOtherIncome] = useState(0);
+
+const [HRA, setHRA] = useState(0);
+const [LTA, setLTA] = useState(0);
+const [OtherExemptedAllowances, setOtherExemptedAllowances] = useState(0);
+const [ProfessionalTax, setProfessionalTax] = useState(0);
+const [OwnHouseIncome, setOwnHouseIncome] = useState(0);
+
+//Deductions
+const [BasicDeductions, setBasicDeductions] = useState(0);
+const [Medical, setMedical] = useState(0);
+const [EducationalLoan, setEducationalLoan] = useState(0);
+const [Nps, setNps] = useState(0);
+const [Deposits, setDeposits] = useState(0);
+const [Charity, setCharity] = useState(0);
+
 
      const [showIncomeModal, setShowIncomeModal] = useState(false);
      const [showProfitsModal, setShowProfitsModal] = useState(false);
@@ -330,8 +328,9 @@ const calculateNewRegimeTax = (income) => {
   };
 
   const newfinaltax = totalTax + calculateCess(totalTax);
+  const newcess = totalTax*0.04;
 
-  return { newfinaltax, cess: calculateCess(totalTax) };
+  return { newfinaltax, newcess };
 };
 
 const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
@@ -353,19 +352,19 @@ setPreferredSystem(preferredSystem);
      const Token = localStorage.getItem("token");
 
 
-  const handleHousingLoanChange = (e) => {
-    const inputValue = parseInt(e.target.value, 10) || 0;
-    const limit = 150000;
+  // const handleHousingLoanChange = (e) => {
+  //   const inputValue = parseInt(e.target.value, 10) || 0;
+  //   const limit = 150000;
 
-    if (inputValue > limit) {
-      toast.error("Keep the amount less than Rs 1,50,000");
-      e.target.style.borderColor = "red";
-    } else {
-      e.target.style.borderColor = "";
-    }
+  //   if (inputValue > limit) {
+  //     toast.error("Keep the amount less than Rs 1,50,000");
+  //     e.target.style.borderColor = "red";
+  //   } else {
+  //     e.target.style.borderColor = "";
+  //   }
 
-    handleChange({ HousingLoan: inputValue });
-  };
+  //   handleChange({ HousingLoan: inputValue });
+  // };
 
 
 const Link = ({ id, children, title }) => (
@@ -399,10 +398,50 @@ async function onSubmit(e) {
   if (isCheckboxChecked) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/policy/oldreign",
+        "https://taxsaarthi.onrender.com/policy/oldreign",
         {
           Token,
-          formData,
+          AadharNo,
+          FirstName,
+          MiddleName,
+          LastName,
+          Name,
+          DateOfBirth,
+          FatherName,
+          Gender,
+          MaritalStatus,
+          PanCard,
+          MobileNo,
+          Email,
+          Address,
+          PermanentAddress,
+          City,
+          selectedState,
+          PinCode,
+          employerName,
+          employerAddress,
+          employerPanNumber,
+          tanNumber,
+          employeeReferenceNo,
+          Year,
+          TaxDeducted,
+          Salary,
+          PrerequisiteIncome,
+          ProfitIncome,
+          OtherIncome,
+          HRA,
+          LTA,
+          OtherExemptedAllowances,
+          ProfessionalTax,
+          OwnHouseIncome,
+          BasicDeductions,
+          Medical,
+          EducationalLoan,
+          Nps,
+          Deposits,
+          Charity,
+          RentedHouseIncome,
+          DeemdedHouseIncome,
           OldFinalTax,
           OldFinalCess,
           NewFinalTax,
@@ -412,6 +451,9 @@ async function onSubmit(e) {
       );
       console.log(response.data); // Log the response data
       toast.success("Data is saved. You will be redirected in few seconds");
+      setTimeout(() => {
+        navigate("/doc")
+      }, 1500);
     } catch (err) {
       if (err.response) {
         console.error("Response Error:", err.response.data);
@@ -462,10 +504,9 @@ async function onSubmit(e) {
                       <Form.Control
                         type="text"
                         value={FirstName}
+                        id="FirstName"
                         placeholder="First Name "
-                        onChange={(e) => {
-                          handleChange({ FirstName: e.target.value });
-                        }}
+                        onChange={onChange}
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -619,7 +660,7 @@ async function onSubmit(e) {
                         type="text"
                         value={AadharNo}
                         onChange={(e) => {
-                          handleChange({ AadharNo: e.target.value });
+                          setAadharNo(parseInt(e.target.value, 10) || 0);
                         }}
                         placeholder="Aadhar Card Number"
                       />
@@ -965,9 +1006,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={Salary}
                       onChange={(e) =>
-                        handleChange({
-                          Salary: parseInt(e.target.value, 10) || 0,
-                        })
+                        setSalary(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -999,9 +1038,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={PrerequisiteIncome}
                       onChange={(e) =>
-                        handleChange({
-                          PrerequisiteIncome: parseInt(e.target.value, 10) || 0,
-                        })
+                        setPrerequisiteIncome(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -1034,9 +1071,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={ProfitIncome}
                       onChange={(e) =>
-                        handleChange({
-                          PrerequisiteIncome: parseInt(e.target.value, 10) || 0,
-                        })
+                        setProfitIncome(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -1084,9 +1119,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={HRA}
                       onChange={(e) =>
-                        handleChange({
-                          HRA: parseInt(e.target.value, 10) || 0,
-                        })
+                        setHRA(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -1111,9 +1144,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={LTA}
                       onChange={(e) =>
-                        handleChange({
-                          LTA: parseInt(e.target.value, 10) || 0,
-                        })
+                        setLTA(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -1138,10 +1169,9 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={OtherExemptedAllowances}
                       onChange={(e) =>
-                        handleChange({
-                          OtherExemptedAllowances:
-                            parseInt(e.target.value, 10) || 0,
-                        })
+                        setOtherExemptedAllowances(
+                          parseInt(e.target.value, 10) || 0
+                        )
                       }
                     />
                   </Form.Group>
@@ -1168,9 +1198,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={ProfessionalTax}
                       onChange={(e) =>
-                        handleChange({
-                          ProfessionalTax: parseInt(e.target.value, 10) || 0,
-                        })
+                        setProfessionalTax(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -1240,9 +1268,7 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={OwnHouseIncome}
                       onChange={(e) =>
-                        handleChange({
-                          OwnHouseIncome: parseInt(e.target.value, 10) || 0,
-                        })
+                        setOwnHouseIncome(parseInt(e.target.value, 10) || 0)
                       }
                     />
                   </Form.Group>
@@ -1482,9 +1508,7 @@ async function onSubmit(e) {
                     placeholder="0"
                     value={OtherIncome}
                     onChange={(e) =>
-                      handleChange({
-                        OtherIncome: parseInt(e.target.value, 10) || 0,
-                      })
+                      setOtherIncome(parseInt(e.target.value, 10) || 0)
                     }
                   />
                 </Form.Group>
@@ -1514,7 +1538,7 @@ async function onSubmit(e) {
                 placeholder="0"
                 value={BasicDeductions}
                 onChange={(e) =>
-                  handleChange(parseInt(e.target.value, 10) || 0)
+                  setBasicDeductions(parseInt(e.target.value, 10) || 0)
                 }
               />
             </Form.Group>
@@ -1534,9 +1558,7 @@ async function onSubmit(e) {
               <Form.Control
                 placeholder="0"
                 value={Medical}
-                onChange={(e) =>
-                  handleChange(parseInt(e.target.value, 10) || 0)
-                }
+                onChange={(e) => setMedical(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -1556,7 +1578,7 @@ async function onSubmit(e) {
                 placeholder="0"
                 value={EducationalLoan}
                 onChange={(e) =>
-                  handleChange(parseInt(e.target.value, 10) || 0)
+                  setEducationalLoan(parseInt(e.target.value, 10) || 0)
                 }
               />
             </Form.Group>
@@ -1578,9 +1600,7 @@ async function onSubmit(e) {
               <Form.Control
                 placeholder="0"
                 value={Nps}
-                onChange={(e) =>
-                  handleChange(parseInt(e.target.value, 10) || 0)
-                }
+                onChange={(e) => setNps(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -1599,9 +1619,7 @@ async function onSubmit(e) {
               <Form.Control
                 placeholder="0"
                 value={Deposits}
-                onChange={(e) =>
-                  handleChange(parseInt(e.target.value, 10) || 0)
-                }
+                onChange={(e) => setDeposits(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridZip">
@@ -1620,9 +1638,7 @@ async function onSubmit(e) {
               <Form.Control
                 placeholder="0"
                 value={Charity}
-                onChange={(e) =>
-                  handleChange(parseInt(e.target.value, 10) || 0)
-                }
+                onChange={(e) => setCharity(parseInt(e.target.value, 10) || 0)}
               />
             </Form.Group>
           </Row>

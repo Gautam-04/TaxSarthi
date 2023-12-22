@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const OldSchema = new mongoose.Schema({
   Token: { type: String, required: true },
+  //
+  AadharNo: {type: Number, default: 0,unique: true},
   // Personal Information
   FirstName: { type: String, default: "" },
   MiddleName: { type: String, default: "" },
@@ -11,7 +13,7 @@ const OldSchema = new mongoose.Schema({
   FatherName: { type: String, default: "" },
   Gender: { type: String, default: "" },
   MaritalStatus: { type: String, default: "" },
-  AadharNo: { type: String },
+
   PanCard: { type: String, default: "" },
   MobileNo: { type: Number, default: 0 },
   Email: { type: String, default: "" },
@@ -20,6 +22,7 @@ const OldSchema = new mongoose.Schema({
   City: { type: String, default: "" },
   selectedState: { type: String, default: "" },
   PinCode: { type: String, default: "" },
+
   employerName: { type: String, default: "" },
   employerAddress: { type: String, default: "" },
   employerPanNumber: { type: String, default: "" },
