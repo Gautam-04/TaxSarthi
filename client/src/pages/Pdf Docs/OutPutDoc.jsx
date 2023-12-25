@@ -1,11 +1,14 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import "./OutPutDoc.css"
 import { useNavigate } from 'react-router-dom';
 import ThumbsUp from "../../assets/thumbsup.svg";
 import { toast } from "react-toastify";
 import axios from "axios";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 function OutPutDoc() {
+  const pdfRef = useRef(null);
 
   const amount1 = 100;
   const amount2 = 80;
@@ -29,7 +32,22 @@ function OutPutDoc() {
          .catch((error) => {
            toast.error("There was an error loading the data");
          });
-     }, []);
+     }, [Token]);
+
+     async function onclickDownload(){
+      var doc = new jsPDF("portrait", "pt", "a4");
+
+      const data = await html2canvas(document.querySelector("#OutPutSec"));
+      const img = data.toDataURL("image/png"); 
+      const imgProperties = doc.getImageProperties(img); 
+      const pdfWidth = doc.internal.pageSize.getWidth() - 10;
+      const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+     const topPadding = 20;
+     const sidePadding = 10;
+
+     doc.addImage(img, "PNG", sidePadding, topPadding, pdfWidth, pdfHeight);
+      doc.save("taxreport-" + (!Token ? "125420" : Token) + ".pdf");
+     }
 
   return (
     <>
@@ -37,7 +55,7 @@ function OutPutDoc() {
         <button className="buttons-group" onClick={refreshPage}>
           Click To Refresh
         </button>
-        <button className="buttons-group" onClick={() => {}}>
+        <button className="buttons-group" onClick={onclickDownload}>
           Download The Report
         </button>
         <button
@@ -59,7 +77,7 @@ function OutPutDoc() {
         </button>
       </div>
       <hr style={{ marginBottom: 20 }} />
-      <section id="OutPutSec">
+      <section id="OutPutSec" ref={pdfRef}>
         <div className="headingName">
           <h1>{userData?.Name}</h1>
           <h1 className="AY">AY: 2023-24</h1>
