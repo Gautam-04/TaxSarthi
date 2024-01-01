@@ -6,9 +6,33 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import {
+  IoMailOpenOutline,
+  IoCallOutline,
+  IoLocationOutline,
+} from "react-icons/io5";
+
+const generateRandomNumber = () => {
+  return Math.floor(10000 + Math.random() * 90000);
+};
+
+// Function to get the current date in the format "DD MMM YYYY"
+const getCurrentDate = () => {
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return new Date().toLocaleDateString("en-US", options);
+};
 
 function OutPutDoc() {
   const pdfRef = useRef(null);
+
+    const [invoiceNumber, setInvoiceNumber] = useState(() => {
+      // Get the stored invoice number from local storage, or generate a new one
+      const storedInvoiceNumber = localStorage.getItem("invoiceNumber");
+      return storedInvoiceNumber
+        ? parseInt(storedInvoiceNumber, 10)
+        : generateRandomNumber();
+    });
+    const invoiceDate = getCurrentDate();
 
   const amount1 = 100;
   const amount2 = 80;
@@ -34,6 +58,11 @@ function OutPutDoc() {
          });
      }, [Token]);
 
+     useEffect(() => {
+       localStorage.setItem("invoiceNumber", invoiceNumber.toString());
+     }, [invoiceNumber]);
+     
+
      async function onclickDownload(){
       var doc = new jsPDF("portrait", "pt", "a4");
 
@@ -52,7 +81,7 @@ function OutPutDoc() {
   return (
     <>
       <div className="Button-Doc-Group">
-        <button className="buttons-group" onClick={refreshPage}>
+        <button className="buttons-group " onClick={refreshPage}>
           Click To Refresh
         </button>
         <button className="buttons-group" onClick={onclickDownload}>
@@ -77,60 +106,81 @@ function OutPutDoc() {
         </button>
       </div>
       <hr style={{ marginBottom: 20 }} />
+
       <section id="OutPutSec" ref={pdfRef}>
-        <div className="headingName">
-          <h1>{userData?.Name}</h1>
-          <h1 className="AY">AY: 2023-24</h1>
+        <div className="invoice-1">
+          <div className="invoice-headar">
+            <div className="row g-0">
+              <div className="col-sm-6 invoice_heading">
+                <div className="logo"></div>
+                <h1 className="heading">TaxSarthi</h1>
+                <div className="logo"></div>
+              </div>
+              <div className="col-sm-6 invoice-id">
+                <div className="info">
+                  <h1 className="color-white inv-header-1">Tax Invoice</h1>
+                  <p className="color-white mb-1">
+                    Invoice Number <span>#{invoiceNumber}</span>
+                  </p>
+                  <p className="color-white mb-0">
+                    Invoice Date <span>{invoiceDate}</span>
+                  </p>
+                  <p className="color-white mb-1">
+                    AY <span>2023-24</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div className="MainInfoDiv">
           <div className="PersonDiv">
+            <h4 className="inv-title-1">Personal Details</h4>
+            <h2 className="name mb-10">Jhon Smith</h2>
             <p>
               <span>
-                <strong>Address:</strong> The Address{" "}
+                <strong>Email: </strong>email
               </span>
             </p>
             <p>
               <span>
-                <strong>Email:</strong> email{" "}
+                <strong>Mobile No: </strong>Mobile No
               </span>
             </p>
             <p>
               <span>
-                <strong>Mobile No:</strong> Mobile No{" "}
-              </span>
-            </p>
-            <p>
-              <span>
-                <strong>Aadhar Card No</strong>
+                <strong>Aadhar Card No: </strong>
                 {userData ? userData.AadharNo : "N/A"}
               </span>
             </p>
             <p>
               <span>
-                <strong>Pan Card:</strong> Pan Card{" "}
+                <strong>Pan Card: </strong> Pan Card
               </span>
             </p>
           </div>
           <div className="EmployerInfo">
-            <h1>Employers Name: </h1>
+            <h4 className="inv-title-1">Employer Details</h4>
+            <h2 className="name mb-10">Employer Name</h2>
             <p>
               <span>
-                <strong>employerAddress:</strong> The employerAddress{" "}
+                <strong>employerAddress: </strong> The employerAddress{" "}
               </span>
             </p>
             <p>
               <span>
-                <strong>employerPanNumber:</strong> employerPanNumber{" "}
+                <strong>employerPanNumber: </strong> employerPanNumber{" "}
               </span>
             </p>
             <p>
               <span>
-                <strong>tanNumber:</strong> tanNumber{" "}
+                <strong>tanNumber: </strong> tanNumber{" "}
               </span>
             </p>
             <p>
               <span>
-                <strong>employeeReferenceNo:</strong> employeeReferenceNo{" "}
+                <strong>employeeReferenceNo: </strong> employeeReferenceNo{" "}
               </span>
             </p>
           </div>
@@ -270,6 +320,69 @@ function OutPutDoc() {
         </table>
 
         <h3>Income Tax Summary</h3>
+
+        <div className="invoice-footer">
+          <div class="invoice-bottom">
+            <div class="row">
+              <div class="col-lg-6 col-md-8 col-sm-7">
+                <div class="mb-30 dear-client">
+                  <h3 class="inv-title-1" style={{ color: "#4d7298" }}>
+                    Terms & Conditions
+                  </h3>
+                  <p style={{ color: "rgb(131, 124, 124)" }}>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been typesetting
+                    industry. Lorem Ipsum
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="invoice-contact clearfix">
+            <div class="row g-0">
+              <div class="col-lg-9 col-md-11 col-sm-12">
+                <div class="contact-info">
+                  <a href="tel:+55-4XX-634-7071">
+                    <span>
+                      <IoCallOutline
+                        style={{
+                          paddingBottom: "2px",
+                          width: "1.2em",
+                          height: "1.2em",
+                        }}
+                      />
+                    </span>{" "}
+                    +00 123 647 840
+                  </a>
+                  <a href="tel:info@taxsarthi.com">
+                    <span>
+                      <IoMailOpenOutline
+                        style={{
+                          paddingBottom: "2px",
+                          width: "1.2em",
+                          height: "1.2em",
+                        }}
+                      />
+                    </span>{" "}
+                    info@taxsarthi.com
+                  </a>
+                  <a href="tel:info@themevessel.com" class="mr-0 d-none-580">
+                    <span>
+                      <IoLocationOutline
+                        style={{
+                          paddingBottom: "2px",
+                          width: "1.2em",
+                          height: "1.2em",
+                        }}
+                      />
+                    </span>{" "}
+                    169 Mumbai, India
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );
