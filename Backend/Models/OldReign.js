@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const OldSchema = new mongoose.Schema({
   Token: { type: String, required: true },
   //
-  AadharNo: {type: Number, default: 0,unique: true},
+  AadharNo: { type: Number, default: 0, unique: true },
   // Personal Information
   FirstName: { type: String, default: "" },
   MiddleName: { type: String, default: "" },
@@ -55,7 +55,14 @@ const OldSchema = new mongoose.Schema({
   OldFinalCess: { type: Number, default: 0 },
   NewFinalTax: { type: Number, default: 0 },
   NewFinalCess: { type: Number, default: 0 },
-  PreferredSystem: { type: String, default: "" },
+  PreferredSystem: {
+    type: String,
+    default: "NewRegime",
+    enum: ["OldRegime", "NewRegime"],
+  },
+  TotalTaxableIncome: { type: Number, default: 0 },
+  TotalIncome: { type: Number, default: 0 },
+  TotalDeductions: { type: Number, default: 0 },
 });
 
 // Pre-save hook to update the 'Name' field before saving to the database
@@ -64,6 +71,30 @@ OldSchema.pre("save", function (next) {
   this.Name = `${this.FirstName} ${
     this.MiddleName ? this.MiddleName + " " : ""
   }${this.LastName}`;
+
+
+  this.TotalIncome =
+    this.Salary +
+    this.PrerequisiteIncome +
+    this.ProfitIncome +
+    this.OtherIncome +
+    this.RentedHouseIncome +
+    this.DeemdedHouseIncome;
+
+  this.TotalDeductions =
+    this.BasicDeductions +
+    this.Medical +
+    this.EducationalLoan +
+    this.Nps +
+    this.Deposits +
+    this.Charity +
+    this.HRA +
+    this.LTA +
+    this.OtherExemptedAllowances +
+    this.ProfessionalTax +
+    this.OwnHouseIncome;
+
+  this.TotalTaxableIncome = this.TotalIncome - this.TotalDeductions;
   next();
 });
 

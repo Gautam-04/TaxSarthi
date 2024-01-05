@@ -25,58 +25,79 @@ const getCurrentDate = () => {
 function OutPutDoc() {
   const pdfRef = useRef(null);
 
-    const [invoiceNumber, setInvoiceNumber] = useState(() => {
-      // Get the stored invoice number from local storage, or generate a new one
-      const storedInvoiceNumber = localStorage.getItem("invoiceNumber");
-      return storedInvoiceNumber
-        ? parseInt(storedInvoiceNumber, 10)
-        : generateRandomNumber();
-    });
-    const invoiceDate = getCurrentDate();
+  const [invoiceNumber, setInvoiceNumber] = useState(() => {
+    // Get the stored invoice number from local storage, or generate a new one
+    const storedInvoiceNumber = localStorage.getItem("invoiceNumber");
+    return storedInvoiceNumber
+      ? parseInt(storedInvoiceNumber, 10)
+      : generateRandomNumber();
+  });
+  const invoiceDate = getCurrentDate();
 
-  const amount1 = 100;
-  const amount2 = 80;
 
   const navigate = useNavigate();
 
-   function refreshPage() {
-     window.location.reload(false);
-   }
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
-        const Token = localStorage.getItem("token");
-        const [userData, setUserData] = useState(null);
+  const Token = localStorage.getItem("token");
+  const [userData, setUserData] = useState(null);
 
-     useEffect(() => {
-       axios
-         .post("https://taxsaarthi.onrender.com/policy/oldbody", { Token })
-         .then((result) => {
-           console.log(result.data);
-           setUserData(result.data);
-         })
-         .catch((error) => {
-           toast.error("There was an error loading the data");
-         });
-     }, [Token]);
+const OldtaxDetailsFromLocalStorage = localStorage.getItem("OldtaxDetails");
+const OldtaxDetails = OldtaxDetailsFromLocalStorage ? JSON.parse(OldtaxDetailsFromLocalStorage) : null;
 
-     useEffect(() => {
-       localStorage.setItem("invoiceNumber", invoiceNumber.toString());
-     }, [invoiceNumber]);
-     
+    const OldSlabs = [
+      { label: "0 to 3 lakh", rate: "0%", key: "slab1" },
+      { label: "2.5 lakh to 5 lakh", rate: "5%", key: "slab2" },
+      { label: "5 lakh to 10 lakh", rate: "20%", key: "slab3" },
+      { label: "10 lakh and above", rate: "30%", key: "slab4" },
+    ];
 
-     async function onclickDownload(){
-      var doc = new jsPDF("portrait", "pt", "a4");
+    const NewtaxDetailsFromLocalStorage = localStorage.getItem("NewtaxDetails");
+    const NewtaxDetails = NewtaxDetailsFromLocalStorage ? JSON.parse(NewtaxDetailsFromLocalStorage) : null;
 
-      const data = await html2canvas(document.querySelector("#OutPutSec"));
-      const img = data.toDataURL("image/png"); 
-      const imgProperties = doc.getImageProperties(img); 
-      const pdfWidth = doc.internal.pageSize.getWidth() - 10;
-      const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-     const topPadding = 20;
-     const sidePadding = 10;
+    const newRegimeSlabs = [
+      { label: "0 to 3 lakh", rate: "0%", key: "slab1" },
+      { label: "3 lakh to 6 lakh", rate: "5%", key: "slab2" },
+      { label: "6 lakh to 9 lakh", rate: "10%", key: "slab3" },
+      { label: "9 lakh to 12 lakh", rate: "15%", key: "slab4" },
+      { label: "12 lakh to 15 lakh", rate: "20%", key: "slab5" },
+      { label: "15 lakh and above", rate: "30%", key: "slab6" },
+    ];
 
-     doc.addImage(img, "PNG", sidePadding, topPadding, pdfWidth, pdfHeight);
-      doc.save("taxreport-" + (!Token ? "125420" : Token) + ".pdf");
-     }
+  // Now 'sampleData' is a constant holding the JSON object.
+
+   useEffect(() => {
+     axios
+       .post("http://localhost:8000/policy/oldbody", { Token })
+       .then((result) => {
+         console.log(result.data);
+         setUserData(result.data);
+       })
+       .catch((error) => {
+         toast.error("There was an error loading the data");
+       });
+   }, [Token]);
+
+   useEffect(() => {
+     localStorage.setItem("invoiceNumber", invoiceNumber.toString());
+   }, [invoiceNumber]);
+
+  async function onclickDownload() {
+    var doc = new jsPDF("portrait", "pt", "a4");
+
+    const data = await html2canvas(document.querySelector("#OutPutSec"));
+    const img = data.toDataURL("image/png");
+    const imgProperties = doc.getImageProperties(img);
+    const pdfWidth = doc.internal.pageSize.getWidth() - 10;
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    const topPadding = 20;
+    const sidePadding = 10;
+
+    doc.addImage(img, "PNG", sidePadding, topPadding, pdfWidth, pdfHeight);
+    doc.save("taxreport-" + (!Token ? "125420" : Token) + ".pdf");
+  }
 
   return (
     <>
@@ -133,19 +154,20 @@ function OutPutDoc() {
             </div>
           </div>
         </div>
-
         <div className="MainInfoDiv">
           <div className="PersonDiv">
             <h4 className="inv-title-1">Personal Details</h4>
-            <h2 className="name mb-10">Jhon Smith</h2>
+            <h2 className="name mb-10">{userData ? userData.Name : "N/A"}</h2>
             <p>
               <span>
-                <strong>Email: </strong>email
+                <strong>Email: </strong>
+                {userData ? userData.Email : "N/A"}
               </span>
             </p>
             <p>
               <span>
-                <strong>Mobile No: </strong>Mobile No
+                <strong>Mobile No: </strong>
+                {userData ? userData.MobileNo : "N/A"}
               </span>
             </p>
             <p>
@@ -156,7 +178,8 @@ function OutPutDoc() {
             </p>
             <p>
               <span>
-                <strong>Pan Card: </strong> Pan Card
+                <strong>Pan Card: </strong>{" "}
+                {userData ? userData.PanCard : "N/A"}
               </span>
             </p>
           </div>
@@ -165,22 +188,26 @@ function OutPutDoc() {
             <h2 className="name mb-10">Employer Name</h2>
             <p>
               <span>
-                <strong>employerAddress: </strong> The employerAddress{" "}
+                <strong>employerAddress: </strong>{" "}
+                {userData ? userData.employerAddress : "N/A"}
               </span>
             </p>
             <p>
               <span>
-                <strong>employerPanNumber: </strong> employerPanNumber{" "}
+                <strong>employerPanNumber: </strong>{" "}
+                {userData ? userData.employerPanNumber : "N/A"}
               </span>
             </p>
             <p>
               <span>
-                <strong>tanNumber: </strong> tanNumber{" "}
+                <strong>tanNumber: </strong>{" "}
+                {userData ? userData.tanNumber : "N/A"}
               </span>
             </p>
             <p>
               <span>
-                <strong>employeeReferenceNo: </strong> employeeReferenceNo{" "}
+                <strong>employeeReferenceNo: </strong>{" "}
+                {userData ? userData.employeeReferenceNo : "N/A"}
               </span>
             </p>
           </div>
@@ -193,7 +220,7 @@ function OutPutDoc() {
               <strong>Date Of Birth</strong>
             </td>
             <td>
-              <span>12/45/2004</span>
+              <span>{userData ? userData.DateOfBirth : "N/A"}</span>
             </td>
 
             <td>
@@ -208,7 +235,7 @@ function OutPutDoc() {
               <strong>Father's Name</strong>
             </td>
             <td>
-              <span>xyz</span>
+              <span>{userData ? userData.FatherName : "N/A"}</span>
             </td>
             <td>
               <strong>Residential Status:</strong>
@@ -228,7 +255,7 @@ function OutPutDoc() {
               <strong>Gender:</strong>
             </td>
             <td>
-              <span>male</span>
+              <span>{userData ? userData.Gender : "N/A"}</span>
             </td>
           </tr>
           <tr>
@@ -242,7 +269,11 @@ function OutPutDoc() {
               <strong>Selected tax regime</strong>
             </td>
             <td>
-              <span>-</span>
+              <span>
+                {userData && userData.PreferredSystem
+                  ? userData.PreferredSystem
+                  : "N/A"}
+              </span>
             </td>
           </tr>
         </table>
@@ -254,7 +285,9 @@ function OutPutDoc() {
                 <b>Salary</b>
               </td>
               <td></td>
-              <td style={{ textAlign: "right" }}>Amount</td>
+              <td style={{ textAlign: "right" }}>
+                {userData ? userData.Salary : "N/A"}
+              </td>
             </tr>
             <tr style={{ backgroundColor: "black", height: "2px" }}>
               <td></td>
@@ -266,23 +299,27 @@ function OutPutDoc() {
                 <b>Gross Total Income</b>
               </td>
               <td></td>
-              <td style={{ textAlign: "right" }}>Amount</td>
+              <td style={{ textAlign: "right" }}>
+                {userData ? userData.TotalIncome : "N/A"}
+              </td>
             </tr>
             <tr>
               <td>
                 <b>Total Deductions</b>
               </td>
-              <td style={{ textAlign: "right" }}>Amount</td>
+              <td style={{ textAlign: "right" }}>
+                {userData ? userData.TotalDeductions : "N/A"}
+              </td>
               <td></td>
             </tr>
             <tr>
               <td></td>
               <td style={{ textAlign: "center" }}>
                 Old Regime
-                {amount1 < amount2 && (
+                {userData && userData.PreferredSystem === "OldRegime" && (
                   <img
                     src={ThumbsUp}
-                    alt="random.png"
+                    alt="thumbs-up"
                     style={{
                       width: "40px",
                       transform: "translateX(30%)",
@@ -292,10 +329,10 @@ function OutPutDoc() {
               </td>
               <td style={{ textAlign: "center" }}>
                 New Regime
-                {amount2 < amount1 && (
+                {userData && userData.PreferredSystem === "NewRegime" && (
                   <img
                     src={ThumbsUp}
-                    alt="random.png"
+                    alt="thumbs-up"
                     style={{
                       width: "40px",
                       transform: "translateX(30%)",
@@ -313,20 +350,236 @@ function OutPutDoc() {
               <td>
                 <b>Total Tax Payable</b>
               </td>
-              <td style={{ textAlign: "center" }}>Amount</td>
-              <td style={{ textAlign: "center" }}>Amount</td>
+              <td style={{ textAlign: "center" }}>
+                {userData ? userData.OldFinalTax : "N/A"}
+              </td>
+              <td style={{ textAlign: "center" }}>
+                {userData ? userData.NewFinalTax : "N/A"}
+              </td>
             </tr>
           </tbody>
         </table>
 
         <h3>Income Tax Summary</h3>
+        <table className="TaxTable">
+          <tbody className="taxBody" style={{ textAlign: "center" }}>
+            <tr>
+              <td></td>
+              <td style={{ textAlign: "center" }}>
+                <b>Old Regime</b>
+                {userData && userData.PreferredSystem === "OldRegime" && (
+                  <img
+                    src={ThumbsUp}
+                    alt="thumbs-up"
+                    style={{
+                      width: "40px",
+                      transform: "translateX(30%)",
+                    }}
+                  />
+                )}
+              </td>
+              <td style={{ textAlign: "center" }}>
+                <b>New Regime</b>
+                {userData && userData.PreferredSystem === "NewRegime" && (
+                  <img
+                    src={ThumbsUp}
+                    alt="thumbs-up"
+                    style={{
+                      width: "40px",
+                      transform: "translateX(30%)",
+                    }}
+                  />
+                )}
+              </td>
+            </tr>
+            <tr style={{ backgroundColor: "grey", height: "2px" }}>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style={{ textAlign: "left" }}>
+                <b>Total Income</b>
+              </td>
+              <td>
+                {userData ? userData.TotalTaxableIncome : "N/A"} (TotalIncome -
+                Deductions)
+              </td>
+              <td>{userData ? userData.TotalIncome : "N/A"}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style={{ textAlign: "left" }}>
+                <b>Basic Exemption</b>
+              </td>
+              <td> {userData ? userData.TotalDeductions : "N/A"}</td>
+              <td> - </td>
+            </tr>
+            <tr>
+              <td style={{ textAlign: "left" }}>
+                <b>Income Tax</b>
+              </td>
+              <td>
+                {userData
+                  ? userData.OldFinalTax - userData.OldFinalCess
+                  : "N/A"}
+              </td>
+              <td>
+                {userData
+                  ? userData.NewFinalTax - userData.NewFinalCess
+                  : "N/A"}
+              </td>
+            </tr>
+            <tr>
+              <td style={{ textAlign: "left" }}>
+                {" "}
+                <b>Health and Education Cess</b>
+              </td>
+              <td>{userData ? userData.OldFinalCess : "N/A"}</td>
+              <td>{userData ? userData.NewFinalCess : "N/A"}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style={{ textAlign: "left" }}>
+                <b>Total Tax</b>
+              </td>
+              <td>{userData ? userData.OldFinalTax : "N/A"}</td>
+              <td>{userData ? userData.NewFinalTax : "N/A"}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Normal Tax Breakup(Slab wise)</h3>
+        <div className="NormalTaxSlab">
+          <table
+            border="1"
+            cellspacing="0"
+            style={{ textAlign: "center", width: "50%", margin: "20px auto" }}
+          >
+            <thead>
+              <tr>
+                <th colspan="3">Old Regime (Age&lt;60)</th>
+              </tr>
+              <tr>
+                <th>Income Slab</th>
+                <th>Rate</th>
+                <th>Tax Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {OldSlabs.map(
+                (slab) =>
+                  OldtaxDetails &&
+                  OldtaxDetails[slab.key] !== undefined && (
+                    <tr key={slab.key}>
+                      <td>{slab.label}</td>
+                      <td>{slab.rate}</td>
+                      <td>{OldtaxDetails[slab.key]}</td>
+                    </tr>
+                  )
+              )}
+              <tr>
+                <td>
+                  <b>Tax</b>
+                </td>
+                <td></td>
+                <td>
+                  <b>
+                    {userData
+                      ? userData.OldFinalTax - userData.OldFinalCess
+                      : "N/A"}
+                  </b>
+                </td>
+              </tr>
+              <tr>
+                <td>4% cess on Total Tax</td>
+                <td>4%</td>
+                <td>{userData ? userData.OldFinalCess : "N/A"}</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Total</b>
+                </td>
+                <td>Tax + 4% Cess</td>
+                <td>
+                  <b>{userData ? userData.OldFinalTax : "N/A"}</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table
+            border="1"
+            cellspacing="0"
+            style={{ textAlign: "center", width: "50%", margin: "20px auto" }}
+          >
+            <thead>
+              <tr>
+                <th colspan="3">New Regime</th>
+              </tr>
+              <tr>
+                <th>Income Slab</th>
+                <th>Rate</th>
+                <th>Tax Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {newRegimeSlabs.map(
+                (slab) =>
+                  NewtaxDetails &&
+                  NewtaxDetails[slab.key] !== undefined && (
+                    <tr key={slab.key}>
+                      <td>{slab.label}</td>
+                      <td>{slab.rate}</td>
+                      <td>{NewtaxDetails[slab.key]}</td>
+                    </tr>
+                  )
+              )}
+              <tr>
+                <td>
+                  <b>Tax</b>
+                </td>
+                <td></td>
+                <td>
+                  <b>
+                    {userData
+                      ? userData.NewFinalTax - userData.NewFinalCess
+                      : "N/A"}
+                  </b>
+                </td>
+              </tr>
+              <tr>
+                <td>4% cess on Total Tax</td>
+                <td>4%</td>
+                <td>{userData ? userData.NewFinalCess : "N/A"}</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Total</b>
+                </td>
+                <td>Tax + 4% Cess</td>
+                <td>
+                  <b>{userData ? userData.NewFinalTax : "N/A"}</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div className="invoice-footer">
-          <div class="invoice-bottom">
-            <div class="row">
-              <div class="col-lg-6 col-md-8 col-sm-7">
-                <div class="mb-30 dear-client">
-                  <h3 class="inv-title-1" style={{ color: "#4d7298" }}>
+          <div className="invoice-bottom">
+            <div className="row">
+              <div className="col-lg-6 col-md-8 col-sm-7">
+                <div className="mb-30 dear-client">
+                  <h3 className="inv-title-1" style={{ color: "#4d7298" }}>
                     Terms & Conditions
                   </h3>
                   <p style={{ color: "rgb(131, 124, 124)" }}>
@@ -336,12 +589,26 @@ function OutPutDoc() {
                   </p>
                 </div>
               </div>
+              <div
+                className="col-lg-6 col-md-8 col-sm-7"
+                style={{ position: "relative" }}
+              >
+                <div
+                  className="mb-30 dear-client"
+                  style={{ position: "absolute", bottom: "0", right: "0" }}
+                >
+                  <h3 className="inv-title-1" style={{ color: "#4d7298" }}>
+                    Signature
+                  </h3>
+                  <p style={{ color: "rgb(131, 124, 124)" }}>Your Name</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="invoice-contact clearfix">
-            <div class="row g-0">
-              <div class="col-lg-9 col-md-11 col-sm-12">
-                <div class="contact-info">
+          <div className="invoice-contact clearfix">
+            <div className="row g-0">
+              <div className="col-lg-9 col-md-11 col-sm-12">
+                <div className="contact-info">
                   <a href="tel:+55-4XX-634-7071">
                     <span>
                       <IoCallOutline
@@ -366,7 +633,10 @@ function OutPutDoc() {
                     </span>{" "}
                     info@taxsarthi.com
                   </a>
-                  <a href="tel:info@themevessel.com" class="mr-0 d-none-580">
+                  <a
+                    href="tel:info@themevessel.com"
+                    className="mr-0 d-none-580"
+                  >
                     <span>
                       <IoLocationOutline
                         style={{

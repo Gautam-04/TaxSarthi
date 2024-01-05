@@ -144,6 +144,7 @@ text-align: center;
         border-spacing: 2px;
         white-space: normal;
         font-variant: normal;
+        margin: 2rem 0;
 
     .taxBody{
         display: table-row-group;
@@ -160,6 +161,25 @@ text-align: center;
                             vertical-align: inherit;
                     }
             }
+    }
+}
+
+
+
+
+.NormalTaxSlab{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+tbody,
+    td,
+    tfoot,
+    th,
+    thead,
+    tr{
+        border-width: 1px !important;
     }
 }
 

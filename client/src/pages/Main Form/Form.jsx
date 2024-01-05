@@ -176,64 +176,240 @@ const [Charity, setCharity] = useState(0);
      const [DeemedrentReceived, setDeemedRentReceived] = useState(0);
      const [DeemedmunicipalTax1, setDeemedMunicipalTax1] = useState(0);
 
-     useEffect(() => {
-       const numericSalary = parseFloat(Salary) || 0;
-       const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
-       const numericProfitIncome = parseFloat(ProfitIncome) || 0;
-       const numericHRA = parseFloat(HRA) || 0;
-       const numericLTA = parseFloat(LTA) || 0;
-       const numericOtherExemptedAllowances =
-         parseFloat(OtherExemptedAllowances) || 0;
-       const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
+//      useEffect(() => {
+//        const numericSalary = parseFloat(Salary) || 0;
+//        const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
+//        const numericProfitIncome = parseFloat(ProfitIncome) || 0;
+//        const numericHRA = parseFloat(HRA) || 0;
+//        const numericLTA = parseFloat(LTA) || 0;
+//        const numericOtherExemptedAllowances =
+//          parseFloat(OtherExemptedAllowances) || 0;
+//        const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
+//        const numericOwnHouseIncome = parseFloat(OwnHouseIncome) || 0;
 
-       //house incomes
-       const numericRentedhomeInterest =
-         parseFloat(RentedhomeInterestPaid) || 0;
-       const numericRentedrentReceived = parseFloat(RentedrentReceived) || 0;
-       const numericRentedmunicipalTax1 = parseFloat(RentedmunicipalTax1) || 0;
+//        //house incomes
+//        const numericRentedhomeInterest =
+//          parseFloat(RentedhomeInterestPaid) || 0;
+//        const numericRentedrentReceived = parseFloat(RentedrentReceived) || 0;
+//        const numericRentedmunicipalTax1 = parseFloat(RentedmunicipalTax1) || 0;
 
-       const numericDeemedhomeInterestPaid =
-         parseFloat(DeemedhomeInterestPaid) || 0;
-       const numericDeemedrentReceived = parseFloat(DeemedrentReceived) || 0;
-       const numericDeemedmunicipalTax1 = parseFloat(DeemedmunicipalTax1) || 0;
+//        const numericDeemedhomeInterestPaid =
+//          parseFloat(DeemedhomeInterestPaid) || 0;
+//        const numericDeemedrentReceived = parseFloat(DeemedrentReceived) || 0;
+//        const numericDeemedmunicipalTax1 = parseFloat(DeemedmunicipalTax1) || 0;
 
-       const calculateSlabTax = (income, rate) => {
-         return income * rate;
-       };
-       const finalRentedIncome = calculateSlabTax(
-         numericRentedrentReceived - numericRentedmunicipalTax1,
-         0.3
-       );
-       const ReIncome = numericRentedrentReceived - numericRentedmunicipalTax1 - finalRentedIncome;
-       const Rented = Math.min(ReIncome - numericRentedhomeInterest, 200000);
-       const finalDeemedIncome = calculateSlabTax(
-         numericDeemedrentReceived - numericDeemedmunicipalTax1,
-         0.3
-       );
-       const DeIncome = numericDeemedrentReceived - numericDeemedmunicipalTax1 - finalDeemedIncome;
+//        const calculateSlabTax = (income, rate) => {
+//          return income * rate;
+//        };
+//        const finalRentedIncome = calculateSlabTax(
+//          numericRentedrentReceived - numericRentedmunicipalTax1,
+//          0.3
+//        );
+//        const ReIncome = numericRentedrentReceived - numericRentedmunicipalTax1 - finalRentedIncome;
+//        const Rented = Math.min(ReIncome - numericRentedhomeInterest, 200000);
+//        const finalDeemedIncome = calculateSlabTax(
+//          numericDeemedrentReceived - numericDeemedmunicipalTax1,
+//          0.3
+//        );
+//        const DeIncome = numericDeemedrentReceived - numericDeemedmunicipalTax1 - finalDeemedIncome;
 
-       const Deemded = Math.min(
-         DeIncome - numericDeemedhomeInterestPaid,
-         200000
-       );
+//        const Deemded = Math.min(
+//          DeIncome - numericDeemedhomeInterestPaid,
+//          200000
+//        );
 
-       const totalIncome =
-         numericSalary +
-         numericPrerequisiteIncome +
-         numericProfitIncome -
-         numericHRA -
-         numericLTA -
-         numericOtherExemptedAllowances -
-         numericProfessionalTax;
+//        const totalIncome =
+//          numericSalary +
+//          numericPrerequisiteIncome +
+//          numericProfitIncome -
+//          numericHRA -
+//          numericLTA -
+//          numericOtherExemptedAllowances -
+//          numericProfessionalTax;
 
-       const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
+//        const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
 
-       setHeadIncome(updatedTotalIncome);
+//        setHeadIncome(updatedTotalIncome);
 
-//Tax calculation
-const StandardDeductions = 50000;
+// //Tax calculation
+// const StandardDeductions = 50000;
 
-const calculateFinalTax = () => {
+// const calculateFinalTax = () => {
+//   const totalIncome =
+//     numericSalary +
+//     numericPrerequisiteIncome +
+//     numericProfitIncome -
+//     numericHRA -
+//     numericLTA -
+//     numericOtherExemptedAllowances -
+//     numericProfessionalTax -
+//     numericOwnHouseIncome +
+//     Rented +
+//     Deemded;
+//   const totalDeductions =
+//     BasicDeductions + Medical + EducationalLoan + Nps + Deposits + Charity;
+//   const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
+
+//   const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
+//   const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
+
+//   return {
+//     OldTax: Tax,
+//     Oldess: ceSS,
+//     NewTax: newfinaltax,
+//     Newcess: newcess,
+//   };
+// };
+
+// // Function to calculate old regime tax
+// const calculateOldRegimeTax = (income) => {
+//   const TAX_REBATE = {
+//     old: 500000,
+//   };
+
+//   const OldtaxDetails = {};
+
+//   const calculateSlabTax = (income, rate) => {
+//     return income * rate;
+//   };
+
+//   const calculateCess = (totalTax) => {
+//     return totalTax * 0.04;
+//   };
+
+//   let totalTax = 0;
+
+//   if (income >= TAX_REBATE.old) {
+//     OldtaxDetails.slab1 = calculateSlabTax(Math.min(income, 250000), 0);
+//         totalTax += OldtaxDetails.slab1;
+//         OldtaxDetails.slab2 = calculateSlabTax(
+//           Math.max(Math.min(income - 250000, 500000 - 250000), 0),
+//           0.05
+//         );
+//         totalTax += OldtaxDetails.slab2;
+//         OldtaxDetails.slab3 = calculateSlabTax(
+//           Math.max(Math.min(income - 500000, 1000000 - 500000), 0),
+//           0.2
+//         );
+//         totalTax += OldtaxDetails.slab3;
+//         OldtaxDetails.slab4 = calculateSlabTax(Math.max(income - 1000000, 0), 0.3);
+//         totalTax += OldtaxDetails.slab4;
+//       }
+
+//       localStorage.setItem("OldtaxDetails", JSON.stringify(OldtaxDetails));
+
+//   const Tax = totalTax + calculateCess(totalTax);
+//   const ceSS = calculateCess(totalTax);
+
+//   return { Tax, ceSS };
+// };
+
+// const calculateNewRegimeTax = (income) => {
+//   const TAX_REBATE_NEW = {
+//     new: 700000,
+//   };
+
+//   const calculateSlabTax = (income, rate) => income * rate;
+
+//   let totalTax = 0;
+
+//   const NewtaxDetails = {};
+
+//   if (income >= TAX_REBATE_NEW.new) {
+//     NewtaxDetails.slab1 = calculateSlabTax(Math.min(income, 300000), 0);
+//     totalTax += NewtaxDetails.slab1;
+//     NewtaxDetails.slab2 = calculateSlabTax(
+//       Math.max(Math.min(income - 300000, 300000), 0),
+//       0.05
+//     );
+//     totalTax += NewtaxDetails.slab2;
+//     NewtaxDetails.slab3 = calculateSlabTax(
+//       Math.max(Math.min(income - 600000, 300000), 0),
+//       0.1
+//     );
+//     totalTax += NewtaxDetails.slab3;
+//     NewtaxDetails.slab4 = calculateSlabTax(
+//       Math.max(Math.min(income - 900000, 300000), 0),
+//       0.15
+//     );
+//     totalTax += NewtaxDetails.slab4;
+//     NewtaxDetails.slab5 = calculateSlabTax(
+//       Math.max(Math.min(income - 1200000, 300000), 0),
+//       0.2
+//     );
+//     totalTax += NewtaxDetails.slab5;
+//     NewtaxDetails.slab6 = calculateSlabTax(Math.max(income - 1500000, 0), 0.3);
+//     totalTax += NewtaxDetails.slab6;
+//   }
+
+//   localStorage.setItem("NewtaxDetails", JSON.stringify(NewtaxDetails));
+
+//   const calculateCess = (totalTax) => {
+//     const newCess = totalTax * 0.04;
+//     return newCess;
+//   };
+
+//   const newfinaltax = totalTax + calculateCess(totalTax);
+//   const newcess = totalTax*0.04;
+
+//   return { newfinaltax, newcess };
+// };
+
+// const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
+
+// const preferredSystem = NewFinalTax < OldFinalTax ? "NewRegime" : "OldRegime";
+
+// setRentedHouseIncome(Rented);
+// setDeemdedHouseIncome(Deemded);
+
+// setOldFinalTax(OldTax);
+// setOldFinalCess(Oldess);
+// setNewFinalTax(NewTax);
+// setNewFinalCess(Newcess);
+// setPreferredSystem(preferredSystem);
+
+// }, [Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA, OtherExemptedAllowances, ProfessionalTax, RentedhomeInterestPaid, RentedrentReceived, RentedmunicipalTax1, DeemedhomeInterestPaid, DeemedrentReceived, DeemedmunicipalTax1, RentedHouseIncome, DeemdedHouseIncome, BasicDeductions, Medical, EducationalLoan, Nps, Deposits, Charity, handleChange, formData, NewFinalTax, OldFinalTax, OwnHouseIncome]);
+
+
+useEffect(() => {
+  const numericSalary = parseFloat(Salary) || 0;
+  const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
+  const numericProfitIncome = parseFloat(ProfitIncome) || 0;
+  const numericHRA = parseFloat(HRA) || 0;
+  const numericLTA = parseFloat(LTA) || 0;
+  const numericOtherExemptedAllowances =
+    parseFloat(OtherExemptedAllowances) || 0;
+  const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
+  const numericOwnHouseIncome = parseFloat(OwnHouseIncome) || 0;
+
+  //house incomes
+  const numericRentedhomeInterest = parseFloat(RentedhomeInterestPaid) || 0;
+  const numericRentedrentReceived = parseFloat(RentedrentReceived) || 0;
+  const numericRentedmunicipalTax1 = parseFloat(RentedmunicipalTax1) || 0;
+
+  const numericDeemedhomeInterestPaid = parseFloat(DeemedhomeInterestPaid) || 0;
+  const numericDeemedrentReceived = parseFloat(DeemedrentReceived) || 0;
+  const numericDeemedmunicipalTax1 = parseFloat(DeemedmunicipalTax1) || 0;
+
+  const calculateSlabTax = (income, rate) => {
+    return income * rate;
+  };
+  const finalRentedIncome = calculateSlabTax(
+    numericRentedrentReceived - numericRentedmunicipalTax1,
+    0.3
+  );
+  const ReIncome =
+    numericRentedrentReceived - numericRentedmunicipalTax1 - finalRentedIncome;
+  const Rented = Math.min(ReIncome - numericRentedhomeInterest, 200000);
+  const finalDeemedIncome = calculateSlabTax(
+    numericDeemedrentReceived - numericDeemedmunicipalTax1,
+    0.3
+  );
+  const DeIncome =
+    numericDeemedrentReceived - numericDeemedmunicipalTax1 - finalDeemedIncome;
+
+  const Deemded = Math.min(DeIncome - numericDeemedhomeInterestPaid, 200000);
+
   const totalIncome =
     numericSalary +
     numericPrerequisiteIncome +
@@ -242,112 +418,180 @@ const calculateFinalTax = () => {
     numericLTA -
     numericOtherExemptedAllowances -
     numericProfessionalTax;
-  const totalDeductions =
-    BasicDeductions + Medical + EducationalLoan + Nps + Deposits + Charity;
-  const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
 
-  const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
-  const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
+  const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
 
-  return {
-    OldTax: Tax,
-    Oldess: ceSS,
-    NewTax: newfinaltax,
-    Newcess: newcess,
-  };
-};
+  setHeadIncome(updatedTotalIncome);
 
-// Function to calculate old regime tax
-const calculateOldRegimeTax = (income) => {
-  const TAX_REBATE = {
-    old: 250000,
-  };
+  //Tax calculation
+  const StandardDeductions = 50000;
 
-  const calculateSlabTax = (income, rate) => {
-    return income * rate;
-  };
+  const calculateFinalTax = () => {
+    const totalIncome =
+      numericSalary +
+      numericPrerequisiteIncome +
+      numericProfitIncome -
+      numericHRA -
+      numericLTA -
+      numericOtherExemptedAllowances -
+      numericProfessionalTax -
+      numericOwnHouseIncome +
+      Rented +
+      Deemded;
+    const totalDeductions =
+      BasicDeductions + Medical + EducationalLoan + Nps + Deposits + Charity;
+    const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
 
-  const calculateCess = (totalTax) => {
-    return totalTax * 0.04;
-  };
+    const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
+    const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
 
-  let totalTax = 0;
-
-  if (income >= TAX_REBATE.old) {
-    totalTax += calculateSlabTax(Math.min(income, 250000), 0);
-    totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 250000, 500000 - 250000), 0),
-      0.05
-    );
-    totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 500000, 1000000 - 500000), 0),
-      0.2
-    );
-    totalTax += calculateSlabTax(Math.max(income - 1000000, 0), 0.3);
-  }
-
-  const Tax = totalTax + calculateCess(totalTax);
-  const ceSS = calculateCess(totalTax);
-
-  return { Tax, ceSS };
-};
-
-const calculateNewRegimeTax = (income) => {
-  const TAX_REBATE_NEW = {
-    new: 700000,
+    return {
+      OldTax: Tax,
+      Oldess: ceSS,
+      NewTax: newfinaltax,
+      Newcess: newcess,
+    };
   };
 
-  const calculateSlabTax = (income, rate) => income * rate;
+  // Function to calculate old regime tax
+  const calculateOldRegimeTax = (income) => {
+    const TAX_REBATE = {
+      old: 500000,
+    };
 
-  let totalTax = 0;
+    const calculateSlabTax = (income, rate) => {
+      return income * rate;
+    };
 
-  if (income >= TAX_REBATE_NEW.new) {
-    totalTax += calculateSlabTax(Math.min(income, 300000), 0);
-    totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 300000, 300000), 0),
-      0.05
-    );
-    totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 600000, 300000), 0),
-      0.1
-    );
-    totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 900000, 300000), 0),
-      0.15
-    );
-    totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 1200000, 300000), 0),
-      0.2
-    );
-    totalTax += calculateSlabTax(Math.max(income - 1500000, 0), 0.3);
-  }
+    const calculateCess = (totalTax) => {
+      return totalTax * 0.04;
+    };
 
-  const calculateCess = (totalTax) => {
-    const newCess = totalTax * 0.04;
-    return newCess;
+    let totalTax = 0;
+    const OldtaxDetails = {};
+
+    if (income >= TAX_REBATE.old) {
+      OldtaxDetails.slab1 = calculateSlabTax(Math.min(income, 250000), 0);
+      totalTax += OldtaxDetails.slab1;
+      OldtaxDetails.slab2 = calculateSlabTax(
+        Math.min(Math.max(income - 250000, 0), 500000 - 250000),
+        0.05
+      );
+      totalTax += OldtaxDetails.slab2;
+      OldtaxDetails.slab3 = calculateSlabTax(
+        Math.min(Math.max(income - 500000, 0), 1000000 - 500000),
+        0.2
+      );
+      totalTax += OldtaxDetails.slab3;
+      OldtaxDetails.slab4 = calculateSlabTax(
+        Math.max(income - 1000000, 0),
+        0.3
+      );
+      totalTax += OldtaxDetails.slab4;
+    }
+
+    // Store OldtaxDetails in localStorage
+    localStorage.setItem("OldtaxDetails", JSON.stringify(OldtaxDetails));
+
+    const Tax = totalTax + calculateCess(totalTax);
+    const ceSS = calculateCess(totalTax);
+
+    return { Tax, ceSS };
   };
 
-  const newfinaltax = totalTax + calculateCess(totalTax);
-  const newcess = totalTax*0.04;
+  const calculateNewRegimeTax = (income) => {
+    const TAX_REBATE_NEW = {
+      new: 700000,
+    };
 
-  return { newfinaltax, newcess };
-};
+    const calculateSlabTax = (income, rate) => income * rate;
 
-const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
+    let totalTax = 0;
 
-const preferredSystem = NewFinalTax < OldFinalTax ? "NEW REGIME" : "OLD REGIME";
+      const NewtaxDetails = {};
 
-setRentedHouseIncome(Rented);
-setDeemdedHouseIncome(Deemded);
+      if (income >= TAX_REBATE_NEW.new) {
+        NewtaxDetails.slab1 = calculateSlabTax(Math.min(income, 300000), 0);
+        totalTax += NewtaxDetails.slab1;
+        NewtaxDetails.slab2 = calculateSlabTax(
+          Math.max(Math.min(income - 300000, 300000), 0),
+          0.05
+        );
+        totalTax += NewtaxDetails.slab2;
+        NewtaxDetails.slab3 = calculateSlabTax(
+          Math.max(Math.min(income - 600000, 300000), 0),
+          0.1
+        );
+        totalTax += NewtaxDetails.slab3;
+        NewtaxDetails.slab4 = calculateSlabTax(
+          Math.max(Math.min(income - 900000, 300000), 0),
+          0.15
+        );
+        totalTax += NewtaxDetails.slab4;
+        NewtaxDetails.slab5 = calculateSlabTax(
+          Math.max(Math.min(income - 1200000, 300000), 0),
+          0.2
+        );
+        totalTax += NewtaxDetails.slab5;
+        NewtaxDetails.slab6 = calculateSlabTax(
+          Math.max(income - 1500000, 0),
+          0.3
+        );
+        totalTax += NewtaxDetails.slab6;
+      }
 
-setOldFinalTax(OldTax);
-setOldFinalCess(Oldess);
-setNewFinalTax(NewTax);
-setNewFinalCess(Newcess);
-setPreferredSystem(preferredSystem);
+    localStorage.setItem("NewtaxDetails", JSON.stringify(NewtaxDetails));
 
-}, [Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA, OtherExemptedAllowances, ProfessionalTax, RentedhomeInterestPaid, RentedrentReceived, RentedmunicipalTax1, DeemedhomeInterestPaid, DeemedrentReceived, DeemedmunicipalTax1, RentedHouseIncome, DeemdedHouseIncome, BasicDeductions, Medical, EducationalLoan, Nps, Deposits, Charity, handleChange, formData, NewFinalTax, OldFinalTax]);
+    const calculateCess = (totalTax) => {
+      const newCess = totalTax * 0.04;
+      return newCess;
+    };
 
+    const newfinaltax = totalTax + calculateCess(totalTax);
+    const newcess = totalTax * 0.04;
+
+    return { newfinaltax, newcess };
+  };
+
+  const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
+
+  const preferredSystem = NewFinalTax < OldFinalTax ? "NewRegime" : "OldRegime";
+
+  setRentedHouseIncome(Rented);
+  setDeemdedHouseIncome(Deemded);
+
+  setOldFinalTax(OldTax);
+  setOldFinalCess(Oldess);
+  setNewFinalTax(NewTax);
+  setNewFinalCess(Newcess);
+  setPreferredSystem(preferredSystem);
+}, [
+  Salary,
+  PrerequisiteIncome,
+  ProfitIncome,
+  OtherIncome,
+  HRA,
+  LTA,
+  OtherExemptedAllowances,
+  ProfessionalTax,
+  RentedhomeInterestPaid,
+  RentedrentReceived,
+  RentedmunicipalTax1,
+  DeemedhomeInterestPaid,
+  DeemedrentReceived,
+  DeemedmunicipalTax1,
+  RentedHouseIncome,
+  DeemdedHouseIncome,
+  BasicDeductions,
+  Medical,
+  EducationalLoan,
+  Nps,
+  Deposits,
+  Charity,
+  NewFinalTax,
+  OldFinalTax,
+  OwnHouseIncome,
+]);
 
      const Token = localStorage.getItem("token");
 
@@ -398,7 +642,7 @@ async function onSubmit(e) {
   if (isCheckboxChecked) {
     try {
       const response = await axios.post(
-        "https://taxsaarthi.onrender.com/policy/oldreign",
+        "http://localhost:8000/policy/oldreign",
         {
           Token,
           AadharNo,
@@ -1062,7 +1306,7 @@ async function onSubmit(e) {
                         <ImageModal
                           src="https://assets1.cleartax-cdn.com/cleartax/images/1629905424_173form12ba.png"
                           headerTitle="These are the benefits given to you by your employer, in addition to wages or salary. These typically include the following:"
-                          show={ProfitIncome}
+                          show={showProfitsModal}
                           handleClose={() => setShowProfitsModal(false)}
                         />
                       </span>
