@@ -12,14 +12,16 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const data = {name,email,password,confirmPassword};
 
 
-  function handleClick(e) {
+  async function handleClick(e) {
     e.preventDefault();
-    axios
+    setLoading(true);
+    await axios
       .post("https://taxsaarthi.onrender.com/user/signup", {
         name,
         email,
@@ -86,13 +88,11 @@ function SignUp() {
         }}
       />
       <div className="button">
-        <button className="login-button"
-        onClick={handleClick}
-        >
-          Sign Up
+        <button className="login-button" onClick={handleClick}>
+          {loading ? "Signing In..." : "SignUp"}
         </button>
         <span className="password-toggle" onClick={togglePasswordVisibility}>
-          {showPassword? <AiFillEye /> : <AiFillEyeInvisible />}
+          {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
         </span>
       </div>
     </Stack>
