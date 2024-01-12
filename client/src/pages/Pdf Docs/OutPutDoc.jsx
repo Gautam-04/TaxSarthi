@@ -187,7 +187,9 @@ const OldtaxDetails = OldtaxDetailsFromLocalStorage ? JSON.parse(OldtaxDetailsFr
           </div>
           <div className="EmployerInfo">
             <h4 className="inv-title-1">Employer Details</h4>
-            <h2 className="name mb-10">Employer Name</h2>
+            <h2 className="name mb-10">
+              {userData ? userData.employerName : "N/A"}
+            </h2>
             <p>
               <span>
                 <strong>employerAddress: </strong>{" "}
