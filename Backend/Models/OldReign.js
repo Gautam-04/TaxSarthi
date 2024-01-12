@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const OldSchema = new mongoose.Schema({
   Token: { type: String, required: true },
-  //
+  
   AadharNo: { type: Number, default: 0, unique: true },
   // Personal Information
   FirstName: { type: String, default: "" },
@@ -42,12 +42,25 @@ const OldSchema = new mongoose.Schema({
 
   OwnHouseIncome: { type: Number, default: 0 },
 
-  BasicDeductions: { type: Number, default: 0 },
-  Medical: { type: Number, default: 0 },
-  EducationalLoan: { type: Number, default: 0 },
-  Nps: { type: Number, default: 0 },
-  Deposits: { type: Number, default: 0 },
-  Charity: { type: Number, default: 0 },
+  section80C: { type: Number, default: 0 },
+  section80CCC: { type: Number, default: 0 },
+  section80CCD1: { type: Number, default: 0 },
+  section80CCD2: { type: Number, default: 0 },
+  section80CCD1B: { type: Number, default: 0 },
+  section80CCF: { type: Number, default: 0 },
+  section80CCG: { type: Number, default: 0 },
+  section80D: { type: Number, default: 0 },
+  section80DD: { type: Number, default: 0 },
+  section80DDB: { type: Number, default: 0 },
+  section80E: { type: Number, default: 0 },
+  section80EE: { type: Number, default: 0 },
+  section80G: { type: Number, default: 0 },
+  section80GGA: { type: Number, default: 0 },
+  section80GGC: { type: Number, default: 0 },
+  section80QQB: { type: Number, default: 0 },
+  section80RRB: { type: Number, default: 0 },
+  section80TTA: { type: Number, default: 0 },
+  section80U: { type: Number, default: 0 },
 
   RentedHouseIncome: { type: Number, default: 0 },
   DeemdedHouseIncome: { type: Number, default: 0 },
@@ -82,12 +95,25 @@ OldSchema.pre("save", function (next) {
     this.DeemdedHouseIncome;
 
   this.TotalDeductions =
-    this.BasicDeductions +
-    this.Medical +
-    this.EducationalLoan +
-    this.Nps +
-    this.Deposits +
-    this.Charity +
+    this.section80C +
+    this.section80CCC +
+    this.section80CCD1 +
+    this.section80CCD2 +
+    this.section80CCD1B +
+    this.section80CCF +
+    this.section80CCG +
+    this.section80D +
+    this.section80DD +
+    this.section80DDB +
+    this.section80E +
+    this.section80EE +
+    this.section80G +
+    this.section80GGA +
+    this.section80GGC +
+    this.section80QQB +
+    this.section80RRB +
+    this.section80TTA +
+    this.section80U +
     this.HRA +
     this.LTA +
     this.OtherExemptedAllowances +

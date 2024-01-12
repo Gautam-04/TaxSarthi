@@ -3,11 +3,10 @@ import "../Form.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import FormControl from "react-bootstrap/FormControl";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { toast } from "react-toastify";
 import "../Accordion.css";
 import { FaMoneyBills } from "react-icons/fa6";
 import { TbPigMoney } from "react-icons/tb";
@@ -16,10 +15,22 @@ import { BsFillHouseAddFill } from "react-icons/bs";
 import Accordion from "react-bootstrap/Accordion";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import ImageModal from "../../../components/mis/ImageModal";
+import { NumericFormat } from "react-number-format";
 
-const IncomeInfo = ({ formData, onChange }) => {
-  const { Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA,  OtherExemptedAllowances, ProfessionalTax,   OwnHouseIncome, RentedHouseIncome, DeemdedHouseIncome,} =
-    formData;
+const IncomeInfo = ({ formData, onChange, handleLimitFunction }) => {
+  const {
+    Salary,
+    PrerequisiteIncome,
+    ProfitIncome,
+    OtherIncome,
+    HRA,
+    LTA,
+    OtherExemptedAllowances,
+    ProfessionalTax,
+    OwnHouseIncome,
+    RentedHouseIncome,
+    DeemdedHouseIncome,
+  } = formData;
 
   const Link = ({ id, children, title }) => (
     <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
@@ -29,18 +40,17 @@ const IncomeInfo = ({ formData, onChange }) => {
     </OverlayTrigger>
   );
 
-      const [showIncomeModal, setShowIncomeModal] = useState(false);
-      const [showProfitsModal, setShowProfitsModal] = useState(false);
-      const [HeadIncome, setHeadIncome] = useState(0)
+  const [showIncomeModal, setShowIncomeModal] = useState(false);
+  const [showProfitsModal, setShowProfitsModal] = useState(false);
+  const [HeadIncome, setHeadIncome] = useState(0);
 
+  const [RentedhomeInterestPaid, setRentedHomeInterestPaid] = useState(0);
+  const [RentedrentReceived, setRentedRentReceived] = useState(0);
+  const [RentedmunicipalTax1, setRentedMunicipalTax1] = useState(0);
 
-      const [RentedhomeInterestPaid, setRentedHomeInterestPaid] = useState(0);
-      const [RentedrentReceived, setRentedRentReceived] = useState(0);
-      const [RentedmunicipalTax1, setRentedMunicipalTax1] = useState(0);
-
-      const [DeemedhomeInterestPaid, setDeemedHomeInterestPaid] = useState(0);
-      const [DeemedrentReceived, setDeemedRentReceived] = useState(0);
-      const [DeemedmunicipalTax1, setDeemedMunicipalTax1] = useState(0);
+  const [DeemedhomeInterestPaid, setDeemedHomeInterestPaid] = useState(0);
+  const [DeemedrentReceived, setDeemedRentReceived] = useState(0);
+  const [DeemedmunicipalTax1, setDeemedMunicipalTax1] = useState(0);
 
   useEffect(() => {
     const numericSalary = parseFloat(Salary) || 0;
@@ -64,8 +74,24 @@ const IncomeInfo = ({ formData, onChange }) => {
     const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
 
     setHeadIncome(updatedTotalIncome);
-  }, [Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA, OtherExemptedAllowances, ProfessionalTax, RentedhomeInterestPaid, RentedrentReceived, RentedmunicipalTax1, DeemedhomeInterestPaid, DeemedrentReceived, DeemedmunicipalTax1, onChange, formData]);
-  
+  }, [
+    Salary,
+    PrerequisiteIncome,
+    ProfitIncome,
+    OtherIncome,
+    HRA,
+    LTA,
+    OtherExemptedAllowances,
+    ProfessionalTax,
+    RentedhomeInterestPaid,
+    RentedrentReceived,
+    RentedmunicipalTax1,
+    DeemedhomeInterestPaid,
+    DeemedrentReceived,
+    DeemedmunicipalTax1,
+    onChange,
+    formData,
+  ]);
 
   useEffect(() => {
     //house incomes
@@ -121,8 +147,6 @@ const IncomeInfo = ({ formData, onChange }) => {
     RentedHouseIncome,
     DeemdedHouseIncome,
   ]);
-  
-
 
   return (
     <>
@@ -157,12 +181,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={Salary}
-                  onChange={(e) =>
-                    onChange({ Salary: parseInt(e.target.value, 10) || 0 })
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    onChange({
+                      Salary: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -185,14 +215,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                     />
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={PrerequisiteIncome}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
                     onChange({
-                      PrerequisiteIncome: parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      PrerequisiteIncome: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
 
@@ -211,19 +245,23 @@ const IncomeInfo = ({ formData, onChange }) => {
                     <ImageModal
                       src="https://assets1.cleartax-cdn.com/cleartax/images/1629905424_173form12ba.png"
                       headerTitle="These are the benefits given to you by your employer, in addition to wages or salary. These typically include the following:"
-                      show={ProfitIncome}
+                      show={showProfitsModal}
                       handleClose={() => setShowProfitsModal(false)}
                     />
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={ProfitIncome}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
                     onChange({
-                      PrerequisiteIncome: parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      ProfitIncome: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
             </Row>
@@ -262,14 +300,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={HRA}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
                     onChange({
-                      HRA: parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      HRA: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -285,14 +327,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={LTA}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
                     onChange({
-                      LTA: parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      LTA: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -308,15 +354,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={OtherExemptedAllowances}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
                     onChange({
-                      OtherExemptedAllowances:
-                        parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      OtherExemptedAllowances: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
             </Row>
@@ -334,14 +383,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={ProfessionalTax}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
                     onChange({
-                      ProfessionalTax: parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      ProfessionalTax: parseInt(floatValue, 10) || 0,
+                    });
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -357,7 +410,14 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control disabled placeholder="0" value={HeadIncome} />
+                <NumericFormat
+                  disabled
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
+                  value={HeadIncome}
+                />
               </Form.Group>
             </Row>
           </AccordionBody>
@@ -398,14 +458,24 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={OwnHouseIncome}
-                  onChange={(e) =>
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    const inputElement = document.activeElement; // Get the currently focused input element
+
                     onChange({
-                      OwnHouseIncome: parseInt(e.target.value, 10) || 0,
-                    })
-                  }
+                      OwnHouseIncome: handleLimitFunction(
+                        inputElement,
+                        parseInt(parseInt(floatValue, 10) || 0, 10) || 0,
+                        200000
+                      ),
+                    });
+                  }}
                 />
               </Form.Group>
             </Row>
@@ -439,12 +509,16 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={RentedrentReceived}
-                  onChange={(e) =>
-                    setRentedRentReceived(parseInt(e.target.value, 10) || 0)
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    setRentedRentReceived(parseInt(floatValue, 10) || 0);
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -460,12 +534,16 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={RentedmunicipalTax1}
-                  onChange={(e) =>
-                    setRentedMunicipalTax1(parseInt(e.target.value, 10) || 0)
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    setRentedMunicipalTax1(parseInt(floatValue, 10) || 0);
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -481,12 +559,24 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={RentedhomeInterestPaid}
-                  onChange={(e) =>
-                    setRentedHomeInterestPaid(parseInt(e.target.value, 10) || 0)
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    const inputElement = document.activeElement; // Get the currently focused input element
+
+                    setRentedHomeInterestPaid(
+                      handleLimitFunction(
+                        inputElement,
+                        parseInt(parseInt(floatValue, 10) || 0, 10) || 0,
+                        200000
+                      )
+                    );
+                  }}
                 />
               </Form.Group>
             </Row>
@@ -520,12 +610,16 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={DeemedrentReceived}
-                  onChange={(e) =>
-                    setDeemedRentReceived(parseInt(e.target.value, 10) || 0)
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    setDeemedRentReceived(parseInt(floatValue, 10) || 0);
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -541,12 +635,16 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={DeemedmunicipalTax1}
-                  onChange={(e) =>
-                    setDeemedMunicipalTax1(parseInt(e.target.value, 10) || 0)
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    setDeemedMunicipalTax1(parseInt(floatValue, 10) || 0);
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
@@ -562,12 +660,24 @@ const IncomeInfo = ({ formData, onChange }) => {
                     </Link>
                   </span>
                 </Form.Label>
-                <Form.Control
-                  placeholder="0"
+                <NumericFormat
+                  placeholder="₹ 0"
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                  customInput={FormControl}
                   value={DeemedhomeInterestPaid}
-                  onChange={(e) =>
-                    setDeemedHomeInterestPaid(parseInt(e.target.value, 10) || 0)
-                  }
+                  onValueChange={(values) => {
+                    const { floatValue } = values;
+                    const inputElement = document.activeElement; // Get the currently focused input element
+
+                    setDeemedHomeInterestPaid(
+                      handleLimitFunction(
+                        inputElement,
+                        parseInt(parseInt(floatValue, 10) || 0, 10) || 0,
+                        200000
+                      )
+                    );
+                  }}
                 />
               </Form.Group>
             </Row>
@@ -604,12 +714,18 @@ const IncomeInfo = ({ formData, onChange }) => {
                   </Link>
                 </span>
               </Form.Label>
-              <Form.Control
-                placeholder="0"
+              <NumericFormat
+                placeholder="₹ 0"
+                thousandSeparator={true}
+                prefix={"₹"}
+                customInput={FormControl}
                 value={OtherIncome}
-                onChange={(e) =>
-                  onChange({ OtherIncome: parseInt(e.target.value, 10) || 0 })
-                }
+                onValueChange={(values) => {
+                  const { floatValue } = values;
+                  onChange({
+                    OtherIncome: parseInt(floatValue, 10) || 0,
+                  });
+                }}
               />
             </Form.Group>
           </AccordionBody>

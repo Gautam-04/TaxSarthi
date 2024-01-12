@@ -19,7 +19,7 @@ import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { FaRegCircleUser, FaRegAddressCard } from "react-icons/fa6";
 
 
-const PersonalInfo = ({ formData, onChange }) => {
+const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
   const {
     FirstName,
     MiddleName,
@@ -39,7 +39,7 @@ const PersonalInfo = ({ formData, onChange }) => {
     PinCode,
   } = formData;
 
-    const [sameAsAddress, setSameAsAddress] = useState(false);
+  const [sameAsAddress, setSameAsAddress] = useState(false);
 
   const Link = ({ id, children, title }) => (
     <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
@@ -49,13 +49,13 @@ const PersonalInfo = ({ formData, onChange }) => {
     </OverlayTrigger>
   );
 
-    const handleGenderChange = (e) => {
-      onChange({ Gender: e.target.value });
-    };
+  const handleGenderChange = (e) => {
+    onChange({ Gender: e.target.value });
+  };
 
-    const handleMarriedChange = (e) => {
-      onChange({ MaritalStatus: e.target.value });
-    }
+  const handleMarriedChange = (e) => {
+    onChange({ MaritalStatus: e.target.value });
+  };
 
   return (
     <div>
@@ -92,7 +92,6 @@ const PersonalInfo = ({ formData, onChange }) => {
                     placeholder="First Name "
                     onChange={(e) => {
                       onChange({ FirstName: e.target.value });
-                      
                     }}
                   />
                 </FloatingLabel>
@@ -109,7 +108,6 @@ const PersonalInfo = ({ formData, onChange }) => {
                     placeholder="Middle Name"
                     onChange={(e) => {
                       onChange({ MiddleName: e.target.value });
-                      
                     }}
                   />
                 </FloatingLabel>
@@ -126,7 +124,6 @@ const PersonalInfo = ({ formData, onChange }) => {
                     placeholder="Last Name"
                     onChange={(e) => {
                       onChange({ LastName: e.target.value });
-                      
                     }}
                   />
                 </FloatingLabel>
