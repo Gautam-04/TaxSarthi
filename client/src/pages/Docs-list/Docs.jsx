@@ -39,7 +39,7 @@ function Docs() {
   function handleClick() {
     if (isAllChecked()) {
     alert("Please fill the form in one go or all progress will be lost");
-      navigate("/form-filling");
+      navigate("/old");
     } else {
       alert("Please check all required checkboxes before proceeding.");
     }

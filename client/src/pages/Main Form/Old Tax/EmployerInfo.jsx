@@ -15,7 +15,7 @@ import "../Accordion.css";
 import { toast } from "react-toastify";
 import ImageModal from "../../../components/mis/ImageModal";
 
-const EmployerInfo = ({ formData, onChange }) => {
+const EmployerInfo = ({ formData, onChange, handleLimitFunction }) => {
   const {
     employerName,
     employerAddress,
@@ -23,17 +23,16 @@ const EmployerInfo = ({ formData, onChange }) => {
     tanNumber,
     employeeReferenceNo,
     Year,
-    TaxDeducted
+    TaxDeducted,
   } = formData;
 
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = (e) => {
-      e.preventDefault();
-      setShow(true)
-    }
-
+  const handleClose = () => setShow(false);
+  const handleShow = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
 
   const Link = ({ id, children, title }) => (
     <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
@@ -97,16 +96,15 @@ const EmployerInfo = ({ formData, onChange }) => {
                 <Form.Label style={{ display: "flex", alignItems: "center" }}>
                   TAN Of the Deductor
                   <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link 
-                  id="t-2"
-                  title="Click To view a sample">
-                    <IoInformationCircleOutline onClick={handleShow} />
-                  </Link>
+                    <Link id="t-2" title="Click To view a sample">
+                      <IoInformationCircleOutline onClick={handleShow} />
+                    </Link>
                     <ImageModal
                       src="https://assets1.cleartax-cdn.com/cleartax/images/1629801946_employerdetails.png"
                       headerTitle="Ensure that you add the Employer Name and Employer TAN from your form 16"
                       show={show}
-                      handleClose={handleClose}/>
+                      handleClose={handleClose}
+                    />
                   </span>
                 </Form.Label>
                 <Form.Control

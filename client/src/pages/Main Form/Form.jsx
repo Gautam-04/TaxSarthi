@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 import React,{useState,useEffect,useCallback} from 'react'
 import './Form.css'
@@ -20,10 +21,12 @@ import {
   FaRegAddressCard,
   FaLaptopCode,
 } from "react-icons/fa6";
-import { FaMoneyBills } from "react-icons/fa6";
+import { GrMoney } from "react-icons/gr";
+import { FaMoneyBills, FaMoneyBillTrendUp } from "react-icons/fa6";
 import { TbPigMoney } from "react-icons/tb";
-import { GiReceiveMoney } from "react-icons/gi";
+import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 import { BsFillHouseAddFill } from "react-icons/bs";
+import { MdCastForEducation } from "react-icons/md";
 import "./Accordion.css";
 import ImageModal from "../../components/mis/ImageModal";
 import { useNavigate } from 'react-router-dom';
@@ -125,12 +128,10 @@ const {
   TaxDeducted,
 } = formData;
 
-
-
-
  //Checkboxes
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [sameAsAddress, setSameAsAddress] = useState(false);
+  const [show, setShow] = useState(false);
 
 const handleChange = useCallback((newData) => {
   setFormData((prevFormData) => ({ ...prevFormData, ...newData }));
@@ -163,6 +164,40 @@ const [Nps, setNps] = useState(0);
 const [Deposits, setDeposits] = useState(0);
 const [Charity, setCharity] = useState(0);
 
+//Deductions according to the number
+const [section80C, setSection80C] = useState(0);
+const [section80CCC, setSection80CCC] = useState(0);
+const [section80CCD1, setSection80CCD1] = useState(0);
+const [section80CCD2, setSection80CCD2] = useState(0);
+const [section80CCD1B, setSection80CCD1B] = useState(0);
+const [section80CCF, setSection80CCF] = useState(0);
+const [section80CCG, setSection80CCG] = useState(0);
+const [section80D, setSection80D] = useState(0);
+const [section80DD, setSection80DD] = useState(0);
+const [section80DDB, setSection80DDB] = useState(0);
+const [section80E, setSection80E] = useState(0);
+const [section80EE, setSection80EE] = useState(0);
+const [section80G, setSection80G] = useState(0);
+const [section80GGA, setSection80GGA] = useState(0);
+const [section80GGC, setSection80GGC] = useState(0);
+const [section80QQB, setSection80QQB] = useState(0);
+const [section80RRB, setSection80RRB] = useState(0);
+const [section80TTA, setSection80TTA] = useState(0);
+const [section80U, setSection80U] = useState(0);
+
+// const [section80GGB, setSection80GGB] = useState(0);
+// const [section80GG, setSection80GG] = useState(0);
+// const [section80IA, setSection80IA] = useState(0);
+// const [section80IAB, setSection80IAB] = useState(0);
+// const [section80IB, setSection80IB] = useState(0);
+// const [section80IC, setSection80IC] = useState(0);
+// const [section80ID, setSection80ID] = useState(0);
+// const [section80IE, setSection80IE] = useState(0);
+// const [section80JJA, setSection80JJA] = useState(0);
+// const [section80JJAA, setSection80JJAA] = useState(0);
+// const [section80LA, setSection80LA] = useState(0);
+// const [section80P, setSection80P] = useState(0);
+
 
      const [showIncomeModal, setShowIncomeModal] = useState(false);
      const [showProfitsModal, setShowProfitsModal] = useState(false);
@@ -175,201 +210,6 @@ const [Charity, setCharity] = useState(0);
      const [DeemedhomeInterestPaid, setDeemedHomeInterestPaid] = useState(0);
      const [DeemedrentReceived, setDeemedRentReceived] = useState(0);
      const [DeemedmunicipalTax1, setDeemedMunicipalTax1] = useState(0);
-
-//      useEffect(() => {
-//        const numericSalary = parseFloat(Salary) || 0;
-//        const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
-//        const numericProfitIncome = parseFloat(ProfitIncome) || 0;
-//        const numericHRA = parseFloat(HRA) || 0;
-//        const numericLTA = parseFloat(LTA) || 0;
-//        const numericOtherExemptedAllowances =
-//          parseFloat(OtherExemptedAllowances) || 0;
-//        const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
-//        const numericOwnHouseIncome = parseFloat(OwnHouseIncome) || 0;
-
-//        //house incomes
-//        const numericRentedhomeInterest =
-//          parseFloat(RentedhomeInterestPaid) || 0;
-//        const numericRentedrentReceived = parseFloat(RentedrentReceived) || 0;
-//        const numericRentedmunicipalTax1 = parseFloat(RentedmunicipalTax1) || 0;
-
-//        const numericDeemedhomeInterestPaid =
-//          parseFloat(DeemedhomeInterestPaid) || 0;
-//        const numericDeemedrentReceived = parseFloat(DeemedrentReceived) || 0;
-//        const numericDeemedmunicipalTax1 = parseFloat(DeemedmunicipalTax1) || 0;
-
-//        const calculateSlabTax = (income, rate) => {
-//          return income * rate;
-//        };
-//        const finalRentedIncome = calculateSlabTax(
-//          numericRentedrentReceived - numericRentedmunicipalTax1,
-//          0.3
-//        );
-//        const ReIncome = numericRentedrentReceived - numericRentedmunicipalTax1 - finalRentedIncome;
-//        const Rented = Math.min(ReIncome - numericRentedhomeInterest, 200000);
-//        const finalDeemedIncome = calculateSlabTax(
-//          numericDeemedrentReceived - numericDeemedmunicipalTax1,
-//          0.3
-//        );
-//        const DeIncome = numericDeemedrentReceived - numericDeemedmunicipalTax1 - finalDeemedIncome;
-
-//        const Deemded = Math.min(
-//          DeIncome - numericDeemedhomeInterestPaid,
-//          200000
-//        );
-
-//        const totalIncome =
-//          numericSalary +
-//          numericPrerequisiteIncome +
-//          numericProfitIncome -
-//          numericHRA -
-//          numericLTA -
-//          numericOtherExemptedAllowances -
-//          numericProfessionalTax;
-
-//        const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
-
-//        setHeadIncome(updatedTotalIncome);
-
-// //Tax calculation
-// const StandardDeductions = 50000;
-
-// const calculateFinalTax = () => {
-//   const totalIncome =
-//     numericSalary +
-//     numericPrerequisiteIncome +
-//     numericProfitIncome -
-//     numericHRA -
-//     numericLTA -
-//     numericOtherExemptedAllowances -
-//     numericProfessionalTax -
-//     numericOwnHouseIncome +
-//     Rented +
-//     Deemded;
-//   const totalDeductions =
-//     BasicDeductions + Medical + EducationalLoan + Nps + Deposits + Charity;
-//   const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
-
-//   const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
-//   const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
-
-//   return {
-//     OldTax: Tax,
-//     Oldess: ceSS,
-//     NewTax: newfinaltax,
-//     Newcess: newcess,
-//   };
-// };
-
-// // Function to calculate old regime tax
-// const calculateOldRegimeTax = (income) => {
-//   const TAX_REBATE = {
-//     old: 500000,
-//   };
-
-//   const OldtaxDetails = {};
-
-//   const calculateSlabTax = (income, rate) => {
-//     return income * rate;
-//   };
-
-//   const calculateCess = (totalTax) => {
-//     return totalTax * 0.04;
-//   };
-
-//   let totalTax = 0;
-
-//   if (income >= TAX_REBATE.old) {
-//     OldtaxDetails.slab1 = calculateSlabTax(Math.min(income, 250000), 0);
-//         totalTax += OldtaxDetails.slab1;
-//         OldtaxDetails.slab2 = calculateSlabTax(
-//           Math.max(Math.min(income - 250000, 500000 - 250000), 0),
-//           0.05
-//         );
-//         totalTax += OldtaxDetails.slab2;
-//         OldtaxDetails.slab3 = calculateSlabTax(
-//           Math.max(Math.min(income - 500000, 1000000 - 500000), 0),
-//           0.2
-//         );
-//         totalTax += OldtaxDetails.slab3;
-//         OldtaxDetails.slab4 = calculateSlabTax(Math.max(income - 1000000, 0), 0.3);
-//         totalTax += OldtaxDetails.slab4;
-//       }
-
-//       localStorage.setItem("OldtaxDetails", JSON.stringify(OldtaxDetails));
-
-//   const Tax = totalTax + calculateCess(totalTax);
-//   const ceSS = calculateCess(totalTax);
-
-//   return { Tax, ceSS };
-// };
-
-// const calculateNewRegimeTax = (income) => {
-//   const TAX_REBATE_NEW = {
-//     new: 700000,
-//   };
-
-//   const calculateSlabTax = (income, rate) => income * rate;
-
-//   let totalTax = 0;
-
-//   const NewtaxDetails = {};
-
-//   if (income >= TAX_REBATE_NEW.new) {
-//     NewtaxDetails.slab1 = calculateSlabTax(Math.min(income, 300000), 0);
-//     totalTax += NewtaxDetails.slab1;
-//     NewtaxDetails.slab2 = calculateSlabTax(
-//       Math.max(Math.min(income - 300000, 300000), 0),
-//       0.05
-//     );
-//     totalTax += NewtaxDetails.slab2;
-//     NewtaxDetails.slab3 = calculateSlabTax(
-//       Math.max(Math.min(income - 600000, 300000), 0),
-//       0.1
-//     );
-//     totalTax += NewtaxDetails.slab3;
-//     NewtaxDetails.slab4 = calculateSlabTax(
-//       Math.max(Math.min(income - 900000, 300000), 0),
-//       0.15
-//     );
-//     totalTax += NewtaxDetails.slab4;
-//     NewtaxDetails.slab5 = calculateSlabTax(
-//       Math.max(Math.min(income - 1200000, 300000), 0),
-//       0.2
-//     );
-//     totalTax += NewtaxDetails.slab5;
-//     NewtaxDetails.slab6 = calculateSlabTax(Math.max(income - 1500000, 0), 0.3);
-//     totalTax += NewtaxDetails.slab6;
-//   }
-
-//   localStorage.setItem("NewtaxDetails", JSON.stringify(NewtaxDetails));
-
-//   const calculateCess = (totalTax) => {
-//     const newCess = totalTax * 0.04;
-//     return newCess;
-//   };
-
-//   const newfinaltax = totalTax + calculateCess(totalTax);
-//   const newcess = totalTax*0.04;
-
-//   return { newfinaltax, newcess };
-// };
-
-// const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
-
-// const preferredSystem = NewFinalTax < OldFinalTax ? "NewRegime" : "OldRegime";
-
-// setRentedHouseIncome(Rented);
-// setDeemdedHouseIncome(Deemded);
-
-// setOldFinalTax(OldTax);
-// setOldFinalCess(Oldess);
-// setNewFinalTax(NewTax);
-// setNewFinalCess(Newcess);
-// setPreferredSystem(preferredSystem);
-
-// }, [Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA, OtherExemptedAllowances, ProfessionalTax, RentedhomeInterestPaid, RentedrentReceived, RentedmunicipalTax1, DeemedhomeInterestPaid, DeemedrentReceived, DeemedmunicipalTax1, RentedHouseIncome, DeemdedHouseIncome, BasicDeductions, Medical, EducationalLoan, Nps, Deposits, Charity, handleChange, formData, NewFinalTax, OldFinalTax, OwnHouseIncome]);
-
 
 useEffect(() => {
   const numericSalary = parseFloat(Salary) || 0;
@@ -439,7 +279,26 @@ useEffect(() => {
       Rented +
       Deemded;
     const totalDeductions =
-      BasicDeductions + Medical + EducationalLoan + Nps + Deposits + Charity;
+      section80C +
+      section80CCC +
+      section80CCD1 +
+      section80CCD2 +
+      section80CCD1B +
+      section80CCF +
+      section80CCG +
+      section80D +
+      section80DD +
+      section80DDB +
+      section80E +
+      section80EE +
+      section80G +
+      section80GGA +
+      section80GGC +
+      section80QQB +
+      section80RRB +
+      section80TTA +
+      section80U;
+      
     const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
 
     const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
@@ -565,50 +424,24 @@ useEffect(() => {
   setNewFinalTax(NewTax);
   setNewFinalCess(Newcess);
   setPreferredSystem(preferredSystem);
-}, [
-  Salary,
-  PrerequisiteIncome,
-  ProfitIncome,
-  OtherIncome,
-  HRA,
-  LTA,
-  OtherExemptedAllowances,
-  ProfessionalTax,
-  RentedhomeInterestPaid,
-  RentedrentReceived,
-  RentedmunicipalTax1,
-  DeemedhomeInterestPaid,
-  DeemedrentReceived,
-  DeemedmunicipalTax1,
-  RentedHouseIncome,
-  DeemdedHouseIncome,
-  BasicDeductions,
-  Medical,
-  EducationalLoan,
-  Nps,
-  Deposits,
-  Charity,
-  NewFinalTax,
-  OldFinalTax,
-  OwnHouseIncome,
-]);
+}, [Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA, OtherExemptedAllowances, ProfessionalTax, RentedhomeInterestPaid, RentedrentReceived, RentedmunicipalTax1, DeemedhomeInterestPaid, DeemedrentReceived, DeemedmunicipalTax1, RentedHouseIncome, DeemdedHouseIncome, NewFinalTax, OldFinalTax, OwnHouseIncome, section80C, section80CCC, section80CCD1, section80CCD2, section80CCD1B, section80CCF, section80CCG, section80D, section80DD, section80DDB, section80E, section80EE, section80G, section80GGA, section80GGC, section80QQB, section80RRB, section80TTA, section80U]);
 
-     const Token = localStorage.getItem("token");
+  const Token = localStorage.getItem("token");
 
+  const handleLimitFunction = (e,value,limit) => {
+    const inputValue = parseInt(value, 10) || 0;
 
-  // const handleHousingLoanChange = (e) => {
-  //   const inputValue = parseInt(e.target.value, 10) || 0;
-  //   const limit = 150000;
+      if (inputValue > limit) {
+    // Perform some operation when value exceeds the limit
+    toast.error(`Max Limit is Rs ${limit}`);
+    e.target.style.borderColor = "red";
+    return inputValue; // You can set it to the limit or perform a different operation here
+  }
 
-  //   if (inputValue > limit) {
-  //     toast.error("Keep the amount less than Rs 1,50,000");
-  //     e.target.style.borderColor = "red";
-  //   } else {
-  //     e.target.style.borderColor = "";
-  //   }
-
-  //   handleChange({ HousingLoan: inputValue });
-  // };
+  // If value is within the limit, return the original value
+  e.target.style.borderColor = "";
+  return inputValue;
+  };
 
 
 const Link = ({ id, children, title }) => (
@@ -625,12 +458,6 @@ const Link = ({ id, children, title }) => (
       handleChange({ MaritalStatus: e.target.value });
     };
 
-// const updateName = () => {
-//   setName(`${FirstName} ${MiddleName} ${LastName}`);
-// };
-
-    const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = (e) => {
       e.preventDefault();
@@ -639,6 +466,7 @@ const Link = ({ id, children, title }) => (
 
 async function onSubmit(e) {
   e.preventDefault();
+  console.log(OldFinalTax,OldFinalCess,NewFinalTax,NewFinalCess)
   if (isCheckboxChecked) {
     try {
       const response = await axios.post(
@@ -678,12 +506,27 @@ async function onSubmit(e) {
           OtherExemptedAllowances,
           ProfessionalTax,
           OwnHouseIncome,
-          BasicDeductions,
-          Medical,
-          EducationalLoan,
-          Nps,
-          Deposits,
-          Charity,
+          //deductions
+          section80C ,
+      section80CCC ,
+      section80CCD1 ,
+      section80CCD2 ,
+      section80CCD1B ,
+      section80CCF ,
+      section80CCG ,
+      section80D ,
+      section80DD ,
+      section80DDB ,
+      section80E ,
+      section80EE ,
+      section80G ,
+      section80GGA ,
+      section80GGC ,
+      section80QQB ,
+      section80RRB ,
+      section80TTA ,
+      section80U,
+
           RentedHouseIncome,
           DeemdedHouseIncome,
           OldFinalTax,
@@ -712,8 +555,6 @@ async function onSubmit(e) {
     toast.warning("Please verify the information before submitting.");
   }
 }
-
-
   return (
     <section id="form-filling">
       <div className="personalInfo">
@@ -1323,6 +1164,7 @@ async function onSubmit(e) {
               </AccordionBody>
             </Accordion.Item>
           </Accordion>
+
           <Accordion defaultActiveKey="0" flush alwaysOpen>
             <Accordion.Item eventKey="0">
               <Accordion.Header>
@@ -1512,7 +1354,9 @@ async function onSubmit(e) {
                       placeholder="0"
                       value={OwnHouseIncome}
                       onChange={(e) =>
-                        setOwnHouseIncome(parseInt(e.target.value, 10) || 0)
+                        setOwnHouseIncome(
+                          handleLimitFunction(e, e.target.value, 200000)
+                        )
                       }
                     />
                   </Form.Group>
@@ -1608,7 +1452,7 @@ async function onSubmit(e) {
                       value={RentedhomeInterestPaid}
                       onChange={(e) =>
                         setRentedHomeInterestPaid(
-                          parseInt(e.target.value, 10) || 0
+                          handleLimitFunction(e, e.target.value, 200000)
                         )
                       }
                     />
@@ -1705,7 +1549,7 @@ async function onSubmit(e) {
                       value={DeemedhomeInterestPaid}
                       onChange={(e) =>
                         setDeemedHomeInterestPaid(
-                          parseInt(e.target.value, 10) || 0
+                          handleLimitFunction(e, e.target.value, 200000)
                         )
                       }
                     />
@@ -1764,128 +1608,749 @@ async function onSubmit(e) {
           <hr style={{ marginBottom: 20 }} />
           <h1 className="formTitle">Deductions</h1>
           <hr style={{ marginBottom: 20 }} />
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                Basic Deductions - 80c
-                <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link
-                    id="t-2"
-                    title="Amount invested/paid in tax saving instruments such as PPF, ELSS mutual funds, LIC premium, etc. (max: 1.5L)
-                    "
-                  >
-                    <IoInformationCircleOutline />
-                  </Link>
-                </span>
-              </Form.Label>
-              <Form.Control
-                placeholder="0"
-                value={BasicDeductions}
-                onChange={(e) =>
-                  setBasicDeductions(parseInt(e.target.value, 10) || 0)
-                }
-              />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                Medical Insurance - 80D
-                <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link
-                    id="t-2"
-                    title="Medical premium & preventive health checkup fees paid for self & family including parents
-                    "
-                  >
-                    <IoInformationCircleOutline />
-                  </Link>
-                </span>
-              </Form.Label>
-              <Form.Control
-                placeholder="0"
-                value={Medical}
-                onChange={(e) => setMedical(parseInt(e.target.value, 10) || 0)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                Educational Loan - 80E
-                <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link
-                    id="t-2"
-                    title="Amount of interest paid on loan taken for higher education
-                    "
-                  >
-                    <IoInformationCircleOutline />
-                  </Link>
-                </span>
-              </Form.Label>
-              <Form.Control
-                placeholder="0"
-                value={EducationalLoan}
-                onChange={(e) =>
-                  setEducationalLoan(parseInt(e.target.value, 10) || 0)
-                }
-              />
-            </Form.Group>
-          </Row>
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                Employee's Contribution To Nps - 80CCD
-                <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link
-                    id="t-2"
-                    title="Includes voluntary contribution to National Pension Scheme (NPS) under section 80CCD(1) and 80CCD(1B)
-                    "
-                  >
-                    <IoInformationCircleOutline />
-                  </Link>
-                </span>
-              </Form.Label>
-              <Form.Control
-                placeholder="0"
-                value={Nps}
-                onChange={(e) => setNps(parseInt(e.target.value, 10) || 0)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                Interest from Deposits - 80TTA
-                <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link
-                    id="t-2"
-                    title="Amount of interest income on deposits in savings account (includes fixed/recurring deposit interest in case of senior citizen) 
-                    "
-                  >
-                    <IoInformationCircleOutline />
-                  </Link>
-                </span>
-              </Form.Label>
-              <Form.Control
-                placeholder="0"
-                value={Deposits}
-                onChange={(e) => setDeposits(parseInt(e.target.value, 10) || 0)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                Charity - 80G
-                <span style={{ marginLeft: "10px", alignContent: "center" }}>
-                  <Link
-                    id="t-2"
-                    title="Amount paid as donation to charitable insitutions or certain recognized funds
-                    "
-                  >
-                    <IoInformationCircleOutline />
-                  </Link>
-                </span>
-              </Form.Label>
-              <Form.Control
-                placeholder="0"
-                value={Charity}
-                onChange={(e) => setCharity(parseInt(e.target.value, 10) || 0)}
-              />
-            </Form.Group>
-          </Row>
+          <Accordion defaultActiveKey="0" flush alwaysOpen>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="iconDiv">
+                  <FaMoneyBills style={{ height: "2em", width: "2em" }} />
+                  <div className="HeaderMainDiv">
+                    <h2 className="AccordionMainHeading">
+                      {" "}
+                      Section 80C - Deductions on Investments
+                    </h2>
+                    <p className="accordionSubHeader">
+                      Please provide all info
+                    </p>
+                  </div>
+                </div>
+              </Accordion.Header>
+
+              <AccordionBody>
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80C
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Provident Fund, Public Provident Fund, Premium Payments towards Life Insurance, Equity Linked Savings Scheme (ELSS), National Savings Certificate, Sukanya Samriddhi Scheme etc. (Limit - Rs 1,50,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80C}
+                      onChange={(e) =>
+                        setSection80C(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            150000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCC
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Amount deposited in LIC or other insurer's annuity plan for a pension (Limit - Rs 1,50,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCC}
+                      onChange={(e) =>
+                        setSection80CCC(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            150000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCD (1)
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Payment made towads Goverment Schemes like APY, NPS etc (Limit - 10% of salary)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCD1}
+                      onChange={(e) => {
+                        let limit = 0.1 * Salary;
+                        setSection80CCD1(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            limit
+                          )
+                        );
+                      }}
+                    />
+                  </Form.Group>
+                </Row>
+
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCD (2)
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Employer's contribution to National Pension Scheme account (Limit - 10% of salary)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCD2}
+                      onChange={(e) => {
+                        let limit = 0.1 * Salary;
+                        setSection80CCD2(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            limit
+                          )
+                        );
+                      }}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCD (1B)
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Additional contribution to National Pension Scheme account (Limit - Rs 50,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCD1B}
+                      onChange={(e) =>
+                        setSection80CCD1B(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            50000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCC
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Rajiv Gandhi Equity Scheme (Limit - Rs 25,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCC}
+                      onChange={(e) => {
+                        setSection80CCC(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            25000
+                          )
+                        );
+                      }}
+                    />
+                  </Form.Group>
+                </Row>
+
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCF
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Open to both Hindu Undivided Families and Individuals, Section 80CCF contains provisions for tax deductions on subscription of long-term infrastructure bonds which have been notified by the government. (Max Limit - Rs 20,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCF}
+                      onChange={(e) => {
+                        setSection80CCF(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            20000
+                          )
+                        );
+                      }}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80CCG
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Investments in equity savings schemes notified by the government are permitted for deductions, subject to the limit being 50% of the amount invested.
+                           (Limit - Rs 25,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80CCG}
+                      onChange={(e) =>
+                        setSection80CCG(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            25000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                </Row>
+              </AccordionBody>
+            </Accordion.Item>
+          </Accordion>
+
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="iconDiv">
+                  <GrMoney style={{ height: "2em", width: "2em" }} />
+                  <div className="HeaderMainDiv">
+                    <h2 className="AccordionMainHeading">
+                      {" "}
+                      Section 80D - Deductions on Health Related Investments
+                    </h2>
+                    <p className="accordionSubHeader">
+                      Please provide all info
+                    </p>
+                  </div>
+                </div>
+              </Accordion.Header>
+
+              <AccordionBody>
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80D
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Deductions on amounts spent by an individual towards the premium of a health insurance policy. This includes payment made on behalf of a spouse, children, parents, or self to a Central Government health plan (Limit - Rs 15,000 (age<60))"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80D}
+                      onChange={(e) =>
+                        setSection80D(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            15000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80DD
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="On payments made towards the treatment of dependents with disability. Amount paid as premium to purchase or maintain an insurance policy for such dependent (Limit - Rs 75,000 for normal disability(40% - 79%) and Rs 1.25 lakh for severe disablity(80% or above))"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80DD}
+                      onChange={(e) =>
+                        setSection80DD(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            125000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80DDB
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Section 80DDB can be utilised by HUFs and resident individuals and provides provisions for deductions on the expense incurred by an individual/family towards medical treatment of certain diseases. 
+                          (Limit - Rs 40,000, which can be increased to Rs 60,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80DDB}
+                      onChange={(e) => {
+                        setSection80DDB(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            60000
+                          )
+                        );
+                      }}
+                    />
+                  </Form.Group>
+                </Row>
+              </AccordionBody>
+            </Accordion.Item>
+          </Accordion>
+
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="iconDiv">
+                  <MdCastForEducation style={{ height: "2em", width: "2em" }} />
+                  <div className="HeaderMainDiv">
+                    <h2 className="AccordionMainHeading">
+                      {" "}
+                      Section 80E – Interest on Education Loan
+                    </h2>
+                    <p className="accordionSubHeader">
+                      Please provide all info
+                    </p>
+                  </div>
+                </div>
+              </Accordion.Header>
+
+              <AccordionBody>
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80E
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="This loan can be availed either by the taxpayer himself/herself or to sponsor the education of his/her ward/child. Only individuals are eligible for this deduction, with loans taken from approved charitable organizations and financial institutions permitted for tax benefits.
+                          (Limit - No maximum limit)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80E}
+                      onChange={(e) =>
+                        setSection80E(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            15000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80EE
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Only individual taxpayers are eligible for deductions under Section 80EE, with the interest repayment of a loan taken by them to buy a residential property qualifying for deductions. (Limit - Rs 3 lakhs)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80EE}
+                      onChange={(e) =>
+                        setSection80EE(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            125000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                </Row>
+              </AccordionBody>
+            </Accordion.Item>
+          </Accordion>
+
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="iconDiv">
+                  <GiPayMoney style={{ height: "2em", width: "2em" }} />
+                  <div className="HeaderMainDiv">
+                    <h2 className="AccordionMainHeading">
+                      {" "}
+                      Section 80G – Income Tax Benefits Towards Donations for
+                      Social Causes
+                    </h2>
+                    <p className="accordionSubHeader">
+                      Please provide all info
+                    </p>
+                  </div>
+                </div>
+              </Accordion.Header>
+
+              <AccordionBody>
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80G
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="encourages taxpayers to donate to funds and charitable institutions, offering tax benefits on monetary donations. (Limit - Rs 100% deductions without any limit. 50% deduction without qualifying limits.(Qualifing limit depends on the institutions))"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80G}
+                      onChange={(e) =>
+                        setSection80G(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80GGA
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Tax deductions under this section can be availed by all assessees, subject to them not having any income through profit or gain from a business or profession. Donations by such members to enhance social/scientific/statistical research or towards the National Urban Poverty Eradication Fund are eligible for tax benefits. (Limit - Rs No maximum limit)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80GGA}
+                      onChange={(e) =>
+                        setSection80GGA(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80GGC
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Under this section, funds donated/contributed by an assessee to a political party or electoral trust are eligible for deduction. Local authorities and artificial juridical persons are not entitled to the tax deductions available under Section 80GGC.
+                          (Limit - No maximum limit)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80GGC}
+                      onChange={(e) =>
+                        setSection80GGC(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                </Row>
+              </AccordionBody>
+            </Accordion.Item>
+          </Accordion>
+
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="iconDiv">
+                  <FaMoneyBillTrendUp style={{ height: "2em", width: "2em" }} />
+                  <div className="HeaderMainDiv">
+                    <h2 className="AccordionMainHeading">
+                      {" "}
+                      Other Deductions – Income Tax Benefits for all other
+                      reason
+                    </h2>
+                    <p className="accordionSubHeader">
+                      Please provide all info
+                    </p>
+                  </div>
+                </div>
+              </Accordion.Header>
+
+              <AccordionBody>
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80QQB
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Section 80QQB permits tax deductions on royalty earned from sale of books. Only resident Indian authors are eligible to claim deductions under this section (Limit - Rs 3 lakhs)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80QQB}
+                      onChange={(e) =>
+                        setSection80QQB(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            300000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80RRB
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Patent owners are given tax breaks under Section 80RRB, which also grants tax relief to residents who receive royalties from their patent as income.
+                          (Limit - Rs 3 lakhs)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80RRB}
+                      onChange={(e) =>
+                        setSection80RRB(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            300000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                </Row>
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80TTA
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Deductions under Section 80TTA can be claimed by Hindu Undivided Families and Individual taxpayers.
+                          (Limit - Rs 10,000)"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80TTA}
+                      onChange={(e) =>
+                        setSection80TTA(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            10000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      Section 80U
+                      <span
+                        style={{ marginLeft: "10px", alignContent: "center" }}
+                      >
+                        <Link
+                          id="t-2"
+                          title="Only resident individual taxpayers with disabilities are eligible to claim tax deductions under Section 80U
+                          (Limit - Rs 75,000(at least 40% disabled))"
+                        >
+                          <IoInformationCircleOutline />
+                        </Link>
+                      </span>
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="0"
+                      value={section80U}
+                      onChange={(e) =>
+                        setSection80U(
+                          handleLimitFunction(
+                            e,
+                            parseInt(e.target.value, 10) || 0,
+                            300000
+                          )
+                        )
+                      }
+                    />
+                  </Form.Group>
+                </Row>
+              </AccordionBody>
+            </Accordion.Item>
+          </Accordion>
 
           <Form.Group className="mb-3" id="formGridCheckbox">
             <Form.Check
@@ -1896,6 +2361,8 @@ async function onSubmit(e) {
               }}
             />
           </Form.Group>
+
+          {/* Upcoming Deductions All fields */}
 
           <Button variant="primary" type="submit" disabled={!isCheckboxChecked}>
             Submit

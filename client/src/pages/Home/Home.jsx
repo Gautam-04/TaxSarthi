@@ -66,12 +66,12 @@ function Home() {
       </section>
       <div className="home-div">
         <section id="home-tutorial">
-          <p class="home-tutorial-text">
+          <p className="home-tutorial-text">
             Watch this short tutorial to learn how to use TaxSarthi
           </p>
           <div className="iframe-container">
             <iframe
-              class="home-tutorial-embed"
+              className="home-tutorial-embed"
               src="https://www.youtube.com/embed/4m4uJBWpOqo?si=0REZuvkGiGkzvxVk"
               title="Income Tax Made Easy"
               frameborder="0"
@@ -81,19 +81,19 @@ function Home() {
           </div>
         </section>
         <section id="home-stats">
-          <div class="stats-title">Loved by over 1 million tax payers</div>
+          <div className="stats-title">Loved by over 1 million tax payers</div>
           <div className="main-stats">
             <div className="stats-group">
-              <div class="stats-amount">₹20 Cr+</div>
-              <div class="stats-heading">assets managed</div>
+              <div className="stats-amount">₹20 Cr+</div>
+              <div className="stats-heading">assets managed</div>
             </div>
             <div className="stats-group">
-              <div class="stats-amount">₹50 Cr+</div>
-              <div class="stats-heading">worth taxes filed</div>
+              <div className="stats-amount">₹50 Cr+</div>
+              <div className="stats-heading">worth taxes filed</div>
             </div>
             <div className="stats-group">
-              <div class="stats-amount">₹30 Cr+</div>
-              <div class="stats-heading">worth taxes saved</div>
+              <div className="stats-amount">₹30 Cr+</div>
+              <div className="stats-heading">worth taxes saved</div>
             </div>
           </div>
         </section>
@@ -112,7 +112,7 @@ function Home() {
           <div className="query-box">
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label class="form-field-title">
+                <Form.Label className="form-field-title">
                   Email address *
                 </Form.Label>
                 <Form.Control type="email" placeholder="Enter email" />
@@ -121,11 +121,11 @@ function Home() {
                 </Form.Text>
               </Form.Group>
               <Form.Group className="mb-4" controlId="querySubject">
-                <Form.Label class="form-field-title">Subject *</Form.Label>
+                <Form.Label className="form-field-title">Subject *</Form.Label>
                 <Form.Control type="text" placeholder="Subject" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="queryDescription">
-                <Form.Label class="form-field-title">Description *</Form.Label>
+                <Form.Label className="form-field-title">Description *</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}

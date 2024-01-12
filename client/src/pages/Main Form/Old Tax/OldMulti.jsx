@@ -15,300 +15,283 @@ LaptopOutlined
 import { FaMoneyBills } from "react-icons/fa6";
 import { TbPigMoney } from "react-icons/tb";
 import { Steps } from "antd";
+import "../Accordion.css";
+import { useNavigate } from "react-router-dom";
 
 function OldMulti() {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+    const [isLimitCrossed, setIsLimitCrossed] = useState(false);
   const [step, setStep] = useState(1);
 
-  const [formData, setFormData] = useState({
-    FirstName: "",
-    MiddleName: "",
-    LastName: "",
-    Name: "",
-    DateOfBirth: "",
-    FatherName: "",
-    Gender: "",
-    MaritalStatus: "",
+    const [formData, setFormData] = useState({
+      AadharNo: 0,
+      FirstName: "",
+      MiddleName: "",
+      LastName: "",
+      Name: "",
+      DateOfBirth: "",
+      FatherName: "",
+      Gender: "",
+      MaritalStatus: "",
+      PanCard: "",
+      MobileNo: "",
+      Email: "",
+      Address: "",
+      PermanentAddress: "",
+      City: "",
+      selectedState: "",
+      PinCode: "",
+      employerName: "",
+      employerAddress: "",
+      employerPanNumber: "",
+      tanNumber: "",
+      employeeReferenceNo: "",
+      Year: "",
+      TaxDeducted: "",
+      Salary: 0,
+      PrerequisiteIncome: 0,
+      ProfitIncome: 0,
+      OtherIncome: 0,
+      HRA: 0,
+      LTA: 0,
+      OtherExemptedAllowances: 0,
+      ProfessionalTax: 0,
+      OwnHouseIncome: 0,
+      //deductions
+      section80C: 0,
+      section80CCC: 0,
+      section80CCD1: 0,
+      section80CCD2: 0,
+      section80CCD1B: 0,
+      section80CCF: 0,
+      section80CCG: 0,
+      section80D: 0,
+      section80DD: 0,
+      section80DDB: 0,
+      section80E: 0,
+      section80EE: 0,
+      section80G: 0,
+      section80GGA: 0,
+      section80GGC: 0,
+      section80QQB: 0,
+      section80RRB: 0,
+      section80TTA: 0,
+      section80U: 0,
 
-    AadharNo: "",
-    PanCard: "",
-    MobileNo: 0,
-    Email: "",
-    Address: "",
-    PermanentAddress: "",
-    City: "",
-    selectedState: "",
-    PinCode: "",
-
-    employerName: "",
-    employerAddress: "",
-    employerPanNumber: "",
-    tanNumber: "",
-    employeeReferenceNo: "",
-    Year: "",
-    TaxDeducted: 0,
-
-    Salary: 0,
-    PrerequisiteIncome: 0,
-    ProfitIncome: 0,
-    OtherIncome: 0,
-    HRA: 0,
-    LTA: 0,
-    OtherExemptedAllowances: 0,
-    ProfessionalTax: 0,
-
-    OwnHouseIncome: 0,
-    RentedHouseIncome: 0,
-    DeemdedHouseIncome: 0,
-
-    BasicDeductions: 0,
-    Medical: 0,
-    EducationalLoan: 0,
-    Nps: 0,
-    Deposits: 0,
-    Charity: 0,
-    
-    OldFinalTax: 0,
-    OldFinalCess: 0,
-
-    NewFinalTax: 0,
-    NewFinalCess: 0,
-
-    PreferredSystem: "",
-  });
+      RentedHouseIncome: 0,
+      DeemdedHouseIncome: 0,
+      OldFinalTax: 0,
+      OldFinalCess: 0,
+      NewFinalTax: 0,
+      NewFinalCess: 0,
+      PreferredSystem: "NewRegime",
+    });
 
   const Token = localStorage.getItem("token");
-
-  const {
-    FirstName,
-    MiddleName,
-    LastName,
-    Name,
-    DateOfBirth,
-    FatherName,
-    Gender,
-    MaritalStatus,
-    AadharNo,
-    PanCard,
-    MobileNo,
-    Email,
-    Address,
-    PermanentAddress,
-    City,
-    selectedState,
-    PinCode,
-    employerName,
-    employerAddress,
-    employerPanNumber,
-    tanNumber,
-    employeeReferenceNo,
-    Year,
-    TaxDeducted,
-    Salary,
-    PrerequisiteIncome,
-    ProfitIncome,
-    OtherIncome,
-    HRA,
-    LTA,
-    OtherExemptedAllowances,
-    ProfessionalTax,
-    OwnHouseIncome,
-    RentedHouseIncome,
-    DeemdedHouseIncome,
-    BasicDeductions,
-    Medical,
-    EducationalLoan,
-    Nps,
-    Deposits,
-    Charity,
-
-    OldFinalTax,
-    OldFinalCess,
-
-    NewFinalTax,
-    NewFinalCess,
-
-    PreferredSystem,
-  } = formData;
-
 
 
     const handleFormDataChange = useCallback((newData) => {
   setFormData((prevFormData) => ({ ...prevFormData, ...newData }));
 }, []);
 
-  useEffect(() => {
-    const numericSalary = parseFloat(Salary) || 0;
-    const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
-    const numericProfitIncome = parseFloat(ProfitIncome) || 0;
-    const numericHRA = parseFloat(HRA) || 0;
-    const numericLTA = parseFloat(LTA) || 0;
-    const numericOtherExemptedAllowances =
-      parseFloat(OtherExemptedAllowances) || 0;
-    const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
+const handleLimitFunction = (element, value, limit) => {
+  const inputValue = parseInt(value, 10) || 0;
 
-    //Tax calculation
-    const StandardDeductions = 50000;
+  if (element) {
+    if (inputValue > limit) {
+      // Perform some operation when value exceeds the limit
 
-    const calculateFinalTax = () => {
-      const totalIncome =
-        numericSalary +
-        numericPrerequisiteIncome +
-        numericProfitIncome -
-        numericHRA -
-        numericLTA -
-        numericOtherExemptedAllowances -
-        numericProfessionalTax;
-      const totalDeductions =
-        BasicDeductions + Medical + EducationalLoan + Nps + Deposits + Charity;
-      const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
+      // Set border color to red
+      toast.error(`Max Limit is Rs ${limit}`);
+      element.style.borderColor = "red";
+      setIsLimitCrossed(true);
+      return inputValue; // You can set it to the limit or perform a different operation here
+    }
 
-      const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
-      const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
-
-      return {
-        OldTax: Tax,
-        Oldess: ceSS,
-        NewTax: newfinaltax,
-        Newcess: newcess,
-      };
-    };
-
-    // Function to calculate old regime tax
-    const calculateOldRegimeTax = (income) => {
-      const TAX_REBATE = {
-        old: 250000,
-      };
-
-      const calculateSlabTax = (income, rate) => {
-        return income * rate;
-      };
-
-      const calculateCess = (totalTax) => {
-        return totalTax * 0.04;
-      };
-
-      let totalTax = 0;
-
-      if (income >= TAX_REBATE.old) {
-        totalTax += calculateSlabTax(Math.min(income, 250000), 0);
-        totalTax += calculateSlabTax(
-          Math.max(Math.min(income - 250000, 500000 - 250000), 0),
-          0.05
-        );
-        totalTax += calculateSlabTax(
-          Math.max(Math.min(income - 500000, 1000000 - 500000), 0),
-          0.2
-        );
-        totalTax += calculateSlabTax(Math.max(income - 1000000, 0), 0.3);
-      }
-
-      const Tax = totalTax + calculateCess(totalTax);
-      const ceSS = calculateCess(totalTax);
-
-      return { Tax, ceSS };
-    };
-
-    const calculateNewRegimeTax = (income) => {
-      const TAX_REBATE_NEW = {
-        new: 700000,
-      };
-
-      const calculateSlabTax = (income, rate) => income * rate;
-
-      let totalTax = 0;
-
-      if (income >= TAX_REBATE_NEW.new) {
-        totalTax += calculateSlabTax(Math.min(income, 300000), 0);
-        totalTax += calculateSlabTax(
-          Math.max(Math.min(income - 300000, 300000), 0),
-          0.05
-        );
-        totalTax += calculateSlabTax(
-          Math.max(Math.min(income - 600000, 300000), 0),
-          0.1
-        );
-        totalTax += calculateSlabTax(
-          Math.max(Math.min(income - 900000, 300000), 0),
-          0.15
-        );
-        totalTax += calculateSlabTax(
-          Math.max(Math.min(income - 1200000, 300000), 0),
-          0.2
-        );
-        totalTax += calculateSlabTax(Math.max(income - 1500000, 0), 0.3);
-      }
-
-      const calculateCess = (totalTax) => {
-        const newCess = totalTax * 0.04;
-        return newCess;
-      };
-
-      const newfinaltax = totalTax + calculateCess(totalTax);
-
-      return { newfinaltax, cess: calculateCess(totalTax) };
-    };
-
-    const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
-
-    const preferredSystem =
-      NewFinalTax < OldFinalTax ? "NEW REGIME" : "OLD REGIME";
-
-    handleFormDataChange({
-      ...formData,
-      OldFinalTax: OldTax,
-      OldFinalCess: Oldess,
-      NewFinalTax: NewTax,
-      NewFinalCess: Newcess,
-      PreferredSystem: preferredSystem
-    });
-  }, [
-    Salary,
-    PrerequisiteIncome,
-    ProfitIncome,
-    OtherIncome,
-    HRA,
-    LTA,
-    OtherExemptedAllowances,
-    ProfessionalTax,
-    RentedHouseIncome,
-    DeemdedHouseIncome,
-    BasicDeductions,
-    Medical,
-    EducationalLoan,
-    Nps,
-    Deposits,
-    Charity,
-    OldFinalTax,
-    OldFinalCess,
-    NewFinalTax,
-    NewFinalCess,
-    PreferredSystem,
-    handleFormDataChange,
-    formData,
-  ]);
-
-
+    // If value is within the limit, return the original value
+    element.style.borderColor = ""; // Reset border color
+  }
+  setIsLimitCrossed(false);
+  return inputValue;
+};
 
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
+const {
+  AadharNo,
+  FirstName,
+  MiddleName,
+  LastName,
+  Name,
+  DateOfBirth,
+  FatherName,
+  Gender,
+  MaritalStatus,
+  PanCard,
+  MobileNo,
+  Email,
+  Address,
+  PermanentAddress,
+  City,
+  selectedState,
+  PinCode,
+  employerName,
+  employerAddress,
+  employerPanNumber,
+  tanNumber,
+  employeeReferenceNo,
+  Year,
+  TaxDeducted,
+  Salary,
+  PrerequisiteIncome,
+  ProfitIncome,
+  OtherIncome,
+  HRA,
+  LTA,
+  OtherExemptedAllowances,
+  ProfessionalTax,
+  OwnHouseIncome,
+  section80C,
+  section80CCC,
+  section80CCD1,
+  section80CCD2,
+  section80CCD1B,
+  section80CCF,
+  section80CCG,
+  section80D,
+  section80DD,
+  section80DDB,
+  section80E,
+  section80EE,
+  section80G,
+  section80GGA,
+  section80GGC,
+  section80QQB,
+  section80RRB,
+  section80TTA,
+  section80U,
+  RentedHouseIncome,
+  DeemdedHouseIncome,
+  OldFinalTax,
+  OldFinalCess,
+  NewFinalTax,
+  NewFinalCess,
+  PreferredSystem,
+} = formData;
 
+const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    if (
+      !AadharNo &&
+      !FirstName &&
+      !MiddleName &&
+      !LastName &&
+      !Name &&
+      !DateOfBirth &&
+      !FatherName &&
+      !Gender &&
+      !MaritalStatus &&
+      !PanCard &&
+      !MobileNo &&
+      !Email &&
+      !Address &&
+      !PermanentAddress &&
+      !City &&
+      !selectedState &&
+      !PinCode &&
+      !employerName &&
+      !employerAddress &&
+      !employerPanNumber &&
+      !tanNumber &&
+      !employeeReferenceNo &&
+      !Year &&
+      !TaxDeducted &&
+      !Salary
+    ) {
+      setIsLimitCrossed(true);
+      toast.error("The required fields are not added");
+      e.preventDefault();
+      setIsLimitCrossed(false);
+      return;
+      
+    }
+
+
     e.preventDefault();
     if(isCheckboxChecked) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/policy/oldreign",
+        "https://taxsaarthi.onrender.com/api/v1/tax/calculations",
         {
-          Token,formData
+          Token,
+          AadharNo,
+          FirstName,
+          MiddleName,
+          LastName,
+          Name,
+          DateOfBirth,
+          FatherName,
+          Gender,
+          MaritalStatus,
+          PanCard,
+          MobileNo,
+          Email,
+          Address,
+          PermanentAddress,
+          City,
+          selectedState,
+          PinCode,
+          employerName,
+          employerAddress,
+          employerPanNumber,
+          tanNumber,
+          employeeReferenceNo,
+          Year,
+          TaxDeducted,
+          Salary,
+          PrerequisiteIncome,
+          ProfitIncome,
+          OtherIncome,
+          HRA,
+          LTA,
+          OtherExemptedAllowances,
+          ProfessionalTax,
+          OwnHouseIncome,
+          section80C,
+          section80CCC,
+          section80CCD1,
+          section80CCD2,
+          section80CCD1B,
+          section80CCF,
+          section80CCG,
+          section80D,
+          section80DD,
+          section80DDB,
+          section80E,
+          section80EE,
+          section80G,
+          section80GGA,
+          section80GGC,
+          section80QQB,
+          section80RRB,
+          section80TTA,
+          section80U,
+          RentedHouseIncome,
+          DeemdedHouseIncome,
+          OldFinalTax,
+          OldFinalCess,
+          NewFinalTax,
+          NewFinalCess,
+          PreferredSystem,
         } // Send the formData directly in the request body
       );
 
       // Handle success, if needed
       console.log(response.data); // Log the response data
       toast.success("Data is saved. You will be redirected in a few seconds");
+      navigate("/doc")
     }catch (err) {
         toast.error("Try again after some time");
         console.error(err);
@@ -320,10 +303,26 @@ function OldMulti() {
 
 
   const steps = [
-    <PersonalInfo formData={formData} onChange={handleFormDataChange} />,
-    <EmployerInfo formData={formData} onChange={handleFormDataChange} />,
-    <IncomeInfo formData={formData} onChange={handleFormDataChange} />,
-    <DeductionsInfo formData={formData} onChange={handleFormDataChange} />,
+    <PersonalInfo
+      formData={formData}
+      onChange={handleFormDataChange}
+      handleLimitFunction={handleLimitFunction}
+    />,
+    <EmployerInfo
+      formData={formData}
+      onChange={handleFormDataChange}
+      handleLimitFunction={handleLimitFunction}
+    />,
+    <IncomeInfo
+      formData={formData}
+      onChange={handleFormDataChange}
+      handleLimitFunction={handleLimitFunction}
+    />,
+    <DeductionsInfo
+      formData={formData}
+      onChange={handleFormDataChange}
+      handleLimitFunction={handleLimitFunction}
+    />,
   ];
 
     const antdSteps = [
@@ -349,9 +348,161 @@ function OldMulti() {
       },
     ];
 
+    useEffect(() => {
+      const StandardDeductions = 50000;
+
+        const totalIncome = Salary+
+  PrerequisiteIncome+
+  ProfitIncome+
+  OtherIncome-
+  HRA-
+  LTA-
+  OtherExemptedAllowances-
+  ProfessionalTax-
+  OwnHouseIncome+RentedHouseIncome+DeemdedHouseIncome;
+        const totalDeductions =
+          section80C +
+          section80CCC +
+          section80CCD1 +
+          section80CCD2 +
+          section80CCD1B +
+          section80CCF +
+          section80CCG +
+          section80D +
+          section80DD +
+          section80DDB +
+          section80E +
+          section80EE +
+          section80G +
+          section80GGA +
+          section80GGC +
+          section80QQB +
+          section80RRB +
+          section80TTA +
+          section80U;
+
+        const taxableIncome =
+          totalIncome - StandardDeductions - totalDeductions;
+
+      // Function to calculate old regime tax
+      const calculateOldRegimeTax = (income) => {
+        const TAX_REBATE = {
+          old: 500000,
+        };
+
+        const calculateSlabTax = (income, rate) => {
+          return income * rate;
+        };
+
+        const OldtaxDetails = {};
+
+        if (income >= TAX_REBATE.old) {
+          OldtaxDetails.slab1 = calculateSlabTax(Math.min(income, 250000), 0);
+          OldtaxDetails.slab2 = calculateSlabTax(
+            Math.min(Math.max(income - 250000, 0), 500000 - 250000),
+            0.05
+          );
+
+          OldtaxDetails.slab3 = calculateSlabTax(
+            Math.min(Math.max(income - 500000, 0), 1000000 - 500000),
+            0.2
+          );
+          OldtaxDetails.slab4 = calculateSlabTax(
+            Math.max(income - 1000000, 0),
+            0.3
+          );
+        }
+
+        // Store OldtaxDetails in localStorage
+        localStorage.setItem("OldtaxDetails", JSON.stringify(OldtaxDetails));
+
+      };
+
+      const calculateNewRegimeTax = (income) => {
+        const TAX_REBATE_NEW = {
+          new: 700000,
+        };
+
+        const calculateSlabTax = (income, rate) => income * rate;
+
+        const NewtaxDetails = {};
+
+        if (income >= TAX_REBATE_NEW.new) {
+          NewtaxDetails.slab1 = calculateSlabTax(Math.min(income, 300000), 0);
+          NewtaxDetails.slab2 = calculateSlabTax(
+            Math.max(Math.min(income - 300000, 300000), 0),
+            0.05
+          );
+
+          NewtaxDetails.slab3 = calculateSlabTax(
+            Math.max(Math.min(income - 600000, 300000), 0),
+            0.1
+          );
+
+          NewtaxDetails.slab4 = calculateSlabTax(
+            Math.max(Math.min(income - 900000, 300000), 0),
+            0.15
+          );
+
+          NewtaxDetails.slab5 = calculateSlabTax(
+            Math.max(Math.min(income - 1200000, 300000), 0),
+            0.2
+          );
+
+          NewtaxDetails.slab6 = calculateSlabTax(
+            Math.max(income - 1500000, 0),
+            0.3
+          );
+          
+        }
+
+        localStorage.setItem("NewtaxDetails", JSON.stringify(NewtaxDetails));
+      };
+
+              calculateOldRegimeTax(taxableIncome);
+              calculateNewRegimeTax(totalIncome);
+
+    }, [
+      Salary,
+      PrerequisiteIncome,
+      ProfitIncome,
+      OtherIncome,
+      HRA,
+      LTA,
+      OtherExemptedAllowances,
+      ProfessionalTax,
+      OwnHouseIncome,
+      section80C,
+      section80CCC,
+      section80CCD1,
+      section80CCD2,
+      section80CCD1B,
+      section80CCF,
+      section80CCG,
+      section80D,
+      section80DD,
+      section80DDB,
+      section80E,
+      section80EE,
+      section80G,
+      section80GGA,
+      section80GGC,
+      section80QQB,
+      section80RRB,
+      section80TTA,
+      section80U,
+      RentedHouseIncome,
+      DeemdedHouseIncome,
+    ]);
+    
+
   return (
     <section id="form-filling">
-      <Steps current={step - 1} items={antdSteps} style={{marginTop: "1rem",marginBottom: "1rem"}}/>
+      <Steps
+        current={step - 1}
+        items={antdSteps}
+        style={{ marginTop: "1rem", marginBottom: "1rem" }}
+      />
       <div className="personalInfo">
         <form onSubmit={handleSubmit}>
           {steps[step - 1]}
@@ -368,7 +519,11 @@ function OldMulti() {
               </Button>
             )}
             {step < steps.length && (
-              <Button variant="primary" onClick={nextStep}>
+              <Button
+                variant="primary"
+                onClick={nextStep}
+                disabled={isLimitCrossed}
+              >
                 Next
               </Button>
             )}
@@ -397,7 +552,7 @@ function OldMulti() {
                 <Button
                   variant="success"
                   type="submit"
-                  disabled={!isCheckboxChecked}
+                  disabled={!isCheckboxChecked || isLimitCrossed}
                 >
                   Submit
                 </Button>
