@@ -1,5 +1,5 @@
 // EmployerInfo.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../Form.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,7 +12,6 @@ import Accordion from "react-bootstrap/Accordion";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { FaLaptopCode } from "react-icons/fa6";
 import "../Accordion.css";
-import { toast } from "react-toastify";
 import ImageModal from "../../../components/mis/ImageModal";
 
 const EmployerInfo = ({ formData, onChange, handleLimitFunction }) => {
