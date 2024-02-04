@@ -1,7 +1,6 @@
 import React from "react";
 import "../AboutTaxes.css";
 import Documents from "../../../../assets/itr-filing-01.png";
-import testimg from "../../../../assets/itr-filing-01.png";
 
 function ItrFiling() {
   return (
