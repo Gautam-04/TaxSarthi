@@ -25,7 +25,7 @@ const getCurrentDate = () => {
 function OutPutDoc() {
   const pdfRef = useRef(null);
 
-  const [invoiceNumber, setInvoiceNumber] = useState(() => {
+  const [invoiceNumber] = useState(() => {
     // Get the stored invoice number from local storage, or generate a new one
     const storedInvoiceNumber = localStorage.getItem("invoiceNumber");
     return storedInvoiceNumber

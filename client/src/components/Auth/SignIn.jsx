@@ -5,6 +5,7 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom';
 import "./Main.css";
 import { toast } from 'react-toastify';
+import { Spinner } from "react-bootstrap";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -55,7 +56,7 @@ async function handleClick(e) {
     .catch((err) => {
       console.error(err);
       toast.error("Try again after sometime");
-    });
+    }).finally(()=>{setLoading(false)})
 }
 
 
@@ -81,7 +82,17 @@ async function handleClick(e) {
       />
       <div className="button">
         <button className="login-button" onClick={handleClick}>
-          {loading ? "Loading..." : "Login"}
+          {loading && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+              style={{ marginRight: 20, color: "#4d7298" }}
+            />
+          )}
+          {loading ? "Loading..." : "Sign In"}
         </button>
         <span className="password-toggle" onClick={togglePasswordVisibility}>
           {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}

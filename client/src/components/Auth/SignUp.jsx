@@ -5,6 +5,7 @@ import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import {toast } from 'react-toastify';
 import axios from 'axios';
+import { Spinner } from "react-bootstrap";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -38,7 +39,8 @@ function SignUp() {
         toast.success("You are Registered successfully");
         navigate("/docs-list");
       })
-      .catch((error) => toast.error("Try after sometime"));
+      .catch((error) => toast.error("Try after sometime"))
+      .finally(()=>{setLoading(false)})
   }
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
@@ -89,7 +91,17 @@ function SignUp() {
       />
       <div className="button">
         <button className="login-button" onClick={handleClick}>
-          {loading ? "Signing In..." : "SignUp"}
+          {loading && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+              style={{ marginRight: 20, color: "#4d7298" }}
+            />
+          )}
+          {loading ? "Loading..." : "Sign In"}
         </button>
         <span className="password-toggle" onClick={togglePasswordVisibility}>
           {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}

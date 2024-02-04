@@ -3,7 +3,7 @@ import Header from "./components/header/Header";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Login from "./pages/Auth/Login";
 import Home from "./pages/Home/Home";
-import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import AboutTaxes from "./pages/Taxes/About Taxes/AboutTaxes";
 import Docs from "./pages/Docs-list/Docs";
 import FormFilling from "./pages/Main Form/Form";

@@ -17,11 +17,13 @@ import { TbPigMoney } from "react-icons/tb";
 import { Steps } from "antd";
 import "../Accordion.css";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 function OldMulti() {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isLimitCrossed, setIsLimitCrossed] = useState(false);
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
       AadharNo: 0,
@@ -218,7 +220,7 @@ const navigate = useNavigate();
       
     }
 
-
+    setIsLoading(true);
     e.preventDefault();
     if(isCheckboxChecked) {
     try {
@@ -291,11 +293,14 @@ const navigate = useNavigate();
       // Handle success, if needed
       console.log(response.data); // Log the response data
       toast.success("Data is saved. You will be redirected in a few seconds");
-      navigate("/doc")
-    }catch (err) {
-        toast.error("Try again after some time");
-        console.error(err);
-      }
+      navigate("/doc");
+    } catch (err) {
+      toast.error("Try again after some time");
+      console.error(err);
+    } finally {
+      // Reset isLoading to false when the submission is complete (success or failure)
+      setIsLoading(false);
+    }
     } else {
       toast.warning("Please verify the information before submitting.");
     }
@@ -552,9 +557,19 @@ const navigate = useNavigate();
                 <Button
                   variant="success"
                   type="submit"
-                  disabled={!isCheckboxChecked || isLimitCrossed}
+                  disabled={isLoading && (!isCheckboxChecked || isLimitCrossed)}
+                  onClick={handleSubmit}
                 >
-                  Submit
+                  {isLoading && (
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {isLoading ? "Loading..." : "Submit"}
                 </Button>
               </span>
             )}

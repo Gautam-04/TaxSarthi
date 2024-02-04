@@ -1,7 +1,7 @@
 import React from "react";
 import "../AboutTaxes.css";
-import NoticeReasons from "../../../../assets/tax-notice-01.png";
-import SampleMail from "../../../../assets/tax-notice-02.png";
+// import NoticeReasons from "../../../../assets/tax-notice-01.png";
+// import SampleMail from "../../../../assets/tax-notice-02.png";
 
 function FAQs() {
   return (

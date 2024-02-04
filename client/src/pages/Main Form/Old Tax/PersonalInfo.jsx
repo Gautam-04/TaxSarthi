@@ -1,19 +1,15 @@
 // PersonalInfo.js
 import "../Accordion.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../Form.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import CheckBox from "../../../components/mis/CheckBox";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import States from "../../../utils/States.json";
-import axios from "axios";
-import { IoInformationCircleOutline } from "react-icons/io5";
-import { toast } from "react-toastify";
 import Accordion from "react-bootstrap/Accordion";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { FaRegCircleUser, FaRegAddressCard } from "react-icons/fa6";
@@ -280,7 +276,7 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
                 <Form.Control
                   type="text"
                   value={MobileNo}
-                  placeholder="DD/MM/YYYY"
+                  placeholder="+91....."
                   onChange={(e) => {
                     onChange({ MobileNo: e.target.value });
                   }}
@@ -296,7 +292,7 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
                 <Form.Control
                   type="email"
                   value={Email}
-                  placeholder="DD/MM/YYYY"
+                  placeholder="xyz@mail.com"
                   onChange={(e) => {
                     onChange({ Email: e.target.value });
                   }}
