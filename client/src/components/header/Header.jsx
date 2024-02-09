@@ -39,7 +39,7 @@ function Header() {
                   navigate("/taxes/about-taxes");
                 }}
               >
-                About Taxes
+                Getting Started with Taxes
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
@@ -50,10 +50,10 @@ function Header() {
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/taxes/faqs/general");
+                  navigate("/taxes/what-are-taxes");
                 }}
               >
-                FAQs
+                What Of Taxes
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
@@ -63,24 +63,17 @@ function Header() {
             >
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/savings/smart-savings");
+                  navigate("/taxes/save-taxes");
                 }}
               >
                 Smart Savings
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/savings/tax-saving-investment");
+                  navigate("/taxes/tax-planning");
                 }}
               >
-                Tax Saving Investment
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                onClick={() => {
-                  navigate("/savings/deductions-benefits");
-                }}
-              >
-                Deduction And Benefits
+                Tax Planning
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
@@ -90,37 +83,44 @@ function Header() {
             >
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/filing/filing-your-taxes");
+                  navigate("/taxes/itr-filing");
                 }}
               >
                 Filing Your Taxes
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/filing/organizing-document");
+                  navigate("/taxes/tax-notice");
                 }}
               >
-                Organizing Documents
+                Tax Notice
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Help  +"
+              title="FAQs  +"
               menuVariant="light"
             >
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/help/reponding-to-notice");
+                  navigate("/taxes/faqs");
                 }}
               >
-                Responding to Notice
+                General FAQs
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/help/disputes-resolution");
+                  navigate("/taxes/section-139-9");
                 }}
               >
-                Disputes And Resolution
+                Section-139 (9)
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  navigate("/taxes/section-142-1");
+                }}
+              >
+                Section-142 (1)
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

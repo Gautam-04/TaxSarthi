@@ -17,11 +17,14 @@ import SaveTaxes from "./pages/Taxes/About Taxes/SaveTaxes/save-taxes";
 import TaxNotice from "./pages/Taxes/About Taxes/IncomeTaxNotice/tax-notice";
 import FAQs from "./pages/Taxes/About Taxes/FAQs/faqs";
 import { useState, useEffect } from "react";
-import BoxLoader from "./components/Loader/BoxLoader";
-import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
-import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
-import Section142_1 from "./pages/Taxes/About Taxes/FAQs/section-142(1)";
+// import BoxLoader from "./components/Loader/BoxLoader";
+// import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
+// import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
+// import Section142_1 from "./pages/Taxes/About Taxes/FAQs/section-142(1)";
+// import Section139_9 from "./pages/Taxes/About Taxes/FAQs/section-139(9)";
+import Card from "./components/mis/Card/Card";
 import Section139_9 from "./pages/Taxes/About Taxes/FAQs/section-139(9)";
+import Section142_1 from "./pages/Taxes/About Taxes/FAQs/section-142(1)";
 
 function App() {
   const location = useLocation();
@@ -57,6 +60,8 @@ function App() {
         <Route path="/taxes/save-taxes" element={<SaveTaxes />} />
         <Route path="/taxes/tax-notice" element={<TaxNotice />} />
         <Route path="/taxes/faqs" element={<FAQs />} />
+        <Route path="/taxes/section-139-9" element={<Section139_9 />} />
+        <Route path="/taxes/section-142-1" element={<Section142_1 />} />
         <Route path="/taxes/tax-basics" element={<Home />} />
         <Route path="/taxes/other-taxes" element={<Home />} />
         {/* Savings Routes */}

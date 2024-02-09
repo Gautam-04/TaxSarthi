@@ -10,7 +10,7 @@ function truncateText(text, maxLength) {
   }
 }
 
-function Card(props) {
+function BlogCard(props) {
   const { title, body, useNavigateTo } = props;
   const navigate = useNavigate();
   const truncatedBody = truncateText(body, 100);
@@ -25,10 +25,16 @@ function Card(props) {
   };
 
   return (
-    <Card style={{ width: "18rem", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+    <Card
+      style={{
+        width: "18rem",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        borderRadius: "20px",
+      }}
+    >
       <Card.Body>
-        <Card.Title style={{ fontSize: "3rem" }}>{title}</Card.Title>
-        <Card.Text style={{ color: "blue", fontSize: "1.14rem" }}>
+        <Card.Title style={{ fontSize: "2rem" }}>{title}</Card.Title>
+        <Card.Text style={{ color: "blue", fontSize: "1.12rem" }}>
           {truncatedBody}
         </Card.Text>
         <button
@@ -52,4 +58,4 @@ function Card(props) {
   );
 }
 
-export default Card;
+export default BlogCard;

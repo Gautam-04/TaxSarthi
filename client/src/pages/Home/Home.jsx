@@ -7,6 +7,7 @@ import Marquee from "react-fast-marquee";
 import FaqSec from "../../components/mis/FaqSec";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Card from "../../components/mis/Card/Card";
 
 function Home() {
   const navigate = useNavigate();
@@ -80,6 +81,26 @@ function Home() {
             ></iframe>
           </div>
         </section>
+        <section id="blog-suggestions">
+          <div className="blog-suggestions-title">Our Blogs</div>
+          <div className="cards-container">
+            <Card
+              title="Types Of Taxes"
+              body="Getting started with Taxes"
+              useNavigateTo="/taxes/types-of-taxes"
+            />
+            <Card
+              title="Smart Savings"
+              body="Start saving on Taxes"
+              useNavigateTo="/taxes/save-taxes"
+            />
+            <Card
+              title="FAQs"
+              body="Frequently Asked Questions"
+              useNavigateTo="/taxes/FAQs"
+            />
+          </div>
+        </section>
         <section id="home-stats">
           <div className="stats-title">Loved by over 1 million tax payers</div>
           <div className="main-stats">
@@ -125,14 +146,22 @@ function Home() {
                 <Form.Control type="text" placeholder="Subject" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="queryDescription">
-                <Form.Label className="form-field-title">Description *</Form.Label>
+                <Form.Label className="form-field-title">
+                  Description *
+                </Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
                   placeholder="Description"
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" onSubmit={(e) => {e.preventDefault()}}>
+              <Button
+                variant="primary"
+                type="submit"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 Submit
               </Button>
             </Form>
