@@ -43,17 +43,17 @@ function Header() {
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/taxes/tax-basics");
+                  navigate("/taxes/types-of-taxes");
                 }}
               >
-                Tax Basics
+                Types Of Taxes
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  navigate("/taxes/other-taxes");
+                  navigate("/taxes/faqs/general");
                 }}
               >
-                Other Taxes
+                FAQs
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown

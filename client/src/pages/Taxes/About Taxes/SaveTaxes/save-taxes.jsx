@@ -27,10 +27,10 @@ function SaveTaxes() {
           <div className="content-heading">
             Investing in Tax-Saving Instruments
           </div>
-          <div className="content-image">
-            {/* <img src={TaxInstruments} alt="" /> */}
+          {/* <div className="content-image">
+            <img src={TaxInstruments} alt="" />
             <div className="image-caption">Tax Saving Instruments</div>
-          </div>
+          </div> */}
           <div className="content-paragraph">
             India offers several tax-saving investment options under Section 80C
             of the Income Tax Act. These investments not only help you save
