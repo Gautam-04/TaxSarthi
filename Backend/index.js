@@ -5,6 +5,7 @@ const cors = require('cors');
 const User = require('./Models/Person');
 const userRoutes = require('./routes/UserRoutes');
 const OldReignRoutes = require('./routes/OldReignRoutes')
+const TaxRoutes = require('./routes/TaxRoutes')
 dotenv.config();
 
 connectDB();
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
 
 // Import and use the user routes
 app.use('/user', userRoutes);
+
+app.use('/api/v1/tax',TaxRoutes);
 
 app.use('/policy',OldReignRoutes);
 

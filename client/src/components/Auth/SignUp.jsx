@@ -5,6 +5,7 @@ import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import {toast } from 'react-toastify';
 import axios from 'axios';
+import { Spinner } from "react-bootstrap";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -12,29 +13,35 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const data = {name,email,password,confirmPassword};
 
 
-    function handleClick(e){
-      e.preventDefault();
-      axios
-        .post("http://localhost:8000/user/signup", {
-          name,
-          email,
-          password,
-          confirmPassword,
-        })
-        .then((result) => {
-          console.log(result);
-          localStorage.setItem("userInfo",JSON.stringify(data))
+  async function handleClick(e) {
+    e.preventDefault();
+    setLoading(true);
+    await axios
+      .post("https://taxsaarthi.onrender.com/user/signup", {
+        name,
+        email,
+        password,
+        confirmPassword,
+      })
+      .then((result) => {
+        const { token } = result.data;
+
+        // Store the token and user information in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+
         toast.success("You are Registered successfully");
         navigate("/docs-list");
-        })
-        .catch((error) => toast.error("Try after sometime"));
-    }
-
+      })
+      .catch((error) => toast.error("Try after sometime"))
+      .finally(()=>{setLoading(false)})
+  }
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
@@ -83,13 +90,21 @@ function SignUp() {
         }}
       />
       <div className="button">
-        <button className="login-button"
-        onClick={handleClick}
-        >
-          Sign Up
+        <button className="login-button" onClick={handleClick}>
+          {loading && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+              style={{ marginRight: 20, color: "#4d7298" }}
+            />
+          )}
+          {loading ? "Loading..." : "Sign In"}
         </button>
         <span className="password-toggle" onClick={togglePasswordVisibility}>
-          {showPassword? <AiFillEye /> : <AiFillEyeInvisible />}
+          {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
         </span>
       </div>
     </Stack>

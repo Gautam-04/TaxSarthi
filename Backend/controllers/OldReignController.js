@@ -9,6 +9,23 @@ exports.Old = async(req,res) => {
     }
 }
 
+exports.Oldbody = async(req,res)=>{
+    const {Token} = req.body
+    try {
+        const oldreign = await OldReign.findOne({ Token });
+
+        if (oldreign) {
+          res.status(200).json(oldreign);
+        } else {
+          res
+            .status(404)
+            .json({ message: "No data found for the provided AadharNo" });
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 
 //Old Tax Reign Calculation
 // const TAX_REBATE = {

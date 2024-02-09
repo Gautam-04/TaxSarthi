@@ -3,7 +3,7 @@ import Header from "./components/header/Header";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Login from "./pages/Auth/Login";
 import Home from "./pages/Home/Home";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import AboutTaxes from "./pages/Taxes/About Taxes/AboutTaxes";
 import Docs from "./pages/Docs-list/Docs";
 import FormFilling from "./pages/Main Form/Form";
@@ -16,10 +16,32 @@ import TaxPlanning from "./pages/Taxes/About Taxes/TaxPlanning/tax-planning";
 import SaveTaxes from "./pages/Taxes/About Taxes/SaveTaxes/save-taxes";
 import TaxNotice from "./pages/Taxes/About Taxes/IncomeTaxNotice/tax-notice";
 import FAQs from "./pages/Taxes/About Taxes/FAQs/faqs";
+import { useState, useEffect } from "react";
+import BoxLoader from "./components/Loader/BoxLoader";
+import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
+import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
 import Section142_1 from "./pages/Taxes/About Taxes/FAQs/section-142(1)";
 import Section139_9 from "./pages/Taxes/About Taxes/FAQs/section-139(9)";
 
 function App() {
+  const location = useLocation();
+  const isBlankDocRoute = location.pathname === "/doc";
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set loading to true when the route changes
+    setLoading(true);
+
+    // Simulate loading delay (you can replace this with actual data fetching logic)
+    const timer = setTimeout(() => {
+      // Set loading back to false after the delay
+      setLoading(false);
+    }, 900);
+
+    // Clean up the timer to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, [location.pathname]); // Empty dependency array to run the effect only once on mount
+
   return (
     <>
       <Header />
@@ -34,9 +56,7 @@ function App() {
         <Route path="/taxes/tax-planning" element={<TaxPlanning />} />
         <Route path="/taxes/save-taxes" element={<SaveTaxes />} />
         <Route path="/taxes/tax-notice" element={<TaxNotice />} />
-        <Route path="/taxes/faqs/general" element={<FAQs />} />
-        <Route path="/taxes/faqs/section-142-1" element={<Section142_1 />} />
-        <Route path="/taxes/faqs/section-139-9" element={<Section139_9 />} />
+        <Route path="/taxes/faqs" element={<FAQs />} />
         <Route path="/taxes/tax-basics" element={<Home />} />
         <Route path="/taxes/other-taxes" element={<Home />} />
         {/* Savings Routes */}

@@ -1,10 +1,12 @@
+const generateToken = require('../Config/generateToken');
 const User = require('../Models/Person');
 
 // Signup controller
 exports.signup = async (req, res) => {
   try {
     const user = await User.create(req.body);
-    res.json(user);
+    const token = generateToken(user._id);
+    res.json({ token });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -18,7 +20,11 @@ exports.login = async (req, res) => {
 
     if (user) {
       if (user.password === password) {
-        res.json("Success");
+        const token = generateToken(user._id);
+        res.json({
+          token,
+          message: "Success",
+        });
       } else {
         res.json("Password is incorrect");
       }
