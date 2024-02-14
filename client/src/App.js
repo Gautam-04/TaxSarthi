@@ -48,7 +48,27 @@ function App() {
     ReactGA.send({ 
     hitType: "pageview",
     page: window.location.pathname + window.location.search, 
-    title: "Home" })
+    title: "Home" });
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/login",
+      title: "Login",
+    });
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/docs-list",
+      title: "Docs List",
+    });
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/old",
+      title: "Form Filling",
+    });
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/doc",
+      title: "Report",
+    });
   }, []);
 
   return (
