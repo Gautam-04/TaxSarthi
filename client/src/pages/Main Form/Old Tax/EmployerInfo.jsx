@@ -134,7 +134,7 @@ const EmployerInfo = ({ formData, onChange, handleLimitFunction }) => {
                 />
               </Form.Group>
             </Row>
-            <Row className="mb-3">
+            {/* <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>Period With Employer (yyyy).</Form.Label>
                 <FloatingLabel
@@ -175,7 +175,7 @@ const EmployerInfo = ({ formData, onChange, handleLimitFunction }) => {
                   }}
                 />
               </Form.Group>
-            </Row>
+            </Row> */}
           </AccordionBody>
         </Accordion.Item>
       </Accordion>

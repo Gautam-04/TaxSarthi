@@ -31,7 +31,6 @@ function SignUp() {
       })
       .then((result) => {
         const { token } = result.data;
-
         // Store the token and user information in localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("userInfo", JSON.stringify(data));
@@ -39,7 +38,7 @@ function SignUp() {
         toast.success("You are Registered successfully");
         navigate("/docs-list");
       })
-      .catch((error) => toast.error("Try after sometime"))
+      .catch((error) => toast.error("Try after sometime",error))
       .finally(()=>{setLoading(false)})
   }
     const togglePasswordVisibility = () => {
@@ -101,7 +100,7 @@ function SignUp() {
               style={{ marginRight: 20, color: "#4d7298" }}
             />
           )}
-          {loading ? "Loading..." : "Sign In"}
+          {loading ? "Loading..." : "Sign Up"}
         </button>
         <span className="password-toggle" onClick={togglePasswordVisibility}>
           {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
