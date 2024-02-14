@@ -4,7 +4,6 @@ import "../Form.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -21,8 +20,6 @@ const EmployerInfo = ({ formData, onChange, handleLimitFunction }) => {
     employerPanNumber,
     tanNumber,
     employeeReferenceNo,
-    Year,
-    TaxDeducted,
   } = formData;
 
   const [show, setShow] = useState(false);

@@ -1,3 +1,4 @@
+import ReactGA from "react-ga4";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import ErrorPage from "./pages/Error/ErrorPage";
@@ -16,10 +17,13 @@ import TaxPlanning from "./pages/Taxes/About Taxes/TaxPlanning/tax-planning";
 import SaveTaxes from "./pages/Taxes/About Taxes/SaveTaxes/save-taxes";
 import TaxNotice from "./pages/Taxes/About Taxes/IncomeTaxNotice/tax-notice";
 import FAQs from "./pages/Taxes/About Taxes/FAQs/faqs";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import BoxLoader from "./components/Loader/BoxLoader";
 import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
 import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
+
+const TRACKING_ID = "UA-267327544-1"; // OUR_TRACKING_ID
+ReactGA.initialize(TRACKING_ID, { debug: true });
 
 function App() {
   const location = useLocation();
@@ -40,76 +44,38 @@ function App() {
     return () => clearTimeout(timer);
   }, [location.pathname]); // Empty dependency array to run the effect only once on mount
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <>
       {!isBlankDocRoute && !loading && <Header />}
       <Routes>
-      <Route path="/old" element={<OldMulti />} />
+        <Route path="/old" element={<OldMulti />} />
         <Route
           path="/"
           element={loading ? <BoxLoader loading={loading} /> : <Home />}
         />
         <Route
           path="/taxes/about-taxes"
-          element={
-            loading ? (
-              <BoxLoader
-                loading={loading}
-            
-              />
-            ) : (
-              <AboutTaxes />
-            )
-          }
+          element={loading ? <BoxLoader loading={loading} /> : <AboutTaxes />}
         />
         <Route
           path="/taxes/what-are-taxes"
-          element={
-            loading ? (
-              <BoxLoader
-                loading={loading}
-                
-              />
-            ) : (
-              <WhatAreTaxes />
-            )
-          }
+          element={loading ? <BoxLoader loading={loading} /> : <WhatAreTaxes />}
         />
         <Route
           path="/taxes/types-of-taxes"
-          element={
-            loading ? (
-              <BoxLoader
-                loading={loading}
-               
-              />
-            ) : (
-              <TypesOfTaxes />
-            )
-          }
+          element={loading ? <BoxLoader loading={loading} /> : <TypesOfTaxes />}
         />
         <Route
           path="/taxes/itr-filing"
-          element={
-            loading ? (
-              <BoxLoader
-                loading={loading}
-              
-              />
-            ) : (
-              <ItrFiling />
-            )
-          }
+          element={loading ? <BoxLoader loading={loading} /> : <ItrFiling />}
         />
         <Route
           path="/taxes/tax-planning"
-          element={
-            loading ? (
-              <BoxLoader loading={loading}  />
-            ) : (
-              <TaxPlanning />
-            )
-          }
+          element={loading ? <BoxLoader loading={loading} /> : <TaxPlanning />}
         />
         <Route
           path="/taxes/save-taxes"
