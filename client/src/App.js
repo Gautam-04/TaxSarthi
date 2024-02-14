@@ -22,7 +22,7 @@ import BoxLoader from "./components/Loader/BoxLoader";
 import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
 import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
 
-const TRACKING_ID = "UA-267327544-1"; // OUR_TRACKING_ID
+const TRACKING_ID = "G-XLC8JY1HWM"; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID, { debug: true });
 
 function App() {
@@ -45,7 +45,10 @@ function App() {
   }, [location.pathname]); // Empty dependency array to run the effect only once on mount
 
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.send({ 
+    hitType: "pageview",
+    page: window.location.pathname + window.location.search, 
+    title: "Home" })
   }, []);
 
   return (
