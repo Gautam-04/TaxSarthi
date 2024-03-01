@@ -1,6 +1,6 @@
 // PersonalInfo.js
 import "../Accordion.css";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../Form.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,7 +13,8 @@ import States from "../../../utils/States.json";
 import Accordion from "react-bootstrap/Accordion";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { FaRegCircleUser, FaRegAddressCard } from "react-icons/fa6";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
   const {
@@ -35,7 +36,7 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
     PinCode,
   } = formData;
 
-  const [sameAsAddress, setSameAsAddress] = useState(false);
+  const [sameAsAddress, setSameAsAddress] = useState(true);
 
   const Link = ({ id, children, title }) => (
     <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
@@ -52,6 +53,48 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
   const handleMarriedChange = (e) => {
     onChange({ MaritalStatus: e.target.value });
   };
+
+  useEffect(() => {
+    const Token = localStorage.getItem("token");
+    const fetchData = async () => {
+      try {
+        if (Token) {
+          // Make an axios request to your backend endpoint
+          const response = await axios.post(
+            `http://localhost:8000/user/personalInfoaccess`,
+            { Token }
+          );
+
+          // Assuming the backend response contains the personalInfo object
+          const personalInfo = response.data;
+          console.log(personalInfo);
+          onChange({ FirstName: personalInfo.FirstName || "" });
+          onChange({ MiddleName: personalInfo.MiddleName || "" });
+          onChange({ LastName: personalInfo.LastName || "" });
+          onChange({ DateOfBirth: personalInfo.DateOfBirth || "" });
+          onChange({ FatherName: personalInfo.FatherName || "" });
+          onChange({ Gender: personalInfo.Gender || "" });
+          onChange({ MaritalStatus: personalInfo.MaritalStatus || "" });
+          onChange({ AadharNo: personalInfo.AadharNo || 0 });
+          onChange({ PanCard: personalInfo.PanCard || "" });
+          onChange({ MobileNo: personalInfo.MobileNo || "" });
+          onChange({ Email: personalInfo.Email || "" });
+          onChange({ Address: personalInfo.Address || "" });
+          onChange({PermanentAddress: personalInfo.Address || ""});
+          onChange({ City: personalInfo.City || "" });
+          onChange({ selectedState: personalInfo.selectedState || "" });
+          onChange({ PinCode: personalInfo.PinCode || "" });
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        toast.error("No previous records");
+        // Handle error as needed
+      }
+    };
+
+    // Call the fetchData function
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -164,8 +207,8 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
                 inline
                 type="radio"
                 label="Male"
-                value="male"
-                checked={Gender === "male"}
+                value="Male"
+                checked={Gender === "Male"}
                 onChange={handleGenderChange}
               />
               <Form.Check
@@ -173,8 +216,8 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
                 style={{ marginLeft: "16px" }}
                 type="radio"
                 label="Female"
-                value="female"
-                checked={Gender === "female"}
+                value="Female"
+                checked={Gender === "Female"}
                 onChange={handleGenderChange}
               />
             </Form.Group>
@@ -319,7 +362,7 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
                 <span style={{ marginLeft: "10px" }}>
                   <Link
                     id="t-2"
-                    title="Select If permanent address is the same"
+                    title="DeSelect if the address is different"
                   >
                     <CheckBox
                       onChange={(e) => {

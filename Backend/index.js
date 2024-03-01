@@ -6,6 +6,7 @@ const User = require('./Models/Person');
 const userRoutes = require('./routes/UserRoutes');
 const OldReignRoutes = require('./routes/OldReignRoutes')
 const TaxRoutes = require('./routes/TaxRoutes')
+const PersonalInfoRoutes = require('./routes/PersonalInfoRoute')
 dotenv.config();
 
 connectDB();
@@ -24,6 +25,8 @@ app.use('/user', userRoutes);
 app.use('/api/v1/tax',TaxRoutes);
 
 app.use('/policy',OldReignRoutes);
+
+app.use('/user',PersonalInfoRoutes);
 
 const PORT = process.env.PORT || 8000;
 
