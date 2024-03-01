@@ -36,7 +36,7 @@ function SignUp() {
         localStorage.setItem("userInfo", JSON.stringify(data));
 
         toast.success("You are Registered successfully");
-        navigate("/docs-list");
+        navigate("/profile");
       })
       .catch((error) => toast.error("Try after sometime",error))
       .finally(()=>{setLoading(false)})

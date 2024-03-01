@@ -18,12 +18,18 @@ import { Steps } from "antd";
 import "../Accordion.css";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import Feedback from "../../../components/mis/Feedback";
 
 function OldMulti() {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isLimitCrossed, setIsLimitCrossed] = useState(false);
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [showFeedbackModal, setshowFeedbackModal] = useState(false);
+
+  const toggleFeedbackModal = () => {
+    setshowFeedbackModal(!showFeedbackModal);
+  };
 
     const [formData, setFormData] = useState({
       AadharNo: 0,
@@ -499,7 +505,6 @@ const navigate = useNavigate();
       RentedHouseIncome,
       DeemdedHouseIncome,
     ]);
-    
 
   return (
     <section id="form-filling">
@@ -575,6 +580,13 @@ const navigate = useNavigate();
             )}
           </div>
         </form>
+      </div>
+      <div>
+        <button onClick={toggleFeedbackModal} className="form_feedback_button">Feedback</button>
+        <Feedback
+          showModal={showFeedbackModal}
+          handleClose={toggleFeedbackModal}
+        />
       </div>
     </section>
   );

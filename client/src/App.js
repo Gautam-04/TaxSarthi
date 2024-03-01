@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import BoxLoader from "./components/Loader/BoxLoader";
 import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
 import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
+import Profile from "./pages/Profile/Profile";
 
 const TRACKING_ID = "G-XLC8JY1HWM"; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID, { debug: true });
@@ -180,6 +181,12 @@ function App() {
         <Route
           path="/doc"
           element={loading ? <BoxLoader loading={loading} /> : <OutPutDoc />}
+        />
+
+        {/* Profile Routes */}
+        <Route
+          path="/profile"
+          element={loading ? <BoxLoader loading={loading} /> : <Profile />}
         />
       </Routes>
       {!isBlankDocRoute && !loading && <Footer />}
