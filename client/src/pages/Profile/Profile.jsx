@@ -5,13 +5,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import States from "../../utils/States.json";
-import { FaRegCircleUser, FaRegAddressCard } from "react-icons/fa6";
+import { FaRegCircleUser } from "react-icons/fa6";
 import axios from 'axios';
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 function Profile() {
     const [FirstName, setFirstName] = useState("");
@@ -34,7 +32,7 @@ function Profile() {
     const userData = JSON.parse(userDataString);
     const email = userData.email;
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
       const handleGenderChange = (e) => {
         setGender(e.target.value);
