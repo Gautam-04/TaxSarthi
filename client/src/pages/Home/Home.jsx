@@ -7,9 +7,11 @@ import Marquee from "react-fast-marquee";
 import FaqSec from "../../components/mis/FaqSec";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import useAnalyticsEventTracker from "../../useAnalyticsEventTracker";
 
 function Home() {
   const navigate = useNavigate();
+  const gaEventTracker = useAnalyticsEventTracker("Home Page");
   return (
     <>
       <section id="home" style={{ margin: "0" }}>
@@ -51,6 +53,7 @@ function Home() {
           <button
             className="get-started"
             onClick={() => {
+              gaEventTracker('toLogin');
               navigate("/login");
             }}
           >

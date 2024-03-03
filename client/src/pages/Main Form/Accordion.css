@@ -46,3 +46,23 @@ align-items: center;
     background-color: white !important; 
 }
 
+.form_feedback_button{  
+    padding: 0 30px;
+        width: auto;
+        height: 50px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.15rem;
+        background-color: rgb(54, 255, 88);
+        background-color: var(--primary-dark);
+        color: black;
+        transition: background-color 0.2s ease-in-out;
+        outline: 0;
+        position: fixed;
+        bottom: 20%;
+        right: -55px;
+        /* Adjust the positioning as needed */
+        transform: translateY(-50%) rotate(-90deg);
+        transform-origin: center;
+}
+
