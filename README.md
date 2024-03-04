@@ -1,5 +1,5 @@
 
-# Project Name
+# TaxSarthi
 
 It is a portal that will simplify taxes for people to understand.
 
