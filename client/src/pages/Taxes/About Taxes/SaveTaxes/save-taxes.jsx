@@ -9,11 +9,11 @@ function SaveTaxes() {
         <div className="blog-author">
           <div className="blog-author-profile">
             <img
-              src="https://imgflip.com/s/meme/Cute-Cat.jpg"
-              alt="goofy aah cat"
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Dollar_sign_in_circle_cleaned_%28PD_version%29.green.svg"
+              alt="TaxSarthi"
             />
           </div>
-          <div className="blog-author-name">ChinmayDesai</div>
+          <div className="blog-author-name">TaxSarthi</div>
         </div>
         <div className="blog-date">12 July, 2023</div>
       </div>
@@ -27,10 +27,10 @@ function SaveTaxes() {
           <div className="content-heading">
             Investing in Tax-Saving Instruments
           </div>
-          <div className="content-image">
-            {/* <img src={TaxInstruments} alt="" /> */}
+          {/* <div className="content-image">
+            <img src={TaxInstruments} alt="" />
             <div className="image-caption">Tax Saving Instruments</div>
-          </div>
+          </div> */}
           <div className="content-paragraph">
             India offers several tax-saving investment options under Section 80C
             of the Income Tax Act. These investments not only help you save
@@ -150,11 +150,11 @@ function SaveTaxes() {
         <div className="blog-author">
           <div className="blog-author-profile">
             <img
-              src="https://imgflip.com/s/meme/Cute-Cat.jpg"
-              alt="goofy aah cat"
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Dollar_sign_in_circle_cleaned_%28PD_version%29.green.svg"
+              alt="TaxSarthi"
             />
           </div>
-          <div className="blog-author-name">ChinmayDesai</div>
+          <div className="blog-author-name">TaxSarthi</div>
         </div>
         <div className="next-button">
           <button>Next</button>

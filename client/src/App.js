@@ -22,6 +22,8 @@ import BoxLoader from "./components/Loader/BoxLoader";
 import OldMulti from "./pages/Main Form/Old Tax/OldMulti";
 import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
 import Profile from "./pages/Profile/Profile";
+import Section139_9 from "./pages/Taxes/About Taxes/FAQs/section-139(9)";
+import Section142_1 from "./pages/Taxes/About Taxes/FAQs/section-142(1)";
 
 const TRACKING_ID = "G-XLC8JY1HWM"; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID, { debug: true });
@@ -46,10 +48,11 @@ function App() {
   }, [location.pathname]); // Empty dependency array to run the effect only once on mount
 
   useEffect(() => {
-    ReactGA.send({ 
-    hitType: "pageview",
-    page: window.location.pathname + window.location.search, 
-    title: "Home" });
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname + window.location.search,
+      title: "Home",
+    });
     ReactGA.send({
       hitType: "pageview",
       page: "/login",
@@ -114,12 +117,12 @@ function App() {
           element={loading ? <BoxLoader loading={loading} /> : <FAQs />}
         />
         <Route
-          path="/taxes/tax-basics"
-          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+          path="/taxes/section-139-9"
+          element={loading ? <BoxLoader loading={loading} /> : <Section139_9 />}
         />
         <Route
-          path="/taxes/other-taxes"
-          element={loading ? <BoxLoader loading={loading} /> : <Home />}
+          path="/taxes/section-142-1"
+          element={loading ? <BoxLoader loading={loading} /> : <Section142_1 />}
         />
 
         {/* Savings Routes */}
