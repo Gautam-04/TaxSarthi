@@ -1,20 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../AboutTaxes.css";
 import NoticeReasons from "../../../../assets/tax-notice-01.png";
 import SampleMail from "../../../../assets/tax-notice-02.png";
 
 function TaxNotice() {
+  const navigate = useNavigate();
   return (
     <section className="blog-container">
       <div className="blog-header">
         <div className="blog-author">
           <div className="blog-author-profile">
             <img
-              src="https://imgflip.com/s/meme/Cute-Cat.jpg"
-              alt="goofy aah cat"
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Dollar_sign_in_circle_cleaned_%28PD_version%29.green.svg"
+              alt="TaxSarthi"
             />
           </div>
-          <div className="blog-author-name">ChinmayDesai</div>
+          <div className="blog-author-name">TaxSarthi</div>
         </div>
         <div className="blog-date">12 July, 2023</div>
       </div>
@@ -239,14 +241,14 @@ function TaxNotice() {
         <div className="blog-author">
           <div className="blog-author-profile">
             <img
-              src="https://imgflip.com/s/meme/Cute-Cat.jpg"
-              alt="goofy aah cat"
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Dollar_sign_in_circle_cleaned_%28PD_version%29.green.svg"
+              alt="TaxSarthi"
             />
           </div>
-          <div className="blog-author-name">ChinmayDesai</div>
+          <div className="blog-author-name">TaxSarthi</div>
         </div>
         <div className="next-button">
-          <button>Next</button>
+          <button onClick={() => navigate("/taxes/faqs")}>Next</button>
         </div>
       </div>
     </section>

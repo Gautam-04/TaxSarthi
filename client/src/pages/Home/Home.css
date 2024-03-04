@@ -231,6 +231,31 @@
   font-size: 1.2rem;
 }
 
+#blog-suggestions {
+  /* background: cyan; */
+  padding-block: 1rem;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.blog-suggestions-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.cards-container {
+  width: 90%;
+  /* background-color: whitesmoke; */
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+  align-items: center;
+}
+
 @media screen and (max-width: 700px) {
   .main-stats {
     flex-direction: column;
@@ -241,5 +266,12 @@
   }
   .query-box {
     width: 90vw;
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  .cards-container {
+    flex-direction: column;
+    gap: 1.2rem;
   }
 }
