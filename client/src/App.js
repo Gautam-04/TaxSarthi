@@ -25,6 +25,7 @@ import OutPutDoc from "./pages/Pdf Docs/OutPutDoc";
 import Profile from "./pages/Profile/Profile";
 import Section139_9 from "./pages/Taxes/About Taxes/FAQs/section-139(9)";
 import Section142_1 from "./pages/Taxes/About Taxes/FAQs/section-142(1)";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const TRACKING_ID = "G-XLC8JY1HWM"; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID, { debug: true });
@@ -194,6 +195,7 @@ function App() {
         />
       </Routes>
       {!isBlankDocRoute && !loading && <Footer />}
+      <SpeedInsights />
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
