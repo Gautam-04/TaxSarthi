@@ -23,7 +23,7 @@ function SignUp() {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("https://taxsaarthi.onrender.com/user/signup", {
+      .post("http://localhost:8000/user/signup", {
         name,
         email,
         password,
@@ -38,8 +38,13 @@ function SignUp() {
         toast.success("You are Registered successfully");
         navigate("/profile");
       })
-      .catch((error) => toast.error("Try after sometime",error))
-      .finally(()=>{setLoading(false)})
+      .catch((error) => {
+        toast.error("Try after sometime", error);
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
