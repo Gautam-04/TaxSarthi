@@ -9,7 +9,7 @@ import States from "../../utils/States.json";
 import { FaRegCircleUser } from "react-icons/fa6";
 import axios from 'axios';
 import { toast } from "react-toastify";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
     const [FirstName, setFirstName] = useState("");
@@ -32,7 +32,7 @@ function Profile() {
     const userData = JSON.parse(userDataString);
     const email = userData.email;
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
       const handleGenderChange = (e) => {
         setGender(e.target.value);
@@ -76,7 +76,6 @@ function Profile() {
             }
           } catch (error) {
             console.error("Error fetching data:", error);
-            toast.error("No previous records");
             // Handle error as needed
           }
         };
@@ -126,7 +125,11 @@ const Token = localStorage.getItem("token");
       console.error(err);
       toast.error("Try again after sometime");
     })
-    .finally(() => {});
+    .finally(() => {
+            setTimeout(() => {
+              navigate("/old")
+            }, 1500);
+    });
 }
 
   return (

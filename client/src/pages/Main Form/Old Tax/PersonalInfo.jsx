@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // PersonalInfo.js
 import "../Accordion.css";
 import React, { useState,useEffect } from "react";
@@ -14,7 +15,6 @@ import Accordion from "react-bootstrap/Accordion";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { FaRegCircleUser, FaRegAddressCard } from "react-icons/fa6";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
   const {
@@ -87,8 +87,6 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        toast.error("No previous records");
-        // Handle error as needed
       }
     };
 
