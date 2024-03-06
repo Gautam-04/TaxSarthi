@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import ReactGA from "react-ga4";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
