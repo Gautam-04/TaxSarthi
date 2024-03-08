@@ -13,7 +13,7 @@ const PersonalInfoSchema = new mongoose.Schema(
     AadharNo: { type: Number, required: true,unique: true },
     PanCard: { type: String, required: true },
     MobileNo: { type: String, required: true },
-    Email: { type: String, required: true },
+    Email: { type: String, required: true,unique: true },
     Address: { type: String, required: true },
     // PermanentAddress: { type: String, required: true },
     City: { type: String, required: true },

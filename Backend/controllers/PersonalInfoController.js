@@ -22,7 +22,7 @@ exports.PersonalInfoSave = async(req,res)=> {
       } = req.body;
 
       // Check if a document with the given AadharNo exists
-      const existingInfo = await PersonalInfo.findOne({ AadharNo });
+      const existingInfo = await PersonalInfo.find({ AadharNo,Email });
 
       if (existingInfo) {
         // Check if there's any change in the values
@@ -36,7 +36,6 @@ exports.PersonalInfoSave = async(req,res)=> {
           MaritalStatus !== existingInfo.MaritalStatus ||
           PanCard !== existingInfo.PanCard ||
           MobileNo !== existingInfo.MobileNo ||
-          Email !== existingInfo.Email ||
           Address !== existingInfo.Address ||
           City !== existingInfo.City ||
           selectedState !== existingInfo.selectedState ||
@@ -58,7 +57,6 @@ exports.PersonalInfoSave = async(req,res)=> {
                 MaritalStatus,
                 PanCard,
                 MobileNo,
-                Email,
                 Address,
                 City,
                 selectedState,
@@ -105,16 +103,16 @@ exports.PersonalInfoSave = async(req,res)=> {
 }
 
 exports.PersonalInfoAccess = async (req,res) => {
-    const { Token } = req.body
+    const { Email } = req.body;
     try {
-      const pbody = await PersonalInfo.findOne({ Token });
+      const pbody = await PersonalInfo.findOne({ Email });
 
       if (pbody) {
         res.status(200).json(pbody);
       } else {
         res
           .status(404)
-          .json({ message: "No data found for the provided token" });
+          .json({ message: "No data found for the provided Email" });
       }
     } catch (error) {
             console.log(error);
