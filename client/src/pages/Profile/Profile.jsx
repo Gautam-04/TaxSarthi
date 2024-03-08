@@ -48,7 +48,9 @@ function Profile() {
         console.log(Email);
         const fetchData = async () => {
           await axios
-              .post(`http://localhost:8000/user/personalInfoaccess`, { Email })
+              .post(`https://taxsaarthi.onrender.com/user/personalInfoaccess`, {
+                  Email,
+              })
               .then((result) => {
                   const personalInfo = result.data;
                   console.log(personalInfo);
