@@ -48,32 +48,32 @@ function Profile() {
         console.log(Email);
         const fetchData = async () => {
           await axios
-          .post(`https://taxsaarthi.onrender.com/user/personalInfoaccess`,{Email})
-          .then((result)=>{
-            const personalInfo = result.data;
-            console.log(personalInfo);
-                setFirstName(personalInfo.FirstName || "");
-                setMiddleName(personalInfo.MiddleName || "");
-                setLastName(personalInfo.LastName || "");
-                setDateOfBirth(personalInfo.DateOfBirth || "");
-                setFatherName(personalInfo.FatherName || "");
-                setGender(personalInfo.Gender || "");
-                setMaritalStatus(personalInfo.MaritalStatus || "");
-                setAadharNo(personalInfo.AadharNo || 0);
-                setPanCard(personalInfo.PanCard || "");
-                setMobileNo(personalInfo.MobileNo || "");
-                setAddress(personalInfo.Address || "");
-                setCity(personalInfo.City || "");
-                setSelectedState(personalInfo.selectedState || "");
-                setPinCode(personalInfo.PinCode || "");
-          })
-          .catch((error)=>{
-            console.error("Error fetching data:", error);
-        });
+              .post(`http://localhost:8000/user/personalInfoaccess`, { Email })
+              .then((result) => {
+                  const personalInfo = result.data;
+                  console.log(personalInfo);
+                  setFirstName(personalInfo.FirstName || "");
+                  setMiddleName(personalInfo.MiddleName || "");
+                  setLastName(personalInfo.LastName || "");
+                  setDateOfBirth(personalInfo.DateOfBirth || "");
+                  setFatherName(personalInfo.FatherName || "");
+                  setGender(personalInfo.Gender || "");
+                  setMaritalStatus(personalInfo.MaritalStatus || "");
+                  setAadharNo(personalInfo.AadharNo || 0);
+                  setPanCard(personalInfo.PanCard || "");
+                  setMobileNo(personalInfo.MobileNo || "");
+                  setAddress(personalInfo.Address || "");
+                  setCity(personalInfo.City || "");
+                  setSelectedState(personalInfo.selectedState || "");
+                  setPinCode(personalInfo.PinCode || "");
+              })
+              .catch((error) => {
+                  console.error("Error fetching data:", error);
+              });
       }
         // Call the fetchData function
         fetchData();
-      }, [])
+      }, [Email,email])
       
 
 async function handleSubmit(e) {
