@@ -22,7 +22,7 @@ exports.PersonalInfoSave = async(req,res)=> {
       } = req.body;
 
       // Check if a document with the given AadharNo exists
-      const existingInfo = await PersonalInfo.find({ AadharNo,Email });
+      const existingInfo = await PersonalInfo.findOne({ Email });
 
       if (existingInfo) {
         // Check if there's any change in the values
@@ -44,7 +44,7 @@ exports.PersonalInfoSave = async(req,res)=> {
         if (hasChanged) {
           // Update existing document with new values
           const updatedInfo = await PersonalInfo.findOneAndUpdate(
-            { AadharNo },
+            { Email },
             {
               $set: {
                 Token,
