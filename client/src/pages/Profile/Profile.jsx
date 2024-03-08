@@ -127,7 +127,7 @@ const Token = localStorage.getItem("token");
     })
     .finally(() => {
             setTimeout(() => {
-              navigate("/old")
+              navigate("/docs-list");
             }, 1500);
     });
 }
