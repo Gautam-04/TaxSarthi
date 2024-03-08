@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
+import "./Card.css";
 
 function truncateText(text, maxLength) {
   if (text.length <= maxLength) {
@@ -28,8 +29,10 @@ function BlogCard(props) {
     <Card
       style={{
         width: "18rem",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         borderRadius: "20px",
+        height: "100%",
+        border: "2px solid #b3d89c",
       }}
     >
       <Card.Body>
@@ -46,7 +49,7 @@ function BlogCard(props) {
             borderRadius: "30px",
             fontWeight: "600",
             fontSize: "1.15rem",
-            backgroundColor: "rgb(54, 255, 88)",
+            backgroundColor: "#b3d89c",
             color: "black",
             transition: "background-color 0.2s ease-in-out",
           }}
