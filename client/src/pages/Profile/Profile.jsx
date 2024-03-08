@@ -28,6 +28,7 @@ function Profile() {
     const [City, setCity] = useState("");
     const [selectedState, setSelectedState] = useState("");
     const [PinCode, setPinCode] = useState("");
+
     const userDataString = localStorage.getItem("userInfo");
     const userData = JSON.parse(userDataString);
     const email = userData.email;
@@ -43,43 +44,33 @@ function Profile() {
 
 
       useEffect(() => {
+        setEmail(email);
+        console.log(Email);
         const fetchData = async () => {
-          try {
-            // Retrieve pid from local storage
-            const Token = localStorage.getItem("token");
-
-            if (Token) {
-              // Make an axios request to your backend endpoint
-              const response = await axios.post(
-                `https://taxsaarthi.onrender.com/user/personalInfoaccess`,
-                { Token }
-              );
-
-              // Assuming the backend response contains the personalInfo object
-              const personalInfo = response.data;
-              console.log(personalInfo);
-              setFirstName(personalInfo.FirstName || "");
-              setMiddleName(personalInfo.MiddleName || "");
-              setLastName(personalInfo.LastName || "");
-              setDateOfBirth(personalInfo.DateOfBirth || "");
-              setFatherName(personalInfo.FatherName || "");
-              setGender(personalInfo.Gender || "");
-              setMaritalStatus(personalInfo.MaritalStatus || "");
-              setAadharNo(personalInfo.AadharNo || 0);
-              setPanCard(personalInfo.PanCard || "");
-              setMobileNo(personalInfo.MobileNo || "");
-              setEmail(personalInfo.Email || "");
-              setAddress(personalInfo.Address || "");
-              setCity(personalInfo.City || "");
-              setSelectedState(personalInfo.selectedState || "");
-              setPinCode(personalInfo.PinCode || "");
-            }
-          } catch (error) {
+          await axios
+          .post(`https://taxsaarthi.onrender.com/user/personalInfoaccess`,{Email})
+          .then((result)=>{
+            const personalInfo = result.data;
+            console.log(personalInfo);
+                setFirstName(personalInfo.FirstName || "");
+                setMiddleName(personalInfo.MiddleName || "");
+                setLastName(personalInfo.LastName || "");
+                setDateOfBirth(personalInfo.DateOfBirth || "");
+                setFatherName(personalInfo.FatherName || "");
+                setGender(personalInfo.Gender || "");
+                setMaritalStatus(personalInfo.MaritalStatus || "");
+                setAadharNo(personalInfo.AadharNo || 0);
+                setPanCard(personalInfo.PanCard || "");
+                setMobileNo(personalInfo.MobileNo || "");
+                setAddress(personalInfo.Address || "");
+                setCity(personalInfo.City || "");
+                setSelectedState(personalInfo.selectedState || "");
+                setPinCode(personalInfo.PinCode || "");
+          })
+          .catch((error)=>{
             console.error("Error fetching data:", error);
-            // Handle error as needed
-          }
-        };
-
+        });
+      }
         // Call the fetchData function
         fetchData();
       }, [])
@@ -115,8 +106,10 @@ const Token = localStorage.getItem("token");
 
       if (id) {
         localStorage.setItem("pid", id);
-        toast.success("Personal Info Saved successfully Successful");
-        // navigate("/docs-list");
+        toast.success("Personal Info Saved successfully");
+        setTimeout(() => {
+            navigate("/docs-list");
+        }, 1500);
       } else {
         toast.error("Personal Info cannot be saved error in the system");
       }
@@ -126,9 +119,6 @@ const Token = localStorage.getItem("token");
       toast.error("Try again after sometime");
     })
     .finally(() => {
-            setTimeout(() => {
-              navigate("/docs-list");
-            }, 1500);
     });
 }
 
@@ -326,8 +316,7 @@ const Token = localStorage.getItem("token");
             <Form.Control
               type="email"
               value={Email}
-              placeholder="xyz@mail.com"
-              onChange={(e) => setEmail(e.target.value)}
+              disabled
             />
           </Form.Group>
         </Row>

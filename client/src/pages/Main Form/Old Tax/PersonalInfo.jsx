@@ -55,35 +55,37 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
   };
 
   useEffect(() => {
-    const Token = localStorage.getItem("token");
+        const userDataString = localStorage.getItem("userInfo");
+        const userData = JSON.parse(userDataString);
+        const Email = userData.email;
     const fetchData = async () => {
       try {
-        if (Token) {
-          // Make an axios request to your backend endpoint
-          const response = await axios.post(
-            `https://taxsaarthi.onrender.com/user/personalInfoaccess`,
-            { Token }
-          );
+        if (Email) {
+            // Make an axios request to your backend endpoint
+            const response = await axios.post(
+                `https://taxsaarthi.onrender.com/user/personalInfoaccess`,
+                { Email }
+            );
 
-          // Assuming the backend response contains the personalInfo object
-          const personalInfo = response.data;
-          console.log(personalInfo);
-          onChange({ FirstName: personalInfo.FirstName || "" });
-          onChange({ MiddleName: personalInfo.MiddleName || "" });
-          onChange({ LastName: personalInfo.LastName || "" });
-          onChange({ DateOfBirth: personalInfo.DateOfBirth || "" });
-          onChange({ FatherName: personalInfo.FatherName || "" });
-          onChange({ Gender: personalInfo.Gender || "" });
-          onChange({ MaritalStatus: personalInfo.MaritalStatus || "" });
-          onChange({ AadharNo: personalInfo.AadharNo || 0 });
-          onChange({ PanCard: personalInfo.PanCard || "" });
-          onChange({ MobileNo: personalInfo.MobileNo || "" });
-          onChange({ Email: personalInfo.Email || "" });
-          onChange({ Address: personalInfo.Address || "" });
-          onChange({PermanentAddress: personalInfo.Address || ""});
-          onChange({ City: personalInfo.City || "" });
-          onChange({ selectedState: personalInfo.selectedState || "" });
-          onChange({ PinCode: personalInfo.PinCode || "" });
+            // Assuming the backend response contains the personalInfo object
+            const personalInfo = response.data;
+            console.log(personalInfo);
+            onChange({ FirstName: personalInfo.FirstName || "" });
+            onChange({ MiddleName: personalInfo.MiddleName || "" });
+            onChange({ LastName: personalInfo.LastName || "" });
+            onChange({ DateOfBirth: personalInfo.DateOfBirth || "" });
+            onChange({ FatherName: personalInfo.FatherName || "" });
+            onChange({ Gender: personalInfo.Gender || "" });
+            onChange({ MaritalStatus: personalInfo.MaritalStatus || "" });
+            onChange({ AadharNo: personalInfo.AadharNo || 0 });
+            onChange({ PanCard: personalInfo.PanCard || "" });
+            onChange({ MobileNo: personalInfo.MobileNo || "" });
+            onChange({ Email: personalInfo.Email || "" });
+            onChange({ Address: personalInfo.Address || "" });
+            onChange({ PermanentAddress: personalInfo.Address || "" });
+            onChange({ City: personalInfo.City || "" });
+            onChange({ selectedState: personalInfo.selectedState || "" });
+            onChange({ PinCode: personalInfo.PinCode || "" });
         }
       } catch (error) {
         console.error("Error fetching data:", error);
