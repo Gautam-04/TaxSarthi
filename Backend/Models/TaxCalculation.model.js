@@ -124,28 +124,31 @@ const calculateNewRegimeTax = async function (income) {
   let totalTax = 0;
 
   if (income >= TAX_REBATE_NEW.new) {
-    totalTax += calculateSlabTax(Math.min(income, 300000), 0);
+    totalTax += calculateSlabTax(Math.min(income, 250000), 0);
 
     totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 300000, 300000), 0),
-      0.05
+        Math.min(Math.max(income - 250000, 0), 500000 - 250000),
+        0.05
     );
 
     totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 600000, 300000), 0),
-      0.1
+        Math.min(Math.max(income - 500000, 0), 750000-500000),
+        0.1
     );
 
     totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 900000, 300000), 0),
-      0.15
+        Math.min(Math.max(income - 750000, 0), 1000000 - 750000),
+        0.15
     );
 
     totalTax += calculateSlabTax(
-      Math.max(Math.min(income - 1200000, 300000), 0),
-      0.2
+        Math.min(Math.max(income - 1000000, 0), 1250000 - 1000000),
+        0.2
     );
-
+    totalTax += calculateSlabTax(
+        Math.min(Math.max(income - 1250000, 0), 1500000 - 1250000),
+        0.25
+    );
     totalTax += calculateSlabTax(Math.max(income - 1500000, 0), 0.3);
   }
 
