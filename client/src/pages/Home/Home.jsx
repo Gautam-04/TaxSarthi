@@ -156,6 +156,7 @@ function Home() {
                 />
               </Form.Group>
               <Button
+                style={{ backgroundColor: "var(--primary)" }}
                 variant="primary"
                 type="submit"
                 onSubmit={(e) => {

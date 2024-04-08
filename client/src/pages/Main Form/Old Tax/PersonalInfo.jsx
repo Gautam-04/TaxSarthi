@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // PersonalInfo.js
 import "../Accordion.css";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../Form.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import CheckBox from "../../../components/mis/CheckBox";
+import CheckBox from "../../../components/mis/CheckBox/CheckBox";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import States from "../../../utils/States.json";
@@ -55,37 +55,37 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
   };
 
   useEffect(() => {
-        const userDataString = localStorage.getItem("userInfo");
-        const userData = JSON.parse(userDataString);
-        const Email = userData.email;
+    const userDataString = localStorage.getItem("userInfo");
+    const userData = JSON.parse(userDataString);
+    const Email = userData.email;
     const fetchData = async () => {
       try {
         if (Email) {
-            // Make an axios request to your backend endpoint
-            const response = await axios.post(
-                `https://taxsaarthi.onrender.com/user/personalInfoaccess`,
-                { Email }
-            );
+          // Make an axios request to your backend endpoint
+          const response = await axios.post(
+            `https://taxsaarthi.onrender.com/user/personalInfoaccess`,
+            { Email }
+          );
 
-            // Assuming the backend response contains the personalInfo object
-            const personalInfo = response.data;
-            console.log(personalInfo);
-            onChange({ FirstName: personalInfo.FirstName || "" });
-            onChange({ MiddleName: personalInfo.MiddleName || "" });
-            onChange({ LastName: personalInfo.LastName || "" });
-            onChange({ DateOfBirth: personalInfo.DateOfBirth || "" });
-            onChange({ FatherName: personalInfo.FatherName || "" });
-            onChange({ Gender: personalInfo.Gender || "" });
-            onChange({ MaritalStatus: personalInfo.MaritalStatus || "" });
-            onChange({ AadharNo: personalInfo.AadharNo || 0 });
-            onChange({ PanCard: personalInfo.PanCard || "" });
-            onChange({ MobileNo: personalInfo.MobileNo || "" });
-            onChange({ Email: personalInfo.Email || "" });
-            onChange({ Address: personalInfo.Address || "" });
-            onChange({ PermanentAddress: personalInfo.Address || "" });
-            onChange({ City: personalInfo.City || "" });
-            onChange({ selectedState: personalInfo.selectedState || "" });
-            onChange({ PinCode: personalInfo.PinCode || "" });
+          // Assuming the backend response contains the personalInfo object
+          const personalInfo = response.data;
+          console.log(personalInfo);
+          onChange({ FirstName: personalInfo.FirstName || "" });
+          onChange({ MiddleName: personalInfo.MiddleName || "" });
+          onChange({ LastName: personalInfo.LastName || "" });
+          onChange({ DateOfBirth: personalInfo.DateOfBirth || "" });
+          onChange({ FatherName: personalInfo.FatherName || "" });
+          onChange({ Gender: personalInfo.Gender || "" });
+          onChange({ MaritalStatus: personalInfo.MaritalStatus || "" });
+          onChange({ AadharNo: personalInfo.AadharNo || 0 });
+          onChange({ PanCard: personalInfo.PanCard || "" });
+          onChange({ MobileNo: personalInfo.MobileNo || "" });
+          onChange({ Email: personalInfo.Email || "" });
+          onChange({ Address: personalInfo.Address || "" });
+          onChange({ PermanentAddress: personalInfo.Address || "" });
+          onChange({ City: personalInfo.City || "" });
+          onChange({ selectedState: personalInfo.selectedState || "" });
+          onChange({ PinCode: personalInfo.PinCode || "" });
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -360,10 +360,7 @@ const PersonalInfo = ({ formData, onChange, handleLimitFunction }) => {
               <Form.Label style={{ display: "flex", alignItems: "center" }}>
                 Permanant Address{" "}
                 <span style={{ marginLeft: "10px" }}>
-                  <Link
-                    id="t-2"
-                    title="DeSelect if the address is different"
-                  >
+                  <Link id="t-2" title="DeSelect if the address is different">
                     <CheckBox
                       onChange={(e) => {
                         setSameAsAddress(e.target.checked);

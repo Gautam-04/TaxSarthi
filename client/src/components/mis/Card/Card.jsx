@@ -27,32 +27,34 @@ function BlogCard(props) {
 
   return (
     <Card
-      style={{
-        width: "18rem",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        borderRadius: "20px",
-        height: "100%",
-        border: "2px solid #b3d89c",
-      }}
+      // style={{
+      //   width: "18rem",
+      //   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+      //   borderRadius: "20px",
+      //   height: "100%",
+      //   border: "2px solid #b3d89c",
+      // }}
+      className="card"
     >
       <Card.Body>
         <Card.Title style={{ fontSize: "2rem" }}>{title}</Card.Title>
-        <Card.Text style={{ color: "blue", fontSize: "1.12rem" }}>
+        <Card.Text style={{ color: "var(--blue-dark)", fontSize: "1.12rem" }}>
           {truncatedBody}
         </Card.Text>
         <button
           onClick={handleButtonClick}
-          style={{
-            padding: "0 30px",
-            width: "auto",
-            height: "50px",
-            borderRadius: "30px",
-            fontWeight: "600",
-            fontSize: "1.15rem",
-            backgroundColor: "#b3d89c",
-            color: "black",
-            transition: "background-color 0.2s ease-in-out",
-          }}
+          // style={{
+          //   padding: "0 30px",
+          //   width: "auto",
+          //   height: "50px",
+          //   borderRadius: "30px",
+          //   fontWeight: "600",
+          //   fontSize: "1.15rem",
+          //   backgroundColor: "#b3d89c",
+          //   color: "black",
+          //   transition: "background-color 0.2s ease-in-out",
+          // }}
+          className="card-button"
         >
           Read More
         </button>

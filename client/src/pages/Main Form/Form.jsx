@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
-import React,{useState,useEffect,useCallback} from 'react'
-import './Form.css'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import React, { useState, useEffect, useCallback } from "react";
+import "./Form.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import CheckBox from '../../components/mis/CheckBox';
+import CheckBox from "../../components/mis/CheckBox/CheckBox";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import States from '../../utils/States.json';
-import axios from 'axios';
-import { IoInformationCircleOutline  } from "react-icons/io5";
+import States from "../../utils/States.json";
+import axios from "axios";
+import { IoInformationCircleOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Accordion from "react-bootstrap/Accordion";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
@@ -29,7 +29,7 @@ import { BsFillHouseAddFill } from "react-icons/bs";
 import { MdCastForEducation } from "react-icons/md";
 import "./Accordion.css";
 import ImageModal from "../../components/mis/ImageModal";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const encodeAadhar = (aadharNumber) => {
   let encodedAadhar = 0;
@@ -60,213 +60,199 @@ const decodeAadhar = (excess3Code) => {
 };
 
 function FormFilling() {
-const [formData, setFormData] = useState({
-  FirstName: "",
-  MiddleName: "",
-  LastName: "",
-  Name: "",
-  DateOfBirth: "",
-  FatherName: "",
-  Gender: "",
-  MaritalStatus: "",
+  const [formData, setFormData] = useState({
+    FirstName: "",
+    MiddleName: "",
+    LastName: "",
+    Name: "",
+    DateOfBirth: "",
+    FatherName: "",
+    Gender: "",
+    MaritalStatus: "",
 
-  PanCard: "",
-  MobileNo: 0,
-  Email: "",
-  Address: "",
-  PermanentAddress: "",
-  City: "",
-  selectedState: "",
-  PinCode: "",
+    PanCard: "",
+    MobileNo: 0,
+    Email: "",
+    Address: "",
+    PermanentAddress: "",
+    City: "",
+    selectedState: "",
+    PinCode: "",
 
-  employerName: "",
-  employerAddress: "",
-  employerPanNumber: "",
-  tanNumber: "",
-  employeeReferenceNo: "",
-  Year: "",
-  TaxDeducted: 0,
+    employerName: "",
+    employerAddress: "",
+    employerPanNumber: "",
+    tanNumber: "",
+    employeeReferenceNo: "",
+    Year: "",
+    TaxDeducted: 0,
+  });
 
-});
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
+  const [RentedHouseIncome, setRentedHouseIncome] = useState(0);
+  const [DeemdedHouseIncome, setDeemdedHouseIncome] = useState(0);
 
-const [RentedHouseIncome, setRentedHouseIncome] = useState(0);
-const [DeemdedHouseIncome, setDeemdedHouseIncome] = useState(0);
+  const [OldFinalTax, setOldFinalTax] = useState(0);
+  const [OldFinalCess, setOldFinalCess] = useState(0);
+  const [NewFinalTax, setNewFinalTax] = useState(0);
+  const [NewFinalCess, setNewFinalCess] = useState(0);
+  const [PreferredSystem, setPreferredSystem] = useState("");
 
-const [OldFinalTax, setOldFinalTax] = useState(0);
-const [OldFinalCess, setOldFinalCess] = useState(0);
-const [NewFinalTax, setNewFinalTax] = useState(0);
-const [NewFinalCess, setNewFinalCess] = useState(0);
-const [PreferredSystem, setPreferredSystem] = useState("");
+  const [AadharNo, setAadharNo] = useState(0);
 
-const [AadharNo, setAadharNo] = useState(0);
+  const {
+    FirstName,
+    MiddleName,
+    LastName,
+    Name,
+    DateOfBirth,
+    FatherName,
+    Gender,
+    MaritalStatus,
+    PanCard,
+    MobileNo,
+    Email,
+    Address,
+    PermanentAddress,
+    City,
+    selectedState,
+    PinCode,
+    employerName,
+    employerAddress,
+    employerPanNumber,
+    tanNumber,
+    employeeReferenceNo,
+    Year,
+    TaxDeducted,
+  } = formData;
 
-const {
-  FirstName,
-  MiddleName,
-  LastName,
-  Name,
-  DateOfBirth,
-  FatherName,
-  Gender,
-  MaritalStatus,
-  PanCard,
-  MobileNo,
-  Email,
-  Address,
-  PermanentAddress,
-  City,
-  selectedState,
-  PinCode,
-  employerName,
-  employerAddress,
-  employerPanNumber,
-  tanNumber,
-  employeeReferenceNo,
-  Year,
-  TaxDeducted,
-} = formData;
-
- //Checkboxes
+  //Checkboxes
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [sameAsAddress, setSameAsAddress] = useState(false);
   const [show, setShow] = useState(false);
 
-const handleChange = useCallback((newData) => {
-  setFormData((prevFormData) => ({ ...prevFormData, ...newData }));
-}, []);
+  const handleChange = useCallback((newData) => {
+    setFormData((prevFormData) => ({ ...prevFormData, ...newData }));
+  }, []);
 
-function onChange(e) {
-  setFormData((prevState) => ({
-    ...prevState,
-    [e.target.id]: e.target.value,
-  }));
-}
+  function onChange(e) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
 
-//Income
-const [Salary, setSalary] = useState(0);
-const [PrerequisiteIncome, setPrerequisiteIncome] = useState(0);
-const [ProfitIncome, setProfitIncome] = useState(0);
-const [OtherIncome, setOtherIncome] = useState(0);
+  //Income
+  const [Salary, setSalary] = useState(0);
+  const [PrerequisiteIncome, setPrerequisiteIncome] = useState(0);
+  const [ProfitIncome, setProfitIncome] = useState(0);
+  const [OtherIncome, setOtherIncome] = useState(0);
 
-const [HRA, setHRA] = useState(0);
-const [LTA, setLTA] = useState(0);
-const [OtherExemptedAllowances, setOtherExemptedAllowances] = useState(0);
-const [ProfessionalTax, setProfessionalTax] = useState(0);
-const [OwnHouseIncome, setOwnHouseIncome] = useState(0);
+  const [HRA, setHRA] = useState(0);
+  const [LTA, setLTA] = useState(0);
+  const [OtherExemptedAllowances, setOtherExemptedAllowances] = useState(0);
+  const [ProfessionalTax, setProfessionalTax] = useState(0);
+  const [OwnHouseIncome, setOwnHouseIncome] = useState(0);
 
-//Deductions
-const [BasicDeductions, setBasicDeductions] = useState(0);
-const [Medical, setMedical] = useState(0);
-const [EducationalLoan, setEducationalLoan] = useState(0);
-const [Nps, setNps] = useState(0);
-const [Deposits, setDeposits] = useState(0);
-const [Charity, setCharity] = useState(0);
+  //Deductions
+  const [BasicDeductions, setBasicDeductions] = useState(0);
+  const [Medical, setMedical] = useState(0);
+  const [EducationalLoan, setEducationalLoan] = useState(0);
+  const [Nps, setNps] = useState(0);
+  const [Deposits, setDeposits] = useState(0);
+  const [Charity, setCharity] = useState(0);
 
-//Deductions according to the number
-const [section80C, setSection80C] = useState(0);
-const [section80CCC, setSection80CCC] = useState(0);
-const [section80CCD1, setSection80CCD1] = useState(0);
-const [section80CCD2, setSection80CCD2] = useState(0);
-const [section80CCD1B, setSection80CCD1B] = useState(0);
-const [section80CCF, setSection80CCF] = useState(0);
-const [section80CCG, setSection80CCG] = useState(0);
-const [section80D, setSection80D] = useState(0);
-const [section80DD, setSection80DD] = useState(0);
-const [section80DDB, setSection80DDB] = useState(0);
-const [section80E, setSection80E] = useState(0);
-const [section80EE, setSection80EE] = useState(0);
-const [section80G, setSection80G] = useState(0);
-const [section80GGA, setSection80GGA] = useState(0);
-const [section80GGC, setSection80GGC] = useState(0);
-const [section80QQB, setSection80QQB] = useState(0);
-const [section80RRB, setSection80RRB] = useState(0);
-const [section80TTA, setSection80TTA] = useState(0);
-const [section80U, setSection80U] = useState(0);
+  //Deductions according to the number
+  const [section80C, setSection80C] = useState(0);
+  const [section80CCC, setSection80CCC] = useState(0);
+  const [section80CCD1, setSection80CCD1] = useState(0);
+  const [section80CCD2, setSection80CCD2] = useState(0);
+  const [section80CCD1B, setSection80CCD1B] = useState(0);
+  const [section80CCF, setSection80CCF] = useState(0);
+  const [section80CCG, setSection80CCG] = useState(0);
+  const [section80D, setSection80D] = useState(0);
+  const [section80DD, setSection80DD] = useState(0);
+  const [section80DDB, setSection80DDB] = useState(0);
+  const [section80E, setSection80E] = useState(0);
+  const [section80EE, setSection80EE] = useState(0);
+  const [section80G, setSection80G] = useState(0);
+  const [section80GGA, setSection80GGA] = useState(0);
+  const [section80GGC, setSection80GGC] = useState(0);
+  const [section80QQB, setSection80QQB] = useState(0);
+  const [section80RRB, setSection80RRB] = useState(0);
+  const [section80TTA, setSection80TTA] = useState(0);
+  const [section80U, setSection80U] = useState(0);
 
-// const [section80GGB, setSection80GGB] = useState(0);
-// const [section80GG, setSection80GG] = useState(0);
-// const [section80IA, setSection80IA] = useState(0);
-// const [section80IAB, setSection80IAB] = useState(0);
-// const [section80IB, setSection80IB] = useState(0);
-// const [section80IC, setSection80IC] = useState(0);
-// const [section80ID, setSection80ID] = useState(0);
-// const [section80IE, setSection80IE] = useState(0);
-// const [section80JJA, setSection80JJA] = useState(0);
-// const [section80JJAA, setSection80JJAA] = useState(0);
-// const [section80LA, setSection80LA] = useState(0);
-// const [section80P, setSection80P] = useState(0);
+  // const [section80GGB, setSection80GGB] = useState(0);
+  // const [section80GG, setSection80GG] = useState(0);
+  // const [section80IA, setSection80IA] = useState(0);
+  // const [section80IAB, setSection80IAB] = useState(0);
+  // const [section80IB, setSection80IB] = useState(0);
+  // const [section80IC, setSection80IC] = useState(0);
+  // const [section80ID, setSection80ID] = useState(0);
+  // const [section80IE, setSection80IE] = useState(0);
+  // const [section80JJA, setSection80JJA] = useState(0);
+  // const [section80JJAA, setSection80JJAA] = useState(0);
+  // const [section80LA, setSection80LA] = useState(0);
+  // const [section80P, setSection80P] = useState(0);
 
+  const [showIncomeModal, setShowIncomeModal] = useState(false);
+  const [showProfitsModal, setShowProfitsModal] = useState(false);
+  const [HeadIncome, setHeadIncome] = useState(0);
 
-     const [showIncomeModal, setShowIncomeModal] = useState(false);
-     const [showProfitsModal, setShowProfitsModal] = useState(false);
-     const [HeadIncome, setHeadIncome] = useState(0);
+  const [RentedhomeInterestPaid, setRentedHomeInterestPaid] = useState(0);
+  const [RentedrentReceived, setRentedRentReceived] = useState(0);
+  const [RentedmunicipalTax1, setRentedMunicipalTax1] = useState(0);
 
-     const [RentedhomeInterestPaid, setRentedHomeInterestPaid] = useState(0);
-     const [RentedrentReceived, setRentedRentReceived] = useState(0);
-     const [RentedmunicipalTax1, setRentedMunicipalTax1] = useState(0);
+  const [DeemedhomeInterestPaid, setDeemedHomeInterestPaid] = useState(0);
+  const [DeemedrentReceived, setDeemedRentReceived] = useState(0);
+  const [DeemedmunicipalTax1, setDeemedMunicipalTax1] = useState(0);
 
-     const [DeemedhomeInterestPaid, setDeemedHomeInterestPaid] = useState(0);
-     const [DeemedrentReceived, setDeemedRentReceived] = useState(0);
-     const [DeemedmunicipalTax1, setDeemedMunicipalTax1] = useState(0);
+  useEffect(() => {
+    const numericSalary = parseFloat(Salary) || 0;
+    const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
+    const numericProfitIncome = parseFloat(ProfitIncome) || 0;
+    const numericHRA = parseFloat(HRA) || 0;
+    const numericLTA = parseFloat(LTA) || 0;
+    const numericOtherExemptedAllowances =
+      parseFloat(OtherExemptedAllowances) || 0;
+    const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
+    const numericOwnHouseIncome = parseFloat(OwnHouseIncome) || 0;
 
-useEffect(() => {
-  const numericSalary = parseFloat(Salary) || 0;
-  const numericPrerequisiteIncome = parseFloat(PrerequisiteIncome) || 0;
-  const numericProfitIncome = parseFloat(ProfitIncome) || 0;
-  const numericHRA = parseFloat(HRA) || 0;
-  const numericLTA = parseFloat(LTA) || 0;
-  const numericOtherExemptedAllowances =
-    parseFloat(OtherExemptedAllowances) || 0;
-  const numericProfessionalTax = parseFloat(ProfessionalTax) || 0;
-  const numericOwnHouseIncome = parseFloat(OwnHouseIncome) || 0;
+    //house incomes
+    const numericRentedhomeInterest = parseFloat(RentedhomeInterestPaid) || 0;
+    const numericRentedrentReceived = parseFloat(RentedrentReceived) || 0;
+    const numericRentedmunicipalTax1 = parseFloat(RentedmunicipalTax1) || 0;
 
-  //house incomes
-  const numericRentedhomeInterest = parseFloat(RentedhomeInterestPaid) || 0;
-  const numericRentedrentReceived = parseFloat(RentedrentReceived) || 0;
-  const numericRentedmunicipalTax1 = parseFloat(RentedmunicipalTax1) || 0;
+    const numericDeemedhomeInterestPaid =
+      parseFloat(DeemedhomeInterestPaid) || 0;
+    const numericDeemedrentReceived = parseFloat(DeemedrentReceived) || 0;
+    const numericDeemedmunicipalTax1 = parseFloat(DeemedmunicipalTax1) || 0;
 
-  const numericDeemedhomeInterestPaid = parseFloat(DeemedhomeInterestPaid) || 0;
-  const numericDeemedrentReceived = parseFloat(DeemedrentReceived) || 0;
-  const numericDeemedmunicipalTax1 = parseFloat(DeemedmunicipalTax1) || 0;
+    const calculateSlabTax = (income, rate) => {
+      return income * rate;
+    };
+    const finalRentedIncome = calculateSlabTax(
+      numericRentedrentReceived - numericRentedmunicipalTax1,
+      0.3
+    );
+    const ReIncome =
+      numericRentedrentReceived -
+      numericRentedmunicipalTax1 -
+      finalRentedIncome;
+    const Rented = Math.min(ReIncome - numericRentedhomeInterest, 200000);
+    const finalDeemedIncome = calculateSlabTax(
+      numericDeemedrentReceived - numericDeemedmunicipalTax1,
+      0.3
+    );
+    const DeIncome =
+      numericDeemedrentReceived -
+      numericDeemedmunicipalTax1 -
+      finalDeemedIncome;
 
-  const calculateSlabTax = (income, rate) => {
-    return income * rate;
-  };
-  const finalRentedIncome = calculateSlabTax(
-    numericRentedrentReceived - numericRentedmunicipalTax1,
-    0.3
-  );
-  const ReIncome =
-    numericRentedrentReceived - numericRentedmunicipalTax1 - finalRentedIncome;
-  const Rented = Math.min(ReIncome - numericRentedhomeInterest, 200000);
-  const finalDeemedIncome = calculateSlabTax(
-    numericDeemedrentReceived - numericDeemedmunicipalTax1,
-    0.3
-  );
-  const DeIncome =
-    numericDeemedrentReceived - numericDeemedmunicipalTax1 - finalDeemedIncome;
+    const Deemded = Math.min(DeIncome - numericDeemedhomeInterestPaid, 200000);
 
-  const Deemded = Math.min(DeIncome - numericDeemedhomeInterestPaid, 200000);
-
-  const totalIncome =
-    numericSalary +
-    numericPrerequisiteIncome +
-    numericProfitIncome -
-    numericHRA -
-    numericLTA -
-    numericOtherExemptedAllowances -
-    numericProfessionalTax;
-
-  const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
-
-  setHeadIncome(updatedTotalIncome);
-
-  //Tax calculation
-  const StandardDeductions = 50000;
-
-  const calculateFinalTax = () => {
     const totalIncome =
       numericSalary +
       numericPrerequisiteIncome +
@@ -274,98 +260,115 @@ useEffect(() => {
       numericHRA -
       numericLTA -
       numericOtherExemptedAllowances -
-      numericProfessionalTax -
-      numericOwnHouseIncome +
-      Rented +
-      Deemded;
-    const totalDeductions =
-      section80C +
-      section80CCC +
-      section80CCD1 +
-      section80CCD2 +
-      section80CCD1B +
-      section80CCF +
-      section80CCG +
-      section80D +
-      section80DD +
-      section80DDB +
-      section80E +
-      section80EE +
-      section80G +
-      section80GGA +
-      section80GGC +
-      section80QQB +
-      section80RRB +
-      section80TTA +
-      section80U;
-      
-    const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
+      numericProfessionalTax;
 
-    const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
-    const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
+    const updatedTotalIncome = isNaN(totalIncome) ? 0 : totalIncome;
 
-    return {
-      OldTax: Tax,
-      Oldess: ceSS,
-      NewTax: newfinaltax,
-      Newcess: newcess,
-    };
-  };
+    setHeadIncome(updatedTotalIncome);
 
-  // Function to calculate old regime tax
-  const calculateOldRegimeTax = (income) => {
-    const TAX_REBATE = {
-      old: 500000,
-    };
+    //Tax calculation
+    const StandardDeductions = 50000;
 
-    const calculateSlabTax = (income, rate) => {
-      return income * rate;
-    };
+    const calculateFinalTax = () => {
+      const totalIncome =
+        numericSalary +
+        numericPrerequisiteIncome +
+        numericProfitIncome -
+        numericHRA -
+        numericLTA -
+        numericOtherExemptedAllowances -
+        numericProfessionalTax -
+        numericOwnHouseIncome +
+        Rented +
+        Deemded;
+      const totalDeductions =
+        section80C +
+        section80CCC +
+        section80CCD1 +
+        section80CCD2 +
+        section80CCD1B +
+        section80CCF +
+        section80CCG +
+        section80D +
+        section80DD +
+        section80DDB +
+        section80E +
+        section80EE +
+        section80G +
+        section80GGA +
+        section80GGC +
+        section80QQB +
+        section80RRB +
+        section80TTA +
+        section80U;
 
-    const calculateCess = (totalTax) => {
-      return totalTax * 0.04;
-    };
+      const taxableIncome = totalIncome - StandardDeductions - totalDeductions;
 
-    let totalTax = 0;
-    const OldtaxDetails = {};
+      const { Tax, ceSS } = calculateOldRegimeTax(taxableIncome);
+      const { newfinaltax, newcess } = calculateNewRegimeTax(totalIncome);
 
-    if (income >= TAX_REBATE.old) {
-      OldtaxDetails.slab1 = calculateSlabTax(Math.min(income, 250000), 0);
-      totalTax += OldtaxDetails.slab1;
-      OldtaxDetails.slab2 = calculateSlabTax(
-        Math.min(Math.max(income - 250000, 0), 500000 - 250000),
-        0.05
-      );
-      totalTax += OldtaxDetails.slab2;
-      OldtaxDetails.slab3 = calculateSlabTax(
-        Math.min(Math.max(income - 500000, 0), 1000000 - 500000),
-        0.2
-      );
-      totalTax += OldtaxDetails.slab3;
-      OldtaxDetails.slab4 = calculateSlabTax(
-        Math.max(income - 1000000, 0),
-        0.3
-      );
-      totalTax += OldtaxDetails.slab4;
-    }
-
-    // Store OldtaxDetails in localStorage
-    localStorage.setItem("OldtaxDetails", JSON.stringify(OldtaxDetails));
-
-    const Tax = totalTax + calculateCess(totalTax);
-    const ceSS = calculateCess(totalTax);
-
-    return { Tax, ceSS };
-  };
-
-  const calculateNewRegimeTax = (income) => {
-    const TAX_REBATE_NEW = {
-      new: 700000,
+      return {
+        OldTax: Tax,
+        Oldess: ceSS,
+        NewTax: newfinaltax,
+        Newcess: newcess,
+      };
     };
 
-    const calculateSlabTax = (income, rate) => income * rate;
+    // Function to calculate old regime tax
+    const calculateOldRegimeTax = (income) => {
+      const TAX_REBATE = {
+        old: 500000,
+      };
 
-    let totalTax = 0;
+      const calculateSlabTax = (income, rate) => {
+        return income * rate;
+      };
+
+      const calculateCess = (totalTax) => {
+        return totalTax * 0.04;
+      };
+
+      let totalTax = 0;
+      const OldtaxDetails = {};
+
+      if (income >= TAX_REBATE.old) {
+        OldtaxDetails.slab1 = calculateSlabTax(Math.min(income, 250000), 0);
+        totalTax += OldtaxDetails.slab1;
+        OldtaxDetails.slab2 = calculateSlabTax(
+          Math.min(Math.max(income - 250000, 0), 500000 - 250000),
+          0.05
+        );
+        totalTax += OldtaxDetails.slab2;
+        OldtaxDetails.slab3 = calculateSlabTax(
+          Math.min(Math.max(income - 500000, 0), 1000000 - 500000),
+          0.2
+        );
+        totalTax += OldtaxDetails.slab3;
+        OldtaxDetails.slab4 = calculateSlabTax(
+          Math.max(income - 1000000, 0),
+          0.3
+        );
+        totalTax += OldtaxDetails.slab4;
+      }
+
+      // Store OldtaxDetails in localStorage
+      localStorage.setItem("OldtaxDetails", JSON.stringify(OldtaxDetails));
+
+      const Tax = totalTax + calculateCess(totalTax);
+      const ceSS = calculateCess(totalTax);
+
+      return { Tax, ceSS };
+    };
+
+    const calculateNewRegimeTax = (income) => {
+      const TAX_REBATE_NEW = {
+        new: 700000,
+      };
+
+      const calculateSlabTax = (income, rate) => income * rate;
+
+      let totalTax = 0;
 
       const NewtaxDetails = {};
 
@@ -399,162 +402,203 @@ useEffect(() => {
         totalTax += NewtaxDetails.slab6;
       }
 
-    localStorage.setItem("NewtaxDetails", JSON.stringify(NewtaxDetails));
+      localStorage.setItem("NewtaxDetails", JSON.stringify(NewtaxDetails));
 
-    const calculateCess = (totalTax) => {
-      const newCess = totalTax * 0.04;
-      return newCess;
+      const calculateCess = (totalTax) => {
+        const newCess = totalTax * 0.04;
+        return newCess;
+      };
+
+      const newfinaltax = totalTax + calculateCess(totalTax);
+      const newcess = totalTax * 0.04;
+
+      return { newfinaltax, newcess };
     };
 
-    const newfinaltax = totalTax + calculateCess(totalTax);
-    const newcess = totalTax * 0.04;
+    const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
 
-    return { newfinaltax, newcess };
-  };
+    const preferredSystem =
+      NewFinalTax < OldFinalTax ? "NewRegime" : "OldRegime";
 
-  const { OldTax, Oldess, NewTax, Newcess } = calculateFinalTax();
+    setRentedHouseIncome(Rented);
+    setDeemdedHouseIncome(Deemded);
 
-  const preferredSystem = NewFinalTax < OldFinalTax ? "NewRegime" : "OldRegime";
-
-  setRentedHouseIncome(Rented);
-  setDeemdedHouseIncome(Deemded);
-
-  setOldFinalTax(OldTax);
-  setOldFinalCess(Oldess);
-  setNewFinalTax(NewTax);
-  setNewFinalCess(Newcess);
-  setPreferredSystem(preferredSystem);
-}, [Salary, PrerequisiteIncome, ProfitIncome, OtherIncome, HRA, LTA, OtherExemptedAllowances, ProfessionalTax, RentedhomeInterestPaid, RentedrentReceived, RentedmunicipalTax1, DeemedhomeInterestPaid, DeemedrentReceived, DeemedmunicipalTax1, RentedHouseIncome, DeemdedHouseIncome, NewFinalTax, OldFinalTax, OwnHouseIncome, section80C, section80CCC, section80CCD1, section80CCD2, section80CCD1B, section80CCF, section80CCG, section80D, section80DD, section80DDB, section80E, section80EE, section80G, section80GGA, section80GGC, section80QQB, section80RRB, section80TTA, section80U]);
+    setOldFinalTax(OldTax);
+    setOldFinalCess(Oldess);
+    setNewFinalTax(NewTax);
+    setNewFinalCess(Newcess);
+    setPreferredSystem(preferredSystem);
+  }, [
+    Salary,
+    PrerequisiteIncome,
+    ProfitIncome,
+    OtherIncome,
+    HRA,
+    LTA,
+    OtherExemptedAllowances,
+    ProfessionalTax,
+    RentedhomeInterestPaid,
+    RentedrentReceived,
+    RentedmunicipalTax1,
+    DeemedhomeInterestPaid,
+    DeemedrentReceived,
+    DeemedmunicipalTax1,
+    RentedHouseIncome,
+    DeemdedHouseIncome,
+    NewFinalTax,
+    OldFinalTax,
+    OwnHouseIncome,
+    section80C,
+    section80CCC,
+    section80CCD1,
+    section80CCD2,
+    section80CCD1B,
+    section80CCF,
+    section80CCG,
+    section80D,
+    section80DD,
+    section80DDB,
+    section80E,
+    section80EE,
+    section80G,
+    section80GGA,
+    section80GGC,
+    section80QQB,
+    section80RRB,
+    section80TTA,
+    section80U,
+  ]);
 
   const Token = localStorage.getItem("token");
 
-  const handleLimitFunction = (e,value,limit) => {
+  const handleLimitFunction = (e, value, limit) => {
     const inputValue = parseInt(value, 10) || 0;
 
-      if (inputValue > limit) {
-    // Perform some operation when value exceeds the limit
-    toast.error(`Max Limit is Rs ${limit}`);
-    e.target.style.borderColor = "red";
-    return inputValue; // You can set it to the limit or perform a different operation here
-  }
+    if (inputValue > limit) {
+      // Perform some operation when value exceeds the limit
+      toast.error(`Max Limit is Rs ${limit}`);
+      e.target.style.borderColor = "red";
+      return inputValue; // You can set it to the limit or perform a different operation here
+    }
 
-  // If value is within the limit, return the original value
-  e.target.style.borderColor = "";
-  return inputValue;
+    // If value is within the limit, return the original value
+    e.target.style.borderColor = "";
+    return inputValue;
   };
 
+  const Link = ({ id, children, title }) => (
+    <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
+      <a href=" " style={{ color: "black", textDecoration: "none" }}>
+        {children}
+      </a>
+    </OverlayTrigger>
+  );
 
-const Link = ({ id, children, title }) => (
-  <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
-    <a href=' ' style={{color: "black" , textDecoration: "none"}}>{children}</a>
-  </OverlayTrigger>
-);
+  const handleGenderChange = (e) => {
+    handleChange({ Gender: e.target.value });
+  };
 
-    const handleGenderChange = (e) => {
-      handleChange({ Gender: e.target.value });
-    };
+  const handleMarriedChange = (e) => {
+    handleChange({ MaritalStatus: e.target.value });
+  };
 
-    const handleMarriedChange = (e) => {
-      handleChange({ MaritalStatus: e.target.value });
-    };
+  const handleClose = () => setShow(false);
+  const handleShow = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
 
-    const handleClose = () => setShow(false);
-    const handleShow = (e) => {
-      e.preventDefault();
-      setShow(true);
-    };
+  async function onSubmit(e) {
+    e.preventDefault();
+    console.log(OldFinalTax, OldFinalCess, NewFinalTax, NewFinalCess);
+    if (isCheckboxChecked) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/policy/oldreign",
+          {
+            Token,
+            AadharNo,
+            FirstName,
+            MiddleName,
+            LastName,
+            Name,
+            DateOfBirth,
+            FatherName,
+            Gender,
+            MaritalStatus,
+            PanCard,
+            MobileNo,
+            Email,
+            Address,
+            PermanentAddress,
+            City,
+            selectedState,
+            PinCode,
+            employerName,
+            employerAddress,
+            employerPanNumber,
+            tanNumber,
+            employeeReferenceNo,
+            Year,
+            TaxDeducted,
+            Salary,
+            PrerequisiteIncome,
+            ProfitIncome,
+            OtherIncome,
+            HRA,
+            LTA,
+            OtherExemptedAllowances,
+            ProfessionalTax,
+            OwnHouseIncome,
+            //deductions
+            section80C,
+            section80CCC,
+            section80CCD1,
+            section80CCD2,
+            section80CCD1B,
+            section80CCF,
+            section80CCG,
+            section80D,
+            section80DD,
+            section80DDB,
+            section80E,
+            section80EE,
+            section80G,
+            section80GGA,
+            section80GGC,
+            section80QQB,
+            section80RRB,
+            section80TTA,
+            section80U,
 
-async function onSubmit(e) {
-  e.preventDefault();
-  console.log(OldFinalTax,OldFinalCess,NewFinalTax,NewFinalCess)
-  if (isCheckboxChecked) {
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/policy/oldreign",
-        {
-          Token,
-          AadharNo,
-          FirstName,
-          MiddleName,
-          LastName,
-          Name,
-          DateOfBirth,
-          FatherName,
-          Gender,
-          MaritalStatus,
-          PanCard,
-          MobileNo,
-          Email,
-          Address,
-          PermanentAddress,
-          City,
-          selectedState,
-          PinCode,
-          employerName,
-          employerAddress,
-          employerPanNumber,
-          tanNumber,
-          employeeReferenceNo,
-          Year,
-          TaxDeducted,
-          Salary,
-          PrerequisiteIncome,
-          ProfitIncome,
-          OtherIncome,
-          HRA,
-          LTA,
-          OtherExemptedAllowances,
-          ProfessionalTax,
-          OwnHouseIncome,
-          //deductions
-          section80C ,
-      section80CCC ,
-      section80CCD1 ,
-      section80CCD2 ,
-      section80CCD1B ,
-      section80CCF ,
-      section80CCG ,
-      section80D ,
-      section80DD ,
-      section80DDB ,
-      section80E ,
-      section80EE ,
-      section80G ,
-      section80GGA ,
-      section80GGC ,
-      section80QQB ,
-      section80RRB ,
-      section80TTA ,
-      section80U,
-
-          RentedHouseIncome,
-          DeemdedHouseIncome,
-          OldFinalTax,
-          OldFinalCess,
-          NewFinalTax,
-          NewFinalCess,
-          PreferredSystem,
+            RentedHouseIncome,
+            DeemdedHouseIncome,
+            OldFinalTax,
+            OldFinalCess,
+            NewFinalTax,
+            NewFinalCess,
+            PreferredSystem,
+          }
+        );
+        console.log(response.data); // Log the response data
+        toast.success("Data is saved. You will be redirected in few seconds");
+        setTimeout(() => {
+          navigate("/doc");
+        }, 1500);
+      } catch (err) {
+        if (err.response) {
+          console.error("Response Error:", err.response.data);
+        } else if (err.request) {
+          console.error("Request Error:", err.request);
+        } else {
+          console.error("Error:", err.message);
         }
-      );
-      console.log(response.data); // Log the response data
-      toast.success("Data is saved. You will be redirected in few seconds");
-      setTimeout(() => {
-        navigate("/doc")
-      }, 1500);
-    } catch (err) {
-      if (err.response) {
-        console.error("Response Error:", err.response.data);
-      } else if (err.request) {
-        console.error("Request Error:", err.request);
-      } else {
-        console.error("Error:", err.message);
+        toast.error("Try again after sometime");
       }
-      toast.error("Try again after sometime");
+    } else {
+      toast.warning("Please verify the information before submitting.");
     }
-  } else {
-    toast.warning("Please verify the information before submitting.");
   }
-}
   return (
     <section id="form-filling">
       <div className="personalInfo">
@@ -818,7 +862,7 @@ async function onSubmit(e) {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGridAddress2">
                   <Form.Label style={{ display: "flex", alignItems: "center" }}>
-                    Permanant Address{" "}
+                    Permanent Address{" "}
                     <span style={{ marginLeft: "10px" }}>
                       <Link
                         id="t-2"

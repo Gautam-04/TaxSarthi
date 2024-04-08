@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Docs.css";
 import Stack from "react-bootstrap/Stack";
-import Checkbox from "../../components/mis/CheckBox";
+import Checkbox from "../../components/mis/CheckBox/CheckBox";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserProvider";
@@ -34,11 +34,9 @@ function Docs() {
     );
   };
 
-  
-
   function handleClick() {
     if (isAllChecked()) {
-    alert("Please fill the form in one go or all progress will be lost");
+      alert("Please fill the form in one go or all progress will be lost");
       navigate("/old");
     } else {
       alert("Please check all required checkboxes before proceeding.");
@@ -68,39 +66,53 @@ function Docs() {
               contact our support team immediately.
             </li>
           </ul>
-          <h1>Documents Required:</h1>
-          <Checkbox
-            label="Aadhar Card"
-            onChange={() => handleCheckboxChange("aadharCard")}
-            checked={checkboxes.aadharCard}
-          />
-          <Checkbox
-            label="Pan Card"
-            onChange={() => handleCheckboxChange("panCard")}
-            checked={checkboxes.panCard}
-          />
-          <Checkbox
-            label="Salary Slip"
-            onChange={() => handleCheckboxChange("salarySlip")}
-            checked={checkboxes.salarySlip}
-          />
-          <Checkbox
-            label="Address Documents"
-            onChange={() => handleCheckboxChange("addressDocuments")}
-            checked={checkboxes.addressDocuments}
-          />
-          <button
-            className="button"
-            onClick={handleClick}
-            disabled={!isAllChecked()}
-          >
-            Next
-          </button>
+          <h2>Documents Required:</h2>
+          {/* <p>You can only go to the next step if you have all documents.</p> */}
+          <div className="documents-required">
+            <Checkbox
+              className="documents-checkbox"
+              label="Aadhaar Card"
+              onChange={() => handleCheckboxChange("aadharCard")}
+              checked={checkboxes.aadharCard}
+            />
+            <Checkbox
+              className="documents-checkbox"
+              label="Pan Card"
+              onChange={() => handleCheckboxChange("panCard")}
+              checked={checkboxes.panCard}
+            />
+            <Checkbox
+              className="documents-checkbox"
+              label="Salary Slip"
+              onChange={() => handleCheckboxChange("salarySlip")}
+              checked={checkboxes.salarySlip}
+            />
+            <Checkbox
+              className="documents-checkbox"
+              label="Address Documents"
+              onChange={() => handleCheckboxChange("addressDocuments")}
+              checked={checkboxes.addressDocuments}
+            />
+          </div>
+          <div className="button-wrapper">
+            <button
+              className="button-next"
+              onClick={handleClick}
+              disabled={!isAllChecked()}
+            >
+              Next
+            </button>
+          </div>
         </Stack>
       ) : (
         <div className="Docs-Login">
           <p className="Docs-Login-p">Please login to access this page.</p>
-          <button className="Docs-Login-button" onClick={() => navigate("/login")}>Go to Home</button>
+          <button
+            className="Docs-Login-button"
+            onClick={() => navigate("/login")}
+          >
+            Go to Home
+          </button>
         </div>
       )}
 
