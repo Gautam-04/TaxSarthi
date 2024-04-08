@@ -72,11 +72,13 @@ function Home() {
           </p>
           <div className="iframe-container">
             <iframe
-              className="home-tutorial-embed"
-              src="https://www.youtube.com/embed/4m4uJBWpOqo?si=0REZuvkGiGkzvxVk"
-              title="Income Tax Made Easy"
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/IbWWq12yyjs?si=Aa8cUj8h-Oy16SsA"
+              title="TaxSarthiTutorial"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
             ></iframe>
           </div>
