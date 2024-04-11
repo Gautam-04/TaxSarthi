@@ -54,7 +54,8 @@
   border-radius: 8px;
   font-weight: 600;
   font-size: 1.15rem;
-  background-color: var(--primary-dark);
+  border: 2px solid var(--tertiary);
+  background-color: var(--primary-lighter);
   color: black;
   transition: background-color 0.2s ease-in-out;
   outline: 0;
