@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans+Mono:wght@500&family=Ubuntu:wght@300;400;500&display=swap");
 
 .header {
-  background: var(--primary-dark);
+  background: var(--primary);
   box-shadow: 0 0.3px 5px var(--primary);
   font-family: "Montserrat", sans-serif;
+  color: white;
   width: 100vw;
 
   .dropdown-toggle::after {
@@ -38,6 +39,7 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: 6px;
+  color: white;
 }
 
 .navbar-brand:hover {
@@ -64,10 +66,12 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 600 !important;
   font-size: 1.2rem !important;
+  color: white !important;
 }
 
 .nav-link:hover {
-  color: #242424 !important;
+  /* color: #242424 !important; */
+  color: var(--primary-lighter) !important;
 }
 
 @media (max-width: 600px) {

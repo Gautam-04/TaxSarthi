@@ -18,7 +18,7 @@ const BoxLoader = ({ loading }) => {
       <Grid
         height="80"
         width="80"
-        color="#49ec3d"
+        color="var(--primary)"
         ariaLabel="grid-loading"
         radius="12.5"
         wrapperStyle={{}}

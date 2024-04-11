@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import Stack from 'react-bootstrap/Stack'
+import React, { useState } from "react";
+import Stack from "react-bootstrap/Stack";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import axios from 'axios'
-import {useNavigate} from 'react-router-dom';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Main.css";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 
 function SignIn() {
@@ -15,50 +15,51 @@ function SignIn() {
 
   const navigate = useNavigate();
 
-  const data = {email,password};
+  const data = { email, password };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  async function handleClick(e) {
+    e.preventDefault();
+    setLoading(true);
 
-async function handleClick(e) {
-  e.preventDefault();
-  setLoading(true);
+    await axios
+      .post("https://taxsaarthi.onrender.com/user/login", {
+        email,
+        password,
+      })
+      .then((result) => {
+        console.log(result);
 
-  await axios
-    .post("https://taxsaarthi.onrender.com/user/login", {
-      email,
-      password,
-    })
-    .then((result) => {
-      console.log(result);
+        // Assuming the server responds with a token
+        const token = result.data.token;
 
-      // Assuming the server responds with a token
-      const token = result.data.token;
+        if (token) {
+          // Store the token in localStorage
+          localStorage.setItem("token", token);
 
-      if (token) {
-        // Store the token in localStorage
-        localStorage.setItem("token", token);
+          // Optionally, you may want to store other user information
+          localStorage.setItem("userInfo", JSON.stringify(data));
 
-        // Optionally, you may want to store other user information
-        localStorage.setItem("userInfo", JSON.stringify(data));
-
-        toast.success("Login Successful");
-        navigate("/docs-list");
-      } else if (result.data === "Password is incorrect") {
-        toast.error("Incorrect Password");
-        setPassword("");
-      } else {
-        toast.error("User Does Not Exist");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      toast.error("Try again after sometime");
-    }).finally(()=>{setLoading(false)})
-}
-
+          toast.success("Login Successful");
+          navigate("/docs-list");
+        } else if (result.data === "Password is incorrect") {
+          toast.error("Incorrect Password");
+          setPassword("");
+        } else {
+          toast.error("User Does Not Exist");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Try again after sometime");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   return (
     <Stack gap={2}>
@@ -102,4 +103,4 @@ async function handleClick(e) {
   );
 }
 
-export default SignIn
+export default SignIn;
