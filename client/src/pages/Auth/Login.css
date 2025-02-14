@@ -58,10 +58,10 @@
   border-bottom: 2px solid rgba(211, 211, 211, 0.212) !important;
 }
 
-.nav-link:not(.active) {
+/* .nav-link:not(.active) {
   border: 2px solid rgba(211, 211, 211, 0.212) !important;
   border-bottom: 2px solid var(--primary) !important;
-}
+} */
 @media (width < 1200px) {
   .Login-sec {
     height: auto;
@@ -69,12 +69,14 @@
     gap: 10px;
     padding-block: 2rem;
   }
+
   .login-form {
     width: 70%;
     margin: auto;
     height: auto;
     padding-bottom: 2rem;
   }
+
   .login-info {
     display: none;
   }
