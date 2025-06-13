@@ -70,6 +70,11 @@ Make sure you have the following software installed before proceeding:
    ```
 
    The client application will start and open in your default web browser.
+## Demo
+
+
+https://github.com/user-attachments/assets/9e2c4e81-54b4-4f16-8c3a-bc8effd884c7
+
 
 ## Contributing
 
